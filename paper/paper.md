@@ -9,11 +9,11 @@ tags:
     - electrochemistry
     - electrochemical testing
 authors:
-  - name: Alexander Bell
+  - name: Alexander J. H. Bell
     affiliation: "1, 2"
-  - name: James Dawson
+  - name: James A. Dawson
     affiliation: "2"
-  - name: Michael Hunt
+  - name: Michael R. C. Hunt
     affiliation: "1"
 affiliations:
   - index: 1
@@ -32,7 +32,7 @@ We present an open-source Python-based GUI control program for running and autom
 - Minimises memory usage by clearing data buffers and enables widget resizing *via* a GUI software options menu to support a range of hardware resolution and memory configurations.
 
 # Statement of need
-Low-cost, "do-it-yourself" potentiostats are increasingly widening in utility, with the `CheapStat` [@rowe2011cheapstat], `DStat` [@dryden2015dstat], and `HunStat` [@vamos2024hunstat] providing users the ability to conduct electrochemical experiments at a lower cost barrier compared with commercial hardware, yet constrained to potentiostatic experiments across limited potential ranges (\pm1~V for the `CheapStat` and `DStat`, and \pm1.65 V for the HunStat). This capability was greatly extended by the `USB Potentiostat/Galvanostat` design presented by @dobbelaere2017usb, with a \pm$8~\mathrm{V}$ potential range enabling the investigation of battery cells at much higher cell potentials. The addition of a galvanostatic mode, and the ability to accurately measure and apply current from nanoamps to $\pm$25~mA, has significantly broadened the suite of electrochemical experiments accessible to low-cost DIY devices, with the lowest-cost commercial substitute around 20 times more expensive at \$1900 [@squidstatsolo]. The `MYSTAT`, a modification of the `USB Potentiostat/Galvanostat`, pushes this capability even further, achieving maximum potential and current ranges of $\pm$12~V and $\pm$200~mA, respectively [@irving2021mystat].
+Low-cost, "do-it-yourself" potentiostats are increasingly widening in utility, with the `CheapStat` [@rowe2011cheapstat], `DStat` [@dryden2015dstat], and `HunStat` [@vamos2024hunstat] providing users the ability to conduct electrochemical experiments at a lower cost barrier compared with commercial hardware, yet constrained to potentiostatic experiments across limited potential ranges (\pm$1~\mathrm{V}$ for the `CheapStat` and `DStat`, and \pm$1.65~\mathrm{V}$ for the HunStat). This capability was greatly extended by the `USB Potentiostat/Galvanostat` design presented by @dobbelaere2017usb, with a \pm$8~\mathrm{V}$ potential range enabling the investigation of battery cells at much higher cell potentials. The addition of a galvanostatic mode, and the ability to accurately measure and apply current from nanoamps to \pm$25~\mathrm{mA}$, has significantly broadened the suite of electrochemical experiments accessible to low-cost DIY devices, with the lowest-cost commercial substitute around 20 times more expensive at \$1900 [@squidstatsolo]. The `MYSTAT`, a modification of the `USB Potentiostat/Galvanostat`, pushes this capability even further, achieving maximum potential and current ranges of \pm$12~\mathrm{V}$ and \pm$200~\mathrm{mA}$, respectively [@irving2021mystat].
 
 As is typical for low-cost open source devices, the accompanying GUI software is limited, however, to a narrow range of experiments (CV, GCD, and rate-testing experiments for the `USB Potentiostat/Galvanostat` and the `MYSTAT`), single-experiment execution, and basic input parameters [@caux2022passstat,@kellner2015new,@rowe2011cheapstat,@dryden2015dstat,@vamos2024hunstat,@dobbelaere2017usb,@irving2021mystat]. Commercial potentiostat/galvanostat instruments, whilst broader in utility, lack open source and customisable software for experiment scheduling, data management, and advanced control. 
 
