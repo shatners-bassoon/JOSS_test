@@ -1,5 +1,5 @@
 ---
-title: 'A Flexible, Automated Potentiostat/Galvanostat Control Software for Electrochemical Testing'
+title: 'Flexible, Automated Potentiostat/Galvanostat Control Software for Electrochemical Analysis'
 tags:
     - Python
     - potentiostat
@@ -10,29 +10,32 @@ tags:
     - electrochemical testing
 authors:
   - name: Alexander J. H. Bell
+    orchid: 0009-0001-0654-5656
     affiliation: "1, 2"
   - name: James A. Dawson
+    orchid: 0000-0002-3946-5337
     affiliation: "2"
   - name: Michael R. C. Hunt
+    orchid: 0000-0002-3797-3768
     affiliation: "1"
 affiliations:
   - index: 1
     name: Department of Physics, Durham University, Durham, DH1 3LE, United Kingdom
   - index: 2
-    name: Chemistry -- School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, United Kingdom
+    name: Chemistry -- School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, NE1 7RU, United Kingdom
 bibliography: paper.bib
 ---
 
 # Summary
-We present an open-source Python-based GUI control program for running and automating electrochemical experiments supporting cyclic voltammetry (CV), linear sweep voltammetry (LSV), Galvanostatic charge/discharge cycling (GCD), chronoamperometry (CA), chronopotentiometry (CP), self-discharge (SD), and rate-testing. Designed to work with low-cost hardware, and specifically an open-source potentiostat/galvanostat design by @dobbelaere2017usb, it provides users with access to electrochemical research capabilities previously constrained to far more expensive experimental setups. The program was developed with the following core objectives:
+We present an open-source graphical user interface (GUI)-based control program for running and automating electrochemical experiments supporting cyclic voltammetry (CV), linear sweep voltammetry (LSV), Galvanostatic charge/discharge cycling (GCD), chronoamperometry (CA), chronopotentiometry (CP), self-discharge (SD), and rate-testing. Designed to work with low-cost hardware, and specifically an open-source potentiostat/galvanostat design by @dobbelaere2017usb, it provides users with access to electrochemical research capabilities previously constrained to far more expensive apparatus. The program was developed with the following core objectives:
 
-- Enables queuing and automation of experiments.
-- Supports complex experiment workflows, *e.g.*, automated open-circuit potential (OCP) equilibration with the use of `OCP` as an input parameter.
-- Accessible to users with little experience performing electrochemical experiments *via* input parameter validation, GUI dialogue boxes, and comprehensive hover-over tooltips.
-- Minimises memory usage by clearing data buffers and enables widget resizing *via* a GUI software options menu to support a range of hardware resolution and memory configurations.
+- A queuing and automation of experiments.
+- Support for complex experiment workflows, *e.g.*, automated open-circuit potential (OCP) equilibration with the use of "OCP" as an input parameter.
+- Accessibility to users with little experience performing electrochemical experiments *via* input parameter validation, GUI dialogue boxes, and comprehensive hover-over tooltips.
+- Minimal memory usage by clearing data buffers and enabling of widget resizing *via* GUI software options menu to support a range of hardware resolution and memory configurations.
 
 # Statement of need
-Low-cost, "do-it-yourself" potentiostats are increasingly widening in utility, with the `CheapStat` [@rowe2011cheapstat], `DStat` [@dryden2015dstat], and `HunStat` [@vamos2024hunstat] providing users the ability to conduct electrochemical experiments at a lower cost barrier compared with commercial hardware, yet constrained to potentiostatic experiments across limited potential ranges (\pm$1~\mathrm{V}$ for the `CheapStat` and `DStat`, and \pm$1.65~\mathrm{V}$ for the HunStat). This capability was greatly extended by the `USB Potentiostat/Galvanostat` design presented by @dobbelaere2017usb, with a \pm$8~\mathrm{V}$ potential range enabling the investigation of battery cells at much higher cell potentials. The addition of a galvanostatic mode, and the ability to accurately measure and apply current from nanoamps to \pm$25~\mathrm{mA}$, has significantly broadened the suite of electrochemical experiments accessible to low-cost DIY devices, with the lowest-cost commercial substitute around 20 times more expensive at \$1900 [@squidstatsolo]. The `MYSTAT`, a modification of the `USB Potentiostat/Galvanostat`, pushes this capability even further, achieving maximum potential and current ranges of \pm$12~\mathrm{V}$ and \pm$200~\mathrm{mA}$, respectively [@irving2021mystat].
+Low-cost, "do-it-yourself" (DIY) potentiostats are increasingly widening in utility, with the `CheapStat` [@rowe2011cheapstat], `DStat` [@dryden2015dstat], and `HunStat` [@vamos2024hunstat] providing users the ability to conduct electrochemical experiments at a lower cost than with commercial hardware. However, these are constrained to potentiostatic experiments across limited ranges (\pm$1~\mathrm{V}$ for the `CheapStat` and `DStat`, and \pm$1.65~\mathrm{V}$ for the HunStat). This capability was greatly extended by the `USB Potentiostat/Galvanostat` design presented by @dobbelaere2017usb, with a \pm$8~\mathrm{V}$ potential range enabling the investigation of battery cells at much higher cell potentials. The addition of a galvanostatic mode, and the ability to accurately measure and apply current from nanoamps to \pm$25~\mathrm{mA}$, has significantly broadened the suite of electrochemical experiments accessible to low-cost DIY devices, with the lowest-cost commercial substitute around 20 times more expensive at \$1900 [@squidstatsolo]. The `MYSTAT`, a modification of the `USB Potentiostat/Galvanostat`, pushes this capability even further, achieving maximum potential and current ranges of \pm$12~\mathrm{V}$ and \pm$200~\mathrm{mA}$, respectively [@irving2021mystat].
 
 As is typical for low-cost open source devices, the accompanying GUI software is limited, however, to a narrow range of experiments (CV, GCD, and rate-testing experiments for the `USB Potentiostat/Galvanostat` and the `MYSTAT`), single-experiment execution, and basic input parameters [@caux2022passstat,@kellner2015new,@rowe2011cheapstat,@dryden2015dstat,@vamos2024hunstat,@dobbelaere2017usb,@irving2021mystat]. Commercial potentiostat/galvanostat instruments, whilst broader in utility, lack open source and customisable software for experiment scheduling, data management, and advanced control. 
 
@@ -57,7 +60,7 @@ Our software bridges this gap and provides a flexible, extendable, and user-frie
 # Operating principles
 The software is designed to be entirely controlled *via* the GUI window built using `PyQt5` [@willman2020overview], with the users constructing their experiments using the input fields and checkboxes in the corresponding experiment tab. A `CHECK` button for each tab executes an input parameter validation, guiding the user to invalid or incompatible inputs using dialogue boxes. A green `CHECK` button indicates to the user that their experiments are valid and ready to run. An example tab for rate-testing experiments with valid input parameters can be seen in \autoref{fig:rate_tab}. Universal parameters such as the OCP equilibration timescale, tolerance, and timeout threshold, together with more advanced experiment-specific features, are accessible through a software options menu.
 
-The program sequentially executes the queued experiments, handles real-time logging of raw data to individual experiment data files, and writes experiment progress information to a readable summary file for all queued experiments. An example GUI seen when running cyclic voltammetry experiments, showing the real-time data visualisation options available to the user, is displayed in \autoref{fig:CV_GUI}.
+The program sequentially executes the queued experiments, handles real-time logging of raw data to individual experiment data files, and writes experiment progress information to a human-readable summary file for all queued experiments. An example GUI seen when running cyclic voltammetry experiments, showing the real-time data visualisation options available to the user, is displayed in \autoref{fig:CV_GUI}.
 
 All experiments are written in a similar code layout, guided by the `PEP 8` standards [@van2001pep] and containing detailed comments, to facilitate users in modifying or adding experiments if required. The typical execution stack that handles the initialisation, running, and stopping of experiments is illustrated in \autoref{fig:flowchart}.
 
