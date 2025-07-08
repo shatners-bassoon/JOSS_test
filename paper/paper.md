@@ -11,10 +11,10 @@ tags:
 authors:
   - name: Alexander Bell
     affiliation: "1, 2"
-  - name: Michael Hunt
-    affiliation: "1"
   - name: James Dawson
     affiliation: "2"
+  - name: Michael Hunt
+    affiliation: "1"
 affiliations:
   - index: 1
     name: Department of Physics, Durham University, Durham, DH1 3LE, United Kingdom
@@ -32,7 +32,7 @@ We present an open-source Python-based GUI control program for running and autom
 - Minimises memory usage by clearing data buffers and enables widget resizing *via* a GUI software options menu to support a range of hardware resolution and memory configurations.
 
 # Statement of need
-Low-cost, ''do-it-yourself'' potentiostats are increasingly widening in utility, with the `CheapStat` [@rowe2011cheapstat], `DStat` [@dryden2015dstat], and `HunStat` [@vamos2024hunstat] providing users the ability to conduct electrochemical experiments at a lower cost barrier compared with commercial hardware, yet constrained to potentiostatic experiments across limited potential ranges ($\pm$1~V for the `CheapStat` and `DStat`, and $\pm$1.65~V for the HunStat). This capability was greatly extended by the `USB Potentiostat/Galvanostat` design presented by @dobbelaere2017usb, with a $\pm$8~V potential range enabling the investigation of battery cells at much higher cell potentials. The addition of a galvanostatic mode, and the ability to accurately measure and apply current from nanoamps to $\pm$25~mA, has significantly broadened the suite of electrochemical experiments accessible to low-cost DIY devices, with the lowest-cost commercial substitute around 20 times more expensive at \$1900 [@squidstatsolo]. The `MYSTAT`, a modification of the `USB Potentiostat/Galvanostat`, pushes this capability even further, achieving maximum potential and current ranges of $\pm$12~V and $\pm$200~mA, respectively [@irving2021mystat].
+Low-cost, "do-it-yourself" potentiostats are increasingly widening in utility, with the `CheapStat` [@rowe2011cheapstat], `DStat` [@dryden2015dstat], and `HunStat` [@vamos2024hunstat] providing users the ability to conduct electrochemical experiments at a lower cost barrier compared with commercial hardware, yet constrained to potentiostatic experiments across limited potential ranges (\pm1~V for the `CheapStat` and `DStat`, and \pm1.65~V for the HunStat). This capability was greatly extended by the `USB Potentiostat/Galvanostat` design presented by @dobbelaere2017usb, with a $\pm 8\,\mathrm{V}$ potential range enabling the investigation of battery cells at much higher cell potentials. The addition of a galvanostatic mode, and the ability to accurately measure and apply current from nanoamps to $\pm$25~mA, has significantly broadened the suite of electrochemical experiments accessible to low-cost DIY devices, with the lowest-cost commercial substitute around 20 times more expensive at \$1900 [@squidstatsolo]. The `MYSTAT`, a modification of the `USB Potentiostat/Galvanostat`, pushes this capability even further, achieving maximum potential and current ranges of $\pm$12~V and $\pm$200~mA, respectively [@irving2021mystat].
 
 As is typical for low-cost open source devices, the accompanying GUI software is limited, however, to a narrow range of experiments (CV, GCD, and rate-testing experiments for the `USB Potentiostat/Galvanostat` and the `MYSTAT`), single-experiment execution, and basic input parameters [@caux2022passstat,@kellner2015new,@rowe2011cheapstat,@dryden2015dstat,@vamos2024hunstat,@dobbelaere2017usb,@irving2021mystat]. Commercial potentiostat/galvanostat instruments, whilst broader in utility, lack open source and customisable software for experiment scheduling, data management, and advanced control. 
 
@@ -41,7 +41,7 @@ Our software bridges this gap and provides a flexible, extendable, and user-frie
 # Features
 - Supports CV, LSV, GCD, CA, CP, SD, and rate-testing experiments.
 - Experiment queueing using comma-separated variable lists as input parameters.
-- Complex experiment workflows by supporting a range of parameter inputs such as potential limits of ''1.0, OCP, 2.0, ...'' or ramp rates of ''5.0, STEP, 10.0, ...'', *etc.*
+- Complex experiment workflows by supporting a range of parameter inputs such as potential limits of "1.0, OCP, 2.0, ..." or ramp rates of "5.0, STEP, 10.0, ...", *etc.*
 - Potential and current limits to prevent unintended damage to the cell under testing, and equilibration parameters to advance experiments when equilibration conditions are satisfied.
 - Alternating potential/current sequences for CA/CP experiments, allowing the user to provide alternating equilibration conditions within the experiment.
 - Hover-over tooltips to guide users on supported parameters and their experimental implications, and parameter validity checks with detailed user feedback and correction suggestions.
