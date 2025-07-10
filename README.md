@@ -6,7 +6,7 @@ This GUI-based software is designed to work with a low-cost USB Potentiostat/Gal
 
 - Supports cyclic voltammetry, linear sweep voltammetry, Galvanostatic charge/discharge, chronoamperometry, chronopotentiometry, self-discharge, and rate-testing experiments.
 - Experiment queuing via comma-separated variable lists as input parameters.
-- Support for complex workflows (e.g., automated open-circuit potential equilibration using `"OCP"` as an input parameter).
+- Support for complex workflows (e.g., automated open-circuit potential equilibration using `"OCP"` as an input parameter, and automated 1C calculation using GCD analysis for rate-testing experiments).
 - User-friendly interface with input validation and tooltips.
 - Human-readable summary file with metadata for all queued experiments.
 - Designed to run on a range of light-weight hardware configurations via memory management and GUI widget resizing.
