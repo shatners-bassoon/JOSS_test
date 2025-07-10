@@ -29,6 +29,10 @@ sudo python potentiostat_controller_v1.0.py
 
 > The program must be run with `sudo` to interface with the USB-connected potentiostat hardware.
 
+## Documentation
+
+For a detailed description of the software's structure and usage, please refer to the [User and Developer Guide](User_and_Developer_Guide.pdf). This document is intended to assist users and developers who wish to understand, modify, or extend the code.
+
 ## License
 
 This project is licensed under the [GNU General Public License v3.0](LICENSE).
