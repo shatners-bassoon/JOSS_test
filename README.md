@@ -9,11 +9,12 @@ This GUI-based software is designed to work with a low-cost USB Potentiostat/Gal
 - Support for complex workflows (e.g., automated open-circuit potential equilibration using `"OCP"` as an input parameter).
 - User-friendly interface with input validation and tooltips.
 - Human-readable summary file with metadata for all queued experiments.
-- Designed to run on low-cost hardware via memory management and GUI widget resizing.
+- Designed to run on a range of light-weight hardware configurations via memory management and GUI widget resizing.
 
 ## Installation
 
-```bash
+```
+bash
 git clone https://github.com/ajhbell/potentiostatcontroller_repo.git
 cd potentiostatcontroller_repo
 pip install -r requirements.txt
@@ -23,7 +24,8 @@ pip install -r requirements.txt
 
 To launch the program (requires USB access), run:
 
-```bash
+```
+bash
 sudo python potentiostat_controller_v1.0.py
 ```
 
