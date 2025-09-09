@@ -3,15 +3,14 @@
 
 # This Python program allows control over the USB potentiostat/galvanostat using a graphical user interface. It supports real-time data acquisition and plotting, manual control and
 # calibration, and three pre-programmed measurement methods geared towards battery research (staircase cyclic voltammetry, constant-current charge/discharge, and rate testing).
-# It is cross-platform, requiring only a working installation of Python 3.x together with the Numpy, Scipy, PyUSB, and PyQtGraph packages.
+# It is cross-platform, requiring a working installation of Python 3.x together with the PyUSB, Scipy, Numpy, PyQt5, PyQtGraph, and Matplotlib packages.
 # Adapted from code originally written by Thomas Dobbelaere.
 
 # Author: Alexander Bell
-# License: GPL
+# License: GNU General Public License v3.0
 
 import sys
 import platform
-#sys.path.append('/home/pi/.local/lib/python3.9/site-packages')
 import pyqtgraph
 from pyqtgraph.Qt import QtCore, QtGui
 from PyQt5 import QtWidgets
@@ -75,7 +74,7 @@ adcread_interval = 0.09  # ADC sampling interval (in seconds)
 logging_enabled = False  # Enable logging of potential and current in idle mode (can be adjusted in the GUI)
 legend_in_use = None  # Store legend currently in use
 
-"""USER-DEFINED SOFTWARE GLOBALS"""
+"""USER-DEFINED SOFTWARE SETTINGS"""
 
 global_software_settings = {
 	'OCP_eq_tolerance': 1.0,  # Tolerance (mV) for OCP equilibration
@@ -86,9 +85,6 @@ global_software_settings = {
 	'gcd_nth_cycles': 100,  # GCD experiments store every nth cycle for plotting
 	'tab_frame_width': 125,  # Tab frame width (in spaces)
 }
-
-
-#????? ARE THESE FOLLOWING GLOBALS NECESSARY?
 
 """CV GLOBALS"""
 
@@ -239,7 +235,7 @@ class States:
 	Measuring_Rate_Delay = 26
 
 class Legends:
-	"""?????"""
+	"""Manages plot legend across experiment types and previews."""
 	legends = {
 		'live_graph': None,
 		'cv': None,
@@ -1492,7 +1488,7 @@ def cv_parameter_warnings():
 			mainwidget,
 			"Warning: Possible OCP complications",
 			"One or more experiments use 'OCP' as a potential limit.\n\n"
-			"OCP is a fickle beast! The open circuit potential can vary between experiments, which "
+			"The open-circuit potential (OCP) can vary between experiments, which "
 			"may cause your experiments to stop or perform a 0th cycle to reach the potential window "
 			"depending on your lower and upper potential limits, start potential, and scan rate direction.\n\n"
 			"Please ensure that this is intentional!"
@@ -1503,7 +1499,7 @@ def cv_parameter_warnings():
 			mainwidget,
 			"Warning: Possible OCP complications",
 			"Experiments use 'OCP' as a start potential but not as potential limits.\n\n"
-			"OCP is a fickle beast! The open circuit potential can vary between experiments, which "
+			"The open-circuit potential (OCP) can vary between experiments, which "
 			"may cause your experiments to stop or perform a 0th cycle to reach the potential window "
 			"depending on your lower and upper potential limits, start potential, and scan rate direction.\n\n"
 			"Please ensure that this is intentional!"
@@ -2739,7 +2735,7 @@ def charge_from_cv(time_arr, current_arr):
 		zc_index1 = zero_crossing_indices[index]  # Start index
 		zc_index2 = zero_crossing_indices[index + 1]  # End index
 		charge_arr.append(numpy.trapezoid(current_arr[zc_index1:zc_index2], time_arr[zc_index1:zc_index2]) * 1000. / 3.6)  # Integrate current over time using the trapezoid rule, convert coulomb to µAh
-		#?????PI CHANGE TO TRAPZ FOR PI
+
 	return charge_arr
 
 
@@ -4942,7 +4938,7 @@ def gcd_parameter_warnings():
 			mainwidget,
 			"Warning: Possible OCP complications",
 			"One or more experiments use 'OCP' as a potential limit.\n\n"
-			"OCP is a fickle beast! The open circuit potential can vary between experiments, which\n"
+			"The open-circuit potential (OCP) can vary between experiments, which\n"
 			"may cause your experiments to stop depending on your lower and upper potential limits.\n\n"
 			"Please ensure that this is intentional!"
 		)
@@ -5308,7 +5304,7 @@ def gcd_start(experiment_index):
 	gcd_info_halfcyclenum_entry.setText(f"{gcd_current_halfcyclenum}/{gcd_parameters['num_halfcycles']}")
 	log_message(f"Charge/discharge experiment {experiment_index+1}/{gcd_parameters['num_experiments']} started. Saving to: {gcd_parameters['filenames'][experiment_index]}")
 
-	# Initialise DAC and cell for measurements ?????GCD - WHY NOT AS MANY SLEEPS AND READS OF POTENTIAL AND CURRENT?
+	# Initialise DAC and cell for measurements
 	gcd_currentsetpoint = gcd_parameters['charge_current'][experiment_index] * 1e-3  # Convert µA to mA
 	hardware_manual_control_range_dropdown.setCurrentIndex(current_range_from_current(gcd_currentsetpoint)) # Determine the proper current range for the current setpoint
 	set_current_range() # Set new current range
@@ -5367,7 +5363,6 @@ def gcd_update(experiment_index):
 
 			# Calculate the cumulative charge in Ah
 			charge = numpy.abs(scipy.integrate.cumulative_trapezoid(gcd_current_data.averagebuffer, gcd_time_data.averagebuffer, initial=0.)/3600.)  # Cumulative charge in Ah
-			# ?????PI CHANGE TO CUMTRAPZ FOR PI
 
 			# Store data for the current cycle
 			gcd_data['time_data_currentcycle'].append(gcd_time_data.averagebuffer[-1])
@@ -5398,7 +5393,6 @@ def gcd_update(experiment_index):
 				# Calculate half cycle charge and store in deque
 				halfcycle_charge = numpy.abs(numpy.trapezoid(gcd_current_data.averagebuffer, gcd_time_data.averagebuffer) / 3600.)  # Charge in Ah
 				gcd_data['charges'].append(halfcycle_charge)
-				# ?????PI CHANGE TO TRAPZ FOR PI
 
 				# If charge half cycle completed
 				if gcd_currentsetpoint > 0:
@@ -8607,7 +8601,7 @@ def cp_parameter_warnings():
 			mainwidget,
 			"Warning: Possible OCP complications",
 			"Both potential limits are set, with one of them set as 'OCP'.\n\n"
-			"OCP is a fickle beast! The open circuit potential can vary, which may cause your experiments\n"
+			"The open-circuit potential (OCP) can vary, which may cause your experiments\n"
 			"to stop depending on your lower and upper potential limits.\n\n"
 			"Please ensure that this is intentional!"
 		)
@@ -10105,7 +10099,6 @@ def sd_get_parameters():
 		# Number of segments
 		sd_parameters['num_segments'] = len(charge_potentials_list)
 
-		# Initialise lists to hold times ?????SD is this necessary?
 		sd_parameters['segment_timelength'] = [None] * len(charge_potentials_list)
 		sd_parameters['ramp_time'] = [None] * len(charge_potentials_list)
 
@@ -10533,7 +10526,7 @@ def sd_start(segment_index):
 	set_output(0, setpot)
 	set_control_mode(False)  # Potentiostatic control
 	hardware_manual_control_range_dropdown.setCurrentIndex(
-		0)  # Highest current ?????SD other currents/changing between causes fluctuations in V
+		0)  # Set as highest current range
 	set_current_range()
 	time.sleep(.1)  # Allow DAC some time to settle
 	set_cell_status(True)  # Cell on
@@ -11530,7 +11523,7 @@ def rate_parameter_warnings():
 			mainwidget,
 			"Warning: Possible OCP complications",
 			"One or more experiments use 'OCP' as a potential limit.\n\n"
-			"OCP is a fickle beast! The open circuit potential can vary between experiments, which\n"
+			"The open-circuit potential (OCP) can vary between experiments, which\n"
 			"may cause your experiments to stop depending on your lower and upper potential limits.\n\n"
 			"Please ensure that this is intentional!"
 		)
@@ -12062,7 +12055,6 @@ def rate_one_c_calc_update(experiment_index):
 
 			# Calculate cumulative charge in Ah
 			charge = numpy.abs(scipy.integrate.cumulative_trapezoid(rate_one_c_calc_current_data.averagebuffer, rate_one_c_calc_time_data.averagebuffer, initial=0.)/3600.)  # Cumulative charge in Ah
-			# ?????PI CHANGE TO CUMTRAPZ FOR PI
 
 			# Store data for the current cycle
 			if rate_one_c_calc_currentsetpoint > 0:  # If charging
@@ -12089,7 +12081,6 @@ def rate_one_c_calc_update(experiment_index):
 				# Calculate half cycle charge and store in deque
 				halfcycle_charge = numpy.abs(numpy.trapezoid(rate_one_c_calc_current_data.averagebuffer, rate_one_c_calc_time_data.averagebuffer) / 3600.)  # Charge in Ah
 				rate_data['one_c_calc_charges'].append(halfcycle_charge)
-				# ?????PI CHANGE TO TRAPZ FOR PI
 
 				# If charge half cycle completed
 				if rate_one_c_calc_currentsetpoint > 0:
@@ -12283,7 +12274,6 @@ def rate_update(experiment_index, c_rate_index):
 		# Calculate charge and store in deque
 		halfcycle_charge = numpy.abs(numpy.trapezoid(rate_current_data.averagebuffer, rate_time_data.averagebuffer) / 3600.)  # Charge in Ah
 		rate_data['charges'].append(halfcycle_charge)
-		# ?????PI CHANGE TO TRAPZ FOR PI
 
 		# If charge half cycle completed
 		if rate_currentsetpoint > 0:
@@ -12299,9 +12289,6 @@ def rate_update(experiment_index, c_rate_index):
 
 				# Store charge from final charge cycle
 				rate_data['final_chg_charge'][experiment_index][c_rate_index] = halfcycle_charge
-
-				# Update plot
-				rate_update_plot(experiment_index)
 
 		# If discharge half cycle completed
 		elif rate_currentsetpoint < 0:
@@ -12348,6 +12335,9 @@ def rate_update(experiment_index, c_rate_index):
 					rate_current_cyclenum = 1
 					rate_current_halfcyclenum = 1
 
+					# Update plot to reflect halfcycle reset
+					rate_update_plot(experiment_index)
+
 					# Store bool, delay start time, and set zero current
 					rate_waiting_for_next_c_rate = True
 					rate_data['c_rate_delay_starttime'][experiment_index][rate_current_c_rate_index] = timeit.default_timer()
@@ -12368,6 +12358,9 @@ def rate_update(experiment_index, c_rate_index):
 			# Increment cyclenums
 			rate_current_cyclenum += 1
 			rate_current_halfcyclenum += 1
+
+		# Update plot to reflect halfcycle increment
+		rate_update_plot(experiment_index)
 
 		# Clear average buffers for next half cycle
 		for data in [rate_time_data, rate_c_rate_time_data, rate_potential_data, rate_current_data]:
@@ -12834,6 +12827,9 @@ def rate_update_plot(experiment_index):
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
 	legend.addItem(dummy_item, "Rate-testing experiments:")
+	legend.addItem(dummy_item, f"Current experiment C-rate: {rate_parameters['c_rates'][rate_current_c_rate_index]} C")
+	legend.addItem(dummy_item, f"Current experiment halfcycle: {rate_current_halfcyclenum}/{rate_parameters['num_halfcycles']}")
+	legend.addItem(dummy_item, "")
 
 	c_rates = rate_parameters['c_rates']
 	chg_vals = rate_data['final_chg_charge'].get(experiment_index, {})
@@ -13115,7 +13111,6 @@ def OCP_equilibration_controller(experiment_parameters, experiment_data, experim
 				else:
 					cv_parameters['future_OCP_valid_bool'] = False
 					log_message("WARNING: Equilibrated OCP is invalid with future experiments after this potential window.")
-					log_message("Freezing progress bar to avoid confusion")
 
 				# Write to summary file
 				cv_write_summary_file(experiment_index, section="OCP_valid")
@@ -13736,8 +13731,8 @@ class LabeledProgressBar(GenericProgressBar):
 app = QtWidgets.QApplication([])
 win = QtWidgets.QMainWindow()
 win.setGeometry(250, 200, 1200, 650)
-win.setWindowTitle('USB potentiostat/galvanostat')
-win.setWindowIcon(QtGui.QIcon('icon/icon.png'))
+win.setWindowTitle('USB potentiostat/galvanostat controller')
+#win.setWindowIcon(QtGui.QIcon('icon/icon.png'))
 
 potential_monitor, potential_monitor_box = make_groupbox_indicator("Measured potential", "+#.### V")
 potential_monitor.setFont(QtGui.QFont("monospace", 8))
@@ -13968,7 +13963,7 @@ hardware_vbox.addWidget(hardware_log_box)
 class SoftwareGlobalsDialog(QtWidgets.QDialog):
 	def __init__(self, parent=None):
 		super().__init__(parent)
-		self.setWindowTitle("Software Global Parameters")
+		self.setWindowTitle("Global Software Settings")
 		self.setModal(True)
 		self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
 
@@ -14087,7 +14082,7 @@ format_box_for_parameter(software_globals_menu_box)
 software_globals_menu_layout = QtWidgets.QHBoxLayout()
 software_globals_menu_box.setLayout(software_globals_menu_layout)
 
-software_globals_menu_button = QtWidgets.QPushButton("Global parameters")
+software_globals_menu_button = QtWidgets.QPushButton("Software options menu")
 software_globals_menu_button.clicked.connect(open_software_globals_menu)
 software_globals_menu_layout.addWidget(software_globals_menu_button)
 
@@ -15039,8 +15034,6 @@ gcd_params_num_samples_label.setToolTip(
 	"are given, this value is applied to all charge/discharge currents."
 )
 gcd_params_num_samples_entry = QtWidgets.QLineEdit()
-gcd_params_num_samples_entry.setText("1")
-
 gcd_params_num_samples_hlayout.addWidget(gcd_params_num_samples_label)
 gcd_params_num_samples_hlayout.addWidget(gcd_params_num_samples_entry)
 gcd_params_box_layout.addLayout(gcd_params_num_samples_hlayout)
@@ -16713,7 +16706,6 @@ sd_params_num_samples_label.setToolTip(
 	"Must be a positive integer value."
 )
 sd_params_num_samples_entry = QtWidgets.QLineEdit()
-sd_params_num_samples_entry.setText("1")
 sd_params_num_samples_hlayout.addWidget(sd_params_num_samples_label)
 sd_params_num_samples_hlayout.addWidget(sd_params_num_samples_entry)
 sd_params_box_layout.addLayout(sd_params_num_samples_hlayout)
@@ -17722,8 +17714,8 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 
 							match = re.search(r'.*?([-\w.]+)_([-\w.]+)_([-\w.]+)_V_([-\d.]+)_([-\d.]+)_uA\.dat', file_line)
 							if match:
-								lbound = float(match.group(2))
-								ubound = float(match.group(3))
+								lbound = match.group(2)
+								ubound = match.group(3)
 								charge_current = float(match.group(4))
 								discharge_current = float(match.group(5))
 
@@ -18064,11 +18056,11 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 			for filepath, file_info in self.data.items():
 				# Checkbox for the file
 				file_checkbox = QtWidgets.QCheckBox()
-				file_checkbox.setChecked(True)
+				file_checkbox.setChecked(False)
 				grid_layout.addWidget(file_checkbox, row, 0, alignment=QtCore.Qt.AlignCenter)
 
 				# Label for experiment info
-				file_label = QtWidgets.QLabel(f"{file_info['lbound']}/{file_info['ubound']} V; {file_info['scanrate_mV']} mV/s")
+				file_label = QtWidgets.QLabel(f"{file_info['lbound']} / {file_info['ubound']} V; {file_info['scanrate_mV']} mV/s")
 				grid_layout.addWidget(file_label, row, 1)
 
 				# Custom dropdown for cycle numbers
@@ -18151,12 +18143,12 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 			for filepath, file_info in self.data.items():
 				# Checkbox for the file
 				file_checkbox = QtWidgets.QCheckBox()
-				file_checkbox.setChecked(True)
+				file_checkbox.setChecked(False)
 				grid_layout.addWidget(file_checkbox, row, 0, alignment=QtCore.Qt.AlignCenter)
 
 				# Label for experiment info
 				file_label = QtWidgets.QLabel(
-					f"{file_info['lbound']}/{file_info['ubound']} V; {file_info['scanrate_mV']} mV/s")
+					f"{file_info['lbound']} / {file_info['ubound']} V; {file_info['scanrate_mV']} mV/s")
 				grid_layout.addWidget(file_label, row, 1)
 
 				# Checkbox for initialisation
@@ -18231,11 +18223,11 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 			for filepath, file_info in self.data.items():
 				# Checkbox for the file
 				file_checkbox = QtWidgets.QCheckBox()
-				file_checkbox.setChecked(True)
+				file_checkbox.setChecked(False)
 				grid_layout.addWidget(file_checkbox, row, 0, alignment=QtCore.Qt.AlignCenter)
 
 				# Label for experiment info
-				file_label = QtWidgets.QLabel(f"{file_info['lbound']}/{file_info['ubound']} V; {file_info['charge_current']}/{file_info['discharge_current']} µA")
+				file_label = QtWidgets.QLabel(f"{file_info['lbound']} / {file_info['ubound']} V; {file_info['charge_current']} / {file_info['discharge_current']} µA")
 				grid_layout.addWidget(file_label, row, 1)
 
 				# Custom dropdown for cycle numbers
@@ -18318,8 +18310,8 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 				hold_potential1 = self.data[segment1]['hold_potential']
 				hold_potential2 = self.data[segment2]['hold_potential']
 				segment_pair_label = QtWidgets.QLabel(
-					f"Segment {segment1} - {segment2}: {hold_potential1} - {hold_potential2} V")
-				grid_layout.addWidget(segment_pair_label, row, 1, alignment=QtCore.Qt.AlignCenter)
+					f"Segment {segment1} - {segment2}: {hold_potential1} / {hold_potential2} V")
+				grid_layout.addWidget(segment_pair_label, row, 1)
 
 				# Store the checkbox and initialisation checkbox references by segment pair
 				self.file_checkboxes[(segment1, segment2)] = pair_checkbox
@@ -18404,8 +18396,8 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 				hold_current1 = self.data[segment1]['hold_current']
 				hold_current2 = self.data[segment2]['hold_current']
 				segment_pair_label = QtWidgets.QLabel(
-					f"Segment {segment1} - {segment2}: {hold_current1} - {hold_current2} µA")
-				grid_layout.addWidget(segment_pair_label, row, 1, alignment=QtCore.Qt.AlignCenter)
+					f"Segment {segment1} - {segment2}: {hold_current1} / {hold_current2} µA")
+				grid_layout.addWidget(segment_pair_label, row, 1)
 
 				# Store the checkbox and initialisation checkbox references by segment pair
 				self.file_checkboxes[(segment1, segment2)] = pair_checkbox
@@ -18488,7 +18480,7 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 				hold_potential = self.data[segment]['hold_potential']
 				segment_label = QtWidgets.QLabel(
 					f"Segment {segment}: {hold_potential} V")
-				grid_layout.addWidget(segment_label, row, 1, alignment=QtCore.Qt.AlignCenter)
+				grid_layout.addWidget(segment_label, row, 1)
 
 				# Store the checkbox and initialisation checkbox references by file path
 				self.file_checkboxes[segment] = segment_checkbox
@@ -18563,11 +18555,11 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 			for filepath, file_info in self.data.items():
 				# Checkbox for the file
 				file_checkbox = QtWidgets.QCheckBox()
-				file_checkbox.setChecked(True)
+				file_checkbox.setChecked(False)
 				grid_layout.addWidget(file_checkbox, row, 0, alignment=QtCore.Qt.AlignCenter)
 
 				# Label for experiment info
-				file_label = QtWidgets.QLabel(f"{file_info['lbound']}/{file_info['ubound']} V; {', '.join(str(rate) for rate in file_info['c_rates'])} C")
+				file_label = QtWidgets.QLabel(f"{file_info['lbound']} / {file_info['ubound']} V; {', '.join(str(rate) for rate in file_info['c_rates'])} C")
 				grid_layout.addWidget(file_label, row, 1)
 
 				# Store the checkbox references by file path
@@ -19139,8 +19131,8 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 				ax.set_xticks(xticks)
 				ax.set_xticklabels([f"{x:g}" for x in xticks])
 
-			if legend_bool:
-				ax.legend()
+		if legend_bool:
+			ax.legend()
 
 		# Embed the matplotlib figure into the pop-up
 		canvas = FigureCanvas(fig)
@@ -19355,27 +19347,6 @@ timer.start(int(qt_timer_period))  # Calls periodic_update() every adcread_inter
 
 log_message("Program started. Press the \"Connect\" button in the hardware tab to connect to the USB interface.")
 log_message("Default software parameters loaded. Press the \"Global parameters\" button in the hardware tab to modify them.")
-
-"""TEST INPUTS"""
-lsv_params_startpot_entry.setText("0, 1, 2")
-lsv_params_stoppot_entry.setText("1, 2, 3")
-lsv_params_scanrate_entry.setText("10, 20")
-lsv_params_init_scanrate_entry.setText("20, 40")
-lsv_params_init_scanrate_checkbox.setChecked(True)
-lsv_params_init_holdtime_entry.setText("30")
-lsv_params_num_samples_entry.setText("1")
-lsv_params_scanrate_delay_entry.setText("10")
-lsv_params_pot_window_delay_entry.setText("60")
-
-sd_params_charge_potential_entry.setText("0.08, 0.1, 0.15")
-sd_params_hold_time_entry.setText("10, 10, 10")
-sd_params_ramp_rate_entry.setText("5, step, 20")
-sd_params_acquisition_time_entry.setText("60, 60, 60")
-sd_params_acquisition_cutoff_entry.setText("ocp, none, 0.12")
-sd_params_acquisition_equilibration_tolerance_entry.setText("1")
-sd_params_acquisition_equilibration_timescale_entry.setText("10")
-sd_params_num_samples_entry.setText("1")
-sd_params_delay_entry.setText("1")
 
 win.show()  # Show the main window
 sys.exit(app.exec_())  # Keep the program running by periodically calling the periodic_update() until the GUI window is closed
