@@ -19348,5 +19348,6 @@ timer.start(int(qt_timer_period))  # Calls periodic_update() every adcread_inter
 log_message("Program started. Press the \"Connect\" button in the hardware tab to connect to the USB interface.")
 log_message("Default software parameters loaded. Press the \"Global parameters\" button in the hardware tab to modify them.")
 
-win.show()  # Show the main window
-sys.exit(app.exec_())  # Keep the program running by periodically calling the periodic_update() until the GUI window is closed
+def main():
+	win.show()  # Show the main window
+	sys.exit(app.exec_())  # Keep the program running by periodically calling the periodic_update() until the GUI window is closed
