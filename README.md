@@ -32,7 +32,7 @@ sudo udevadm trigger
 
 ## Usage
 
-This program requires USB access to communicate with the potentiostat
+This program requires USB access to communicate with the potentiostat.
 
 ### Normal use (with udev rule)
 
