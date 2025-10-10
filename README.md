@@ -19,7 +19,7 @@ You can install the program directly from GitHub using:
 pip install git+https://github.com/shatners-bassoon/JOSS_test.git
 ```
 
-### Optional: Set up USB permissions (recommended)
+### Optional for Linux/Mac users: Set up USB permissions (recommended)
 
 To avoid running the program with `sudo`, create a udev rule to give your user access to the USB device automatically.
 
