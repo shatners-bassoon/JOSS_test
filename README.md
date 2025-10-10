@@ -19,7 +19,7 @@ You can install the program directly from GitHub using:
 pip install git+https://github.com/shatners-bassoon/JOSS_test.git
 ```
 
-# Optional: Set up USB permissions (recommended)
+### Optional: Set up USB permissions (recommended)
 
 To avoid running the program with `sudo`, create a udev rule to give your user access to the USB device automatically.
 
@@ -34,7 +34,7 @@ sudo udevadm trigger
 
 This program requires USB access to communicate with the potentiostat
 
-# Normal use (with udev rule)
+### Normal use (with udev rule)
 
 If you have already set up a udev rule, simply run:
 
@@ -46,7 +46,7 @@ or equivalently:
 python -m potentiostat_controller
 ```
 
-# Without udev rule (requires `sudo`)
+### Without udev rule (requires `sudo`)
 
 If your system does not have USB permissions configured, run with elevated privileges:
 ```bash
