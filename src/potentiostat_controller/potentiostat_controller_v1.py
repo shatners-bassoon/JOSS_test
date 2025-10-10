@@ -412,6 +412,17 @@ def log_message(message):
 	statustext.appendPlainText(datetime.now().strftime("[%Y-%m-%d %H:%M:%S] ") + message)
 	statustext.ensureCursorVisible()
 
+def safe_usb_string(dev, attr_name):
+	"""Safely read a USB string descriptor, return fallback if not accessible."""
+	try:
+		return getattr(dev, attr_name)
+	except usb.core.USBError as e:
+		log_message(f"USBError reading {attr_name}: {e}")
+		return "Unknown"
+	except ValueError as e:
+		log_message(f"ValueError reading {attr_name}: {e}")
+		return "Unknown"
+
 def connect_disconnect_usb():
 	"""Toggle the USB device between connected and disconnected states."""
 	global dev, state
@@ -437,12 +448,25 @@ def connect_disconnect_usb():
 	else:
 		hardware_usb_connectButton.setText("Disconnect")
 		log_message("USB Interface connected.")
+
+		# Read descriptors safely
+		manufacturer = safe_usb_string(dev, "manufacturer")
+		product = safe_usb_string(dev, "product")
+		serial_number = safe_usb_string(dev, "serial_number")
+		hardware_device_info_text.setText(
+			f"Manufacturer: {manufacturer}\nProduct: {product}\nSerial #: {serial_number}"
+		)
+
+		# Warn the user if USB device descriptors cannot be read (permissions issue)
+		if "Unknown" in (manufacturer, product, serial_number):
+			QtWidgets.QMessageBox.warning(
+				mainwidget,
+				"USB Device Warning",
+				"USB device found but cannot read manufacturer/product/serial number.\n\n"
+				"If the potential/current is not displayed in the plot window, you may need to run as sudo or create a udev rule for your user (please see installation instructions in the GitHub repository)."
+			)
+
 		try:
-			hardware_device_info_text.setText("Manufacturer: %s\nProduct: %s\nSerial #: %s" % (
-				dev.manufacturer,
-				dev.product,
-				dev.serial_number
-			))
 			get_calibration()
 			set_cell_status(False)  # Cell off
 			set_control_mode(False)  # Potentiostatic control
@@ -450,6 +474,21 @@ def connect_disconnect_usb():
 			state = States.Idle_Init  # Start idle mode
 		except ValueError:
 			pass  # In case the device is not yet calibrated
+		except usb.core.USBError as e:
+			log_message(f"USB communication error: {e}")
+			if e.errno == 13:  # Access denied
+				QtWidgets.QMessageBox.critical(
+					mainwidget,
+					"USB Access Denied",
+					"Permission denied when communicating with the USB device.\n\n"
+					"Run the program with sudo or create a udev rule to grant access (please see installation instructions in the GitHub repository)."
+				)
+			else:
+				QtWidgets.QMessageBox.critical(
+					mainwidget,
+					"USB Communication Error",
+					f"An unexpected USB error occurred:\n\n{e}"
+				)
 
 		# Reset check states if checked as the measured cell potential and current will have changed
 		checkstate_reset(mode="USB_connected")
