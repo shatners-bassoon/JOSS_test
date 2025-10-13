@@ -1,4 +1,121 @@
-[cv]
-lower_bound = 0.0
-upper_bound = 1.0
-OCP_equilibration = true
+[CV]
+lower_bounds = "0.0"
+upper_bounds = "1.0"
+start_potentials = ""
+stop_potentials = ""
+scan_rates = ""
+reverse_currents_negative = ""
+reverse_currents_negative_checkbox = false
+reverse_currents_positive = ""
+reverse_currents_positive_checkbox = false
+number_of_cycles = ""
+samples_to_average = ""
+scan_rate_delay = ""
+potential_window_delay = ""
+OCP_equilibration_checkbox = true
+
+[LSV]
+start_potentials = "0.0, 1.0"
+stop_potentials = "1.0, 2.0"
+scan_rates = ""
+current_limits_negative = ""
+current_limits_negative_checkbox = false
+current_limits_positive = ""
+current_limits_positive_checkbox = false
+initialisation_scan_rates = ""
+initialisation_hold_times = ""
+samples_to_average = ""
+scan_rate_delay = ""
+potential_window_delay = ""
+OCP_equilibration_checkbox = true
+
+[GCD]
+lower_bounds = "0.0, 0.0"
+upper_bounds = "1.0, 2.0"
+charge_currents = "1000, 2000"
+discharge_currents = "-1000, -2000"
+number_of_halfcycles = ""
+samples_to_average = ""
+current_delay = ""
+potential_window_delay = ""
+OCP_equilibration_checkbox = true
+
+[Chronoamperometry]
+potentials_sequence_A = "0.0, 0.5, 1.0"
+hold_times_sequence_A = ""
+ramp_rates_sequence_A = ""
+ramp_rates_sequence_A_checkbox = false
+equilibration_sequence_A_checkbox = false
+equilibration_sequence_A_tolerance = ""
+equilibration_sequence_A_timescale = ""
+use_alternating_parameters_bool = true
+potentials_sequence_B = "0.0, 0.5, 1.0"
+hold_times_sequence_B = ""
+ramp_rates_sequence_B = ""
+ramp_rates_sequence_B_checkbox = false
+equilibration_sequence_B_checkbox = false
+equilibration_sequence_B_tolerance = ""
+equilibration_sequence_B_timescale = ""
+current_limits_checkbox = false
+lower_current_limit = ""
+upper_current_limit = ""
+samples_to_average = ""
+delay = ""
+OCP_equilibration_checkbox = false
+
+[Chronopotentiometry]
+currents_sequence_A = "0.0, 0.5, 1.0"
+hold_times_sequence_A = ""
+ramp_rates_sequence_A = ""
+ramp_rates_sequence_A_checkbox = false
+equilibration_sequence_A_checkbox = false
+equilibration_sequence_A_tolerance = ""
+equilibration_sequence_A_timescale = ""
+use_alternating_parameters_bool = true
+currents_sequence_B = "0.0, 0.5, 1.0"
+hold_times_sequence_B = ""
+ramp_rates_sequence_B = ""
+ramp_rates_sequence_B_checkbox = false
+equilibration_sequence_B_checkbox = false
+equilibration_sequence_B_tolerance = ""
+equilibration_sequence_B_timescale = ""
+potential_limits_checkbox = false
+lower_potential_limit = ""
+upper_potential_limit = ""
+samples_to_average = ""
+delay = ""
+OCP_equilibration_checkbox = false
+
+[Self-discharge]
+charge_potentials = "1.0, 2.0, 3.0"
+hold_times = ""
+ramp_rates = ""
+ramp_rates_checkbox = false
+acquisition_times = ""
+acquisition_cutoffs = ""
+acquisition_cutoffs_checkbox = false
+acquisition_equilibration_checkbox = false
+acquisition_equilibration_tolerance = ""
+acquisition_equilibration_timescale = ""
+samples_to_average = ""
+delay = ""
+OCP_equilibration_checkbox = false
+
+[C-Rate]
+lower_bounds = "0.0, 0.1"
+upper_bounds = ""
+one_c = ""
+one_c_calc_checkbox = true
+one_c_calc_current = ""
+one_c_calc_number_of_cycles = ""
+one_c_calc_samples_to_average = ""
+one_c_calc_post_calc_delay = ""
+one_c_calc_post_calc_OCP_checkbox = false
+c_rates = ""
+number_of_cycles = ""
+c_rate_delay = ""
+delay = ""
+OCP_equilibration_checkbox = false
+
+
+

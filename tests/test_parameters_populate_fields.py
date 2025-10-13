@@ -12,44 +12,182 @@ import toml
 from PyQt5.QtCore import QTimer
 from potentiostat_controller import potentiostat_controller_v1 as ctrl
 
-def populate_fields_from_toml(config_path="tests/example_parameters.toml"):
+TAB_INDEX = {
+    "CV": 1,
+    "LSV": 2,
+    "GCD": 3,
+    "Chronoamperometry": 4,
+    "Chronopotentiometry": 5,
+    "Self-discharge": 6,
+    "C-Rate": 7,
+}
+
+FIELD_MAP = {
+    "CV": {
+        "lower_bounds": lambda v: ctrl.cv_params_lbound_entry.setText(str(v)),
+        "upper_bounds": lambda v: ctrl.cv_params_ubound_entry.setText(str(v)),
+        "start_potentials": lambda v: ctrl.cv_params_startpot_entry.setText(str(v)),
+        "stop_potentials": lambda v: ctrl.cv_params_stoppot_entry.setText(str(v)),
+        "scan_rates": lambda v: ctrl.cv_params_scanrate_entry.setText(str(v)),
+        "reverse_currents_negative": lambda v: ctrl.cv_params_reverse_current_negative_entry.setText(str(v)),
+        "reverse_currents_negative_checkbox": lambda v: ctrl.cv_params_reverse_current_negative_checkbox.setChecked(bool(v)),
+        "reverse_currents_positive": lambda v: ctrl.cv_params_reverse_current_positive_entry.setText(str(v)),
+        "reverse_currents_positive_checkbox": lambda v: ctrl.cv_params_reverse_current_positive_checkbox.setChecked(bool(v)),
+        "number_of_cycles": lambda v: ctrl.cv_params_num_cycles_entry.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.cv_params_num_samples.setText(str(v)),
+        "scan_rate_delay": lambda v: ctrl.cv_params_scanrate_delay.setText(str(v)),
+        "potential_window_delay": lambda v: ctrl.cv_params_pot_window_delay_entry.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.cv_params_pot_window_delay_OCP_checkbox.setChecked(bool(v)),
+    },
+    "LSV": {
+        "start_potentials": lambda v: ctrl.lsv_params_startpot_entry.setText(str(v)),
+        "stop_potentials": lambda v: ctrl.lsv_params_stoppot_entry.setText(str(v)),
+        "scan_rates": lambda v: ctrl.lsv_params_scanrate_entry.setText(str(v)),
+        "current_limits_negative": lambda v: ctrl.lsv_params_current_limit_negative_entry.setText(str(v)),
+        "current_limits_negative_checkbox": lambda v: ctrl.lsv_params_current_limit_negative_checkbox.setChecked(bool(v)),
+        "current_limits_positive": lambda v: ctrl.lsv_params_current_limit_positive_entry.setText(str(v)),
+        "current_limits_positive_checkbox": lambda v: ctrl.lsv_params_current_limit_positive_checkbox.setChecked(bool(v)),
+        "initialisation_scan_rates": lambda v: ctrl.lsv_params_init_scanrate_entry.setText(str(v)),
+        "initialisation_hold_times": lambda v: ctrl.lsv_params_init_holdtime_entry.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.lsv_params_num_samples_entry.setText(str(v)),
+        "scan_rate_delay": lambda v: ctrl.lsv_params_scanrate_delay.setText(str(v)),
+        "potential_window_delay": lambda v: ctrl.lsv_params_pot_window_delay.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.lsv_params_pot_window_delay_OCP_checkbox.setChecked(bool(v)),
+    },
+    "GCD": {
+        "lower_bounds": lambda v: ctrl.gcd_params_lbound_entry.setText(str(v)),
+        "upper_bounds": lambda v: ctrl.gcd_params_ubound_entry.setText(str(v)),
+        "charge_currents": lambda v: ctrl.gcd_params_chargecurrent_entry.setText(str(v)),
+        "discharge_currents": lambda v: ctrl.gcd_params_dischargecurrent_entry.setText(str(v)),
+        "number_of_half_cycles": lambda v: ctrl.gcd_params_num_halfcycles_entry.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.gcd_params_num_samples_entry.setText(str(v)),
+        "current_delay": lambda v: ctrl.gcd_params_current_delay_entry.setText(str(v)),
+        "potential_window_delay": lambda v: ctrl.gcd_params_pot_window_delay_entry.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.gcd_params_pot_window_delay_OCP_checkbox.setChecked(bool(v)),
+    },
+    "Chronoamperometry": {
+        "potentials_sequence_A": lambda v: ctrl.ca_params_A_potential_entry.setText(str(v)),
+        "hold_times_sequence_A": lambda v: ctrl.ca_params_A_hold_time_entry.setText(str(v)),
+        "ramp_rates_sequence_A": lambda v: ctrl.ca_params_A_ramp_rate_entry.setText(str(v)),
+        "ramp_rates_sequence_A_checkbox": lambda v: ctrl.ca_params_A_ramp_rate_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_A_checkbox": lambda v: ctrl.ca_params_A_equilibration_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_A_tolerance": lambda v: ctrl.ca_params_A_equilibration_tolerance_entry.setText(str(v)),
+        "equilibration_sequence_A_timescale": lambda v: ctrl.ca_params_A_equilibration_timescale_entry.setText(str(v)),
+        "current_limits_checkbox": lambda v: ctrl.ca_params_curr_limits_checkbox.setChecked(bool(v)),
+        "lower_current_limit": lambda v: ctrl.ca_params_curr_limits_lower_entry.setText(str(v)),
+        "upper_current_limit": lambda v: ctrl.ca_params_curr_limits_upper_entry.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.ca_params_num_samples_entry.setText(str(v)),
+        "delay": lambda v: ctrl.ca_params_delay_entry.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.ca_params_delay_OCP_checkbox.setChecked(bool(v)),
+    },
+    "Chronopotentiometry": {
+        "currents_sequence_A": lambda v: ctrl.cp_params_A_current_entry.setText(str(v)),
+        "hold_times_sequence_A": lambda v: ctrl.cp_params_A_hold_time_entry.setText(str(v)),
+        "ramp_rates_sequence_A": lambda v: ctrl.cp_params_A_ramp_rate_entry.setText(str(v)),
+        "ramp_rates_sequence_A_checkbox": lambda v: ctrl.cp_params_A_ramp_rate_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_A_checkbox": lambda v: ctrl.cp_params_A_equilibration_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_A_tolerance": lambda v: ctrl.cp_params_A_equilibration_tolerance_entry.setText(str(v)),
+        "equilibration_sequence_A_timescale": lambda v: ctrl.cp_params_A_equilibration_timescale_entry.setText(str(v)),
+        "potential_limits_checkbox": lambda v: ctrl.cp_params_pot_limits_checkbox.setChecked(bool(v)),
+        "lower_potential_limit": lambda v: ctrl.cp_params_pot_limits_lower_entry.setText(str(v)),
+        "upper_potential_limit": lambda v: ctrl.cp_params_pot_limits_upper_entry.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.cp_params_num_samples_entry.setText(str(v)),
+        "delay": lambda v: ctrl.cp_params_delay_entry.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.cp_params_delay_OCP_checkbox.setChecked(bool(v)),
+    },
+    "Self-discharge": {
+        "charge_potentials": lambda v: ctrl.sd_params_charge_potential_entry.setText(str(v)),
+        "hold_times": lambda v: ctrl.sd_params_hold_time_entry.setText(str(v)),
+        "ramp_rates": lambda v: ctrl.sd_params_ramp_rate_entry.setText(str(v)),
+        "ramp_rates_checkbox": lambda v: ctrl.sd_params_ramp_rate_checkbox.setChecked(bool(v)),
+        "acquisition_times": lambda v: ctrl.sd_params_acquisition_time_entry.setText(str(v)),
+        "acquisition_cutoffs": lambda v: ctrl.sd_params_acquisition_cutoff_entry.setText(str(v)),
+        "acquisition_cutoffs_checkbox": lambda v: ctrl.sd_params_acquisition_cutoff_checkbox.setChecked(bool(v)),
+        "acquisition_equilibration_checkbox": lambda v: ctrl.sd_params_acquisition_equilibration_checkbox.setChecked(bool(v)),
+        "acquisition_equilibration_tolerance": lambda v: ctrl.sd_params_acquisition_tolerance_entry.setText(str(v)),
+        "acquisition_equilibration_timescale": lambda v: ctrl.sd_params_acquisition_timescale_entry.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.sd_params_num_samples_entry.setText(str(v)),
+        "delay": lambda v: ctrl.sd_params_delay_entry.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.sd_params_delay_OCP_checkbox.setChecked(bool(v)),
+    },
+    "C-Rate": {
+        "lower_bounds": lambda v: ctrl.rate_params_lbound_entry.setText(str(v)),
+        "upper_bounds": lambda v: ctrl.rate_params_ubound_entry.setText(str(v)),
+        "one_c": lambda v: ctrl.rate_params_one_c_entry.setText(str(v)),
+        "one_c_calc_checkbox": lambda v: ctrl.rate_params_one_c_calc_checkbox.setChecked(bool(v)),
+        "one_c_calc_current": lambda v: ctrl.rate_one_c_calc_dropdown.rate_params_one_c_calc_current_entry.setText(str(v)),
+        "one_c_calc_number_of_cycles": lambda v: ctrl.rate_one_c_calc_dropdown.rate_params_one_c_calc_num_cycles_entry.setText(str(v)),
+        "one_c_calc_samples_to_average": lambda v: ctrl.rate_one_c_calc_dropdown.rate_params_one_c_calc_num_samples_entry.setText(str(v)),
+        "one_c_calc_post_calc_delay": lambda v: ctrl.rate_one_c_calc_dropdown.rate_params_one_c_calc_post_delay_entry.setText(str(v)),
+        "one_c_calc_post_calc_OCP_checkbox": lambda v: ctrl.rate_one_c_calc_dropdown.rate_params_one_c_calc_post_delay_OCP_checkbox.setChecked(bool(v)),
+        "c_rates": lambda v: ctrl.rate_params_c_rate_entry.setText(str(v)),
+        "number_of_cycles": lambda v: ctrl.rate_params_c_rate_num_cycles_entry.setText(str(v)),
+        "c_rate_delay": lambda v: ctrl.rate_params_c_rate_delay_entry.setText(str(v)),
+        "delay": lambda v: ctrl.rate_params_c_rate_delay_entry.setText(str(v)),
+        "OCP_equilibration_checkbox": lambda v: ctrl.rate_params_delay_OCP_checkbox.setChecked(bool(v)),
+    }
+}
+
+def prompt_experiment():
+    """Prompt the user to select which experiment to test."""
+    experiment_map = {
+        "1": "CV",
+        "2": "LSV",
+        "3": "GCD",
+        "4": "Chronoamperometry",
+        "5": "Chronopotentiometry",
+        "6": "Self-discharge",
+        "7": "C-Rate",
+    }
+    choice = ""
+    while choice not in experiment_map:
+        print("Select experiment to test:")
+        print("    1: Cyclic voltammetry")
+        print("    2: Linear-sweep voltammetry")
+        print("    3: Galvanostatic charge-discharge")
+        print("    4: Chronoamperometry")
+        print("    5: Chronopotentiometry")
+        print("    6: Self-discharge")
+        print("    7: C-Rate")
+        choice = input("Enter choice: ").strip()
+    return experiment_map[choice]
+
+
+def populate_fields_from_toml(config_path="tests/example_parameters.toml", experiment="cv"):
     """Populate GUI widgets using values from the TOML config file."""
 
     try:
         params = toml.load(config_path)
-        cv_params = params.get("cv", {})
+        exp_params = params.get(experiment, {})
 
-        # Set CV parameter values
-        if "lower_bound" in cv_params:
-            ctrl.cv_params_lbound_entry.setText(str(cv_params["lower_bound"]))
-        if "upper_bound" in cv_params:
-            ctrl.cv_params_ubound_entry.setText(str(cv_params["upper_bound"]))
-        if "OCP_equilibration" in cv_params:
-            ctrl.cv_params_pot_window_delay_OCP_checkbox.setChecked(bool(cv["OCP_equilibration"]))
-
-        print(f"Populated GUI fields from {config_path}:")
-        print(f"    lower_bound = {cv_params.get('lower_bound', 'N/A')}")
-        print(f"    upper_bound = {cv_params.get('upper_bound', 'N/A')}")
-        print(f"    OCP_equilibration = {cv.get('OCP_equilibration', 'N/A')}")
+        for key, setter in FIELD_MAP[experiment].items():
+            if key in exp_params:
+                setter(exp_params[key])
+        print(f"\nPopulated {experiment} tab with parameters:")
+        for k, v in exp_params.items():
+            print(f"    {k} = {v}")
 
     except FileNotFoundError:
         print(f"Config file not found: {config_path}")
     except Exception as e:
-        print(f"Error reading {config_path}: {e}")
+        print(f"Error populating {experiment} tab: {e}")
 
-def switch_to_tab():
-    """Switch the GUI to show the CV tab."""
-    try:
-        ctrl.tab_frame.setCurrentIndex(1)
-        print("Switched to 'CV' tab.")
-    except Exception as e:
-        print(f"Could not switch to 'CV' tab: {e}")
+
+def switch_to_tab(experiment="cv"):
+    """Switch the GUI to the tab for the selected experiment."""
+    idx = TAB_INDEX.get(experiment, 0)
+    ctrl.tab_frame.setCurrentIndex(idx)
+    print(f"\nSwitched to {experiment} tab.")
 
 def run_test():
     """Launch GUI and schedule automated population of fields from TOML."""
+
+    experiment = prompt_experiment()
+    config_path = "tests/example_parameters.toml"
+
     # Delay population slightly so GUI is initialised first
-    QTimer.singleShot(1000, switch_to_tab)
-    QTimer.singleShot(1000, populate_fields_from_toml)
+    QTimer.singleShot(1000, lambda: switch_to_tab(experiment))
+    QTimer.singleShot(1000, lambda: populate_fields_from_toml(config_path, experiment))
 
     # Launch the main program
     ctrl.main()

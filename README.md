@@ -19,6 +19,18 @@ You can install the program directly from GitHub using:
 pip install git+https://github.com/shatners-bassoon/JOSS_test.git
 ```
 
+Alternatively, you can clone the repository and install using:
+```bash
+clone code
+cd JOSS_test
+pip install .
+```
+
+You can also install optional test dependencies (for running GUI demonstration scripts):
+```bash
+pip install .[test]
+```
+
 ### Optional for Linux/Mac users: Set up USB permissions (recommended)
 
 To avoid running the program with `sudo`, create a udev rule to give your user access to the USB device automatically.
@@ -30,6 +42,13 @@ sudo udevadm control --reload
 sudo udevadm trigger
 ```
 
+### Optional depencies for GUI testing
+
+The example testing script (`tests/test_parameters_populate_fields.py`) requires `toml` for reading parameter files:
+```bash
+pip install toml
+```
+
 ## Usage
 
 This program requires USB access to communicate with the potentiostat.
@@ -37,7 +56,6 @@ This program requires USB access to communicate with the potentiostat.
 ### Normal use (with udev rule)
 
 If you have already set up a udev rule, simply run:
-
 ```bash
 potentiostat-controller
 ```
@@ -55,6 +73,13 @@ sudo -E $(which potentiostat-controller)
 or equivalently:
 ```bash
 sudo -E $(which python) -m potentiostat_controller
+```
+
+## Running example tests
+
+To demonstrate reproducibility, a testing script (`tests/gui_test_script.py`) is provided. The script launches the GUI, automatically populates example parameters, and leaves the user free to connect a potentiostat, choose a save path, and start the experiments.
+```bash
+PYTHONPATH=src python -m tests.test_parameters_populate_fields
 ```
 
 
