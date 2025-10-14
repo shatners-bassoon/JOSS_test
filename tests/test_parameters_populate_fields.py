@@ -181,7 +181,8 @@ def prompt_experiment():
     }
     choice = ""
     while choice not in experiment_map:
-        print("Select experiment to test:")
+        print("\nSelect experiment to test:")
+        print("--------------------------")
         print("    1: Cyclic voltammetry")
         print("    2: Linear-sweep voltammetry")
         print("    3: Galvanostatic charge-discharge")
@@ -189,7 +190,7 @@ def prompt_experiment():
         print("    5: Chronopotentiometry")
         print("    6: Self-discharge")
         print("    7: C-Rate")
-        choice = input("Enter choice: ").strip()
+        choice = input("\nEnter choice: ").strip()
     return experiment_map[choice]
 
 

@@ -21,7 +21,7 @@ pip install git+https://github.com/shatners-bassoon/JOSS_test.git
 
 Alternatively, you can clone the repository and install using:
 ```bash
-clone code
+git clone https://github.com/shatners-bassoon/JOSS_test
 cd JOSS_test
 pip install .
 ```
@@ -42,7 +42,7 @@ sudo udevadm control --reload
 sudo udevadm trigger
 ```
 
-### Optional depencies for GUI testing
+### Optional dependencies for GUI testing
 
 The example testing script (`tests/test_parameters_populate_fields.py`) requires `toml` for reading parameter files:
 ```bash
