@@ -2,6 +2,7 @@
 
 This GUI-based software is designed to work with a low-cost USB Potentiostat/Galvanostat presented by [Dobbelaere et al. (2017)](https://doi.org/10.1016/j.ohx.2017.08.001), providing users with an expanded suite of experiments and features.
 
+
 ## Features
 
 - Supports cyclic voltammetry, linear sweep voltammetry, Galvanostatic charge/discharge, chronoamperometry, chronopotentiometry, self-discharge, and rate-testing experiments.
@@ -10,6 +11,7 @@ This GUI-based software is designed to work with a low-cost USB Potentiostat/Gal
 - User-friendly interface with input validation and tooltips.
 - Human-readable summary file with metadata for all queued experiments.
 - Designed to run on a range of light-weight hardware configurations via memory management and GUI widget resizing.
+
 
 ## Installation
 
@@ -25,9 +27,10 @@ git clone https://github.com/shatners-bassoon/JOSS_test
 cd JOSS_test
 pip install .
 ```
-
-You can also install optional test dependencies (for running GUI demonstration scripts):
+> For users wishing to use the test scripts found under `tests/`, instead run:
 ```bash
+git clone https://github.com/shatners-bassoon/JOSS_test
+cd JOSS_test
 pip install .[test]
 ```
 
@@ -42,12 +45,6 @@ sudo udevadm control --reload
 sudo udevadm trigger
 ```
 
-### Optional dependencies for GUI testing
-
-The example testing script (`tests/test_parameters_populate_fields.py`) requires `toml` for reading parameter files:
-```bash
-pip install toml
-```
 
 ## Usage
 
@@ -74,12 +71,33 @@ or equivalently:
 ```bash
 sudo -E $(which python) -m potentiostat_controller
 ```
+> `sudo -E` is required to preserve your Python environment when running with elevated privileges.
+
 
 ## Running example tests
 
-To demonstrate reproducibility, a testing script (`tests/gui_test_script.py`) is provided. The script launches the GUI, automatically populates example parameters, and leaves the user free to connect a potentiostat, choose a save path, and start the experiments.
+A demonstration script (`tests/test_parameters_populate_fields.py`) is provided. It launches the GUI, automatically populates example parameters, and lets the user connect a potentiostat, choose a save path, and start the experiments.
+
+### Option 1: Run after installing the package
+
+If you have installed the package (editable or normal installation), run the following from the root of the repository:
+```bash
+python -m tests.test_parameters_populate_fields
+```
+Or, for users running with elevated privileges:
+```bash
+sudo -E $(which python) -m tests.test_parameters_populate_fields
+```
+
+### Option 2: Run from the cloned repository (no installation required)
+
+For users who have successfully set up udev rules, run the following from the root of the repository:
 ```bash
 PYTHONPATH=src python -m tests.test_parameters_populate_fields
+```
+Or, for users running with elevated privileges:
+```bash
+sudo -E PYTHONPATH=src $(which python) -m tests.test_parameters_populate_fields
 ```
 
 
