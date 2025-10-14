@@ -1,0 +1,26 @@
+# Byte-compiled / optimised / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+
+# Environment folders
+.env
+.venv
+env/
+venv/
+ENV/
+
+# MacOS
+.DS_Store
+
+# Repo
+src/potentiostat_controller/__pycache__/
+src/potentiostat_controller.egg-info/
+tests/__pycache__/
