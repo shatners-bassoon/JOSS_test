@@ -77,7 +77,7 @@ sudo -E $(which python) -m potentiostat_controller
 
 ## Running example tests
 
-A demonstration script (`tests/test_parameters_populate_fields.py`) is provided. It prompts users to select the experiment they wish to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/example_parameters.toml`), and simulates a "CHECK" button click. This verifies that the GUI and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
+A demonstration script (`tests/test_parameters_populate_fields.py`) is provided. It prompts users to select the experiment they wish to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/example_parameters.toml`), and simulates a "CHECK" button click using PyQt5's `QtTest` framework. This verifies that the GUI and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
 > Note: After choosing a filepath, the `CHECK` button within the GUI experiment tab must be pressed again to ensure that a valid filepath was chosen.
 
 ### Option 1: Run after installing the package
