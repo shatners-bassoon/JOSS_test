@@ -34,8 +34,8 @@ FIELD_MAP = {
         "reverse_currents_positive": lambda v: ctrl.cv_params_reverse_current_positive_entry.setText(str(v)),
         "reverse_currents_positive_checkbox": lambda v: ctrl.cv_params_reverse_current_positive_checkbox.setChecked(bool(v)),
         "number_of_cycles": lambda v: ctrl.cv_params_num_cycles_entry.setText(str(v)),
-        "samples_to_average": lambda v: ctrl.cv_params_num_samples.setText(str(v)),
-        "scan_rate_delay": lambda v: ctrl.cv_params_scanrate_delay.setText(str(v)),
+        "samples_to_average": lambda v: ctrl.cv_params_num_samples_entry.setText(str(v)),
+        "scan_rate_delay": lambda v: ctrl.cv_params_scanrate_delay_entry.setText(str(v)),
         "potential_window_delay": lambda v: ctrl.cv_params_pot_window_delay_entry.setText(str(v)),
         "OCP_equilibration_checkbox": lambda v: ctrl.cv_params_pot_window_delay_OCP_checkbox.setChecked(bool(v)),
     },
@@ -48,10 +48,11 @@ FIELD_MAP = {
         "current_limits_positive": lambda v: ctrl.lsv_params_current_limit_positive_entry.setText(str(v)),
         "current_limits_positive_checkbox": lambda v: ctrl.lsv_params_current_limit_positive_checkbox.setChecked(bool(v)),
         "initialisation_scan_rates": lambda v: ctrl.lsv_params_init_scanrate_entry.setText(str(v)),
-        "initialisation_hold_times": lambda v: ctrl.lsv_params_init_holdtime_entry.setText(str(v)),
+        "initialisation_scan_rates_checkbox": lambda v: ctrl.lsv_params_init_scanrate_checkbox.setChecked(bool(v)),
+        "initialisation_hold_time": lambda v: ctrl.lsv_params_init_holdtime_entry.setText(str(v)),
         "samples_to_average": lambda v: ctrl.lsv_params_num_samples_entry.setText(str(v)),
-        "scan_rate_delay": lambda v: ctrl.lsv_params_scanrate_delay.setText(str(v)),
-        "potential_window_delay": lambda v: ctrl.lsv_params_pot_window_delay.setText(str(v)),
+        "scan_rate_delay": lambda v: ctrl.lsv_params_scanrate_delay_entry.setText(str(v)),
+        "potential_window_delay": lambda v: ctrl.lsv_params_pot_window_delay_entry.setText(str(v)),
         "OCP_equilibration_checkbox": lambda v: ctrl.lsv_params_pot_window_delay_OCP_checkbox.setChecked(bool(v)),
     },
     "GCD": {
@@ -59,7 +60,7 @@ FIELD_MAP = {
         "upper_bounds": lambda v: ctrl.gcd_params_ubound_entry.setText(str(v)),
         "charge_currents": lambda v: ctrl.gcd_params_chargecurrent_entry.setText(str(v)),
         "discharge_currents": lambda v: ctrl.gcd_params_dischargecurrent_entry.setText(str(v)),
-        "number_of_half_cycles": lambda v: ctrl.gcd_params_num_halfcycles_entry.setText(str(v)),
+        "number_of_halfcycles": lambda v: ctrl.gcd_params_num_halfcycles_entry.setText(str(v)),
         "samples_to_average": lambda v: ctrl.gcd_params_num_samples_entry.setText(str(v)),
         "current_delay": lambda v: ctrl.gcd_params_current_delay_entry.setText(str(v)),
         "potential_window_delay": lambda v: ctrl.gcd_params_pot_window_delay_entry.setText(str(v)),
@@ -73,6 +74,15 @@ FIELD_MAP = {
         "equilibration_sequence_A_checkbox": lambda v: ctrl.ca_params_A_equilibration_checkbox.setChecked(bool(v)),
         "equilibration_sequence_A_tolerance": lambda v: ctrl.ca_params_A_equilibration_tolerance_entry.setText(str(v)),
         "equilibration_sequence_A_timescale": lambda v: ctrl.ca_params_A_equilibration_timescale_entry.setText(str(v)),
+
+        "potentials_sequence_B": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_potential_entry.setText(str(v)),
+        "hold_times_sequence_B": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_hold_time_entry.setText(str(v)),
+        "ramp_rates_sequence_B": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_ramp_rate_entry.setText(str(v)),
+        "ramp_rates_sequence_B_checkbox": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_ramp_rate_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_B_checkbox": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_equilibration_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_B_tolerance": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_equilibration_tolerance_entry.setText(str(v)),
+        "equilibration_sequence_B_timescale": lambda v: ctrl.ca_alternating_parameters_dropdown.ca_params_B_equilibration_timescale_entry.setText(str(v)),
+
         "current_limits_checkbox": lambda v: ctrl.ca_params_curr_limits_checkbox.setChecked(bool(v)),
         "lower_current_limit": lambda v: ctrl.ca_params_curr_limits_lower_entry.setText(str(v)),
         "upper_current_limit": lambda v: ctrl.ca_params_curr_limits_upper_entry.setText(str(v)),
@@ -88,6 +98,15 @@ FIELD_MAP = {
         "equilibration_sequence_A_checkbox": lambda v: ctrl.cp_params_A_equilibration_checkbox.setChecked(bool(v)),
         "equilibration_sequence_A_tolerance": lambda v: ctrl.cp_params_A_equilibration_tolerance_entry.setText(str(v)),
         "equilibration_sequence_A_timescale": lambda v: ctrl.cp_params_A_equilibration_timescale_entry.setText(str(v)),
+
+        "currents_sequence_B": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_current_entry.setText(str(v)),
+        "hold_times_sequence_B": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_hold_time_entry.setText(str(v)),
+        "ramp_rates_sequence_B": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_ramp_rate_entry.setText(str(v)),
+        "ramp_rates_sequence_B_checkbox": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_ramp_rate_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_B_checkbox": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_equilibration_checkbox.setChecked(bool(v)),
+        "equilibration_sequence_B_tolerance": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_equilibration_tolerance_entry.setText(str(v)),
+        "equilibration_sequence_B_timescale": lambda v: ctrl.cp_alternating_parameters_dropdown.cp_params_B_equilibration_timescale_entry.setText(str(v)),
+
         "potential_limits_checkbox": lambda v: ctrl.cp_params_pot_limits_checkbox.setChecked(bool(v)),
         "lower_potential_limit": lambda v: ctrl.cp_params_pot_limits_lower_entry.setText(str(v)),
         "upper_potential_limit": lambda v: ctrl.cp_params_pot_limits_upper_entry.setText(str(v)),
@@ -104,8 +123,8 @@ FIELD_MAP = {
         "acquisition_cutoffs": lambda v: ctrl.sd_params_acquisition_cutoff_entry.setText(str(v)),
         "acquisition_cutoffs_checkbox": lambda v: ctrl.sd_params_acquisition_cutoff_checkbox.setChecked(bool(v)),
         "acquisition_equilibration_checkbox": lambda v: ctrl.sd_params_acquisition_equilibration_checkbox.setChecked(bool(v)),
-        "acquisition_equilibration_tolerance": lambda v: ctrl.sd_params_acquisition_tolerance_entry.setText(str(v)),
-        "acquisition_equilibration_timescale": lambda v: ctrl.sd_params_acquisition_timescale_entry.setText(str(v)),
+        "acquisition_equilibration_tolerance": lambda v: ctrl.sd_params_acquisition_equilibration_tolerance_entry.setText(str(v)),
+        "acquisition_equilibration_timescale": lambda v: ctrl.sd_params_acquisition_equilibration_timescale_entry.setText(str(v)),
         "samples_to_average": lambda v: ctrl.sd_params_num_samples_entry.setText(str(v)),
         "delay": lambda v: ctrl.sd_params_delay_entry.setText(str(v)),
         "OCP_equilibration_checkbox": lambda v: ctrl.sd_params_delay_OCP_checkbox.setChecked(bool(v)),
@@ -123,8 +142,29 @@ FIELD_MAP = {
         "c_rates": lambda v: ctrl.rate_params_c_rate_entry.setText(str(v)),
         "number_of_cycles": lambda v: ctrl.rate_params_c_rate_num_cycles_entry.setText(str(v)),
         "c_rate_delay": lambda v: ctrl.rate_params_c_rate_delay_entry.setText(str(v)),
-        "delay": lambda v: ctrl.rate_params_c_rate_delay_entry.setText(str(v)),
+        "potential_window_delay": lambda v: ctrl.rate_params_delay_entry.setText(str(v)),
         "OCP_equilibration_checkbox": lambda v: ctrl.rate_params_delay_OCP_checkbox.setChecked(bool(v)),
+    }
+}
+
+DROPDOWN_MAP = {
+    "Chronoamperometry": {
+        "attr": "ca_alternating_parameters_dropdown",
+        "condition_key": "use_alternating_parameters_bool",
+        "checkbox_attr": None,  # Toggled directly
+        "dropdown_name": "alternating parameters dropdown",
+    },
+    "Chronopotentiometry": {
+        "attr": "cp_alternating_parameters_dropdown",
+        "condition_key": "use_alternating_parameters_bool",
+        "checkbox_attr": None,  # Toggled directly
+        "dropdown_name": "alternating parameters dropdown",
+    },
+    "C-Rate": {
+        "attr": "rate_one_c_calc_dropdown",
+        "condition_key": "one_c_calc_checkbox",
+        "checkbox_attr": "rate_params_one_c_calc_checkbox",
+        "dropdown_name": "1C calculation parameters dropdown",
     }
 }
 
@@ -159,6 +199,32 @@ def populate_fields_from_toml(config_path="tests/example_parameters.toml", exper
     try:
         params = toml.load(config_path)
         exp_params = params.get(experiment, {})
+
+        # Handle dropdown toggles
+        dropdown_info = DROPDOWN_MAP.get(experiment)
+        if dropdown_info:
+            attr = dropdown_info["attr"]
+            cond_key = dropdown_info["condition_key"]
+            checkbox_attr = dropdown_info["checkbox_attr"]
+            dropdown_name = dropdown_info["dropdown_name"]
+
+            condition = exp_params.get(cond_key, False)
+            dropdown_widget = getattr(ctrl, attr, None)
+
+            if dropdown_widget:
+                # Sync checkbox if one exists
+                if checkbox_attr:
+                    checkbox = getattr(ctrl, checkbox_attr, None)
+                    if checkbox:
+                        checkbox.setChecked(bool(condition))
+
+                # Toggle dropdowns if necessary
+                if condition and dropdown_widget.dropdown_frame.isHidden():
+                    dropdown_widget.toggleDropdown()
+                    print(f"\nExpanded {experiment} {dropdown_name} ({cond_key} = True).")
+                elif not condition and not dropdown_widget.dropdown_frame.isHidden():
+                    dropdown_widget.toggleDropdown()
+                    print(f"\nCollapsed {experiment} {dropdown_name} ({cond_key} = False).")
 
         for key, setter in FIELD_MAP[experiment].items():
             if key in exp_params:

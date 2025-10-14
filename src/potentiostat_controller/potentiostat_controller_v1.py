@@ -11520,7 +11520,7 @@ def rate_get_parameters():
 		rate_parameters['num_halfcycles'] = 2 * int(rate_params_c_rate_num_cycles_entry.text().strip())
 
 		# Pre-C-rate delay
-		rate_parameters['c_rate_delay'] = int(rate_params_c_rate_delay_entry.text().strip())
+		rate_parameters['c_rate_delay'] = float(rate_params_c_rate_delay_entry.text().strip())
 
 		# Pre-experiment delay
 		if rate_params_delay_OCP_checkbox.isChecked():
