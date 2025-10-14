@@ -9,7 +9,9 @@ Usage:
 """
 
 import toml
+from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QTimer
+from PyQt5.QtTest import QTest
 from potentiostat_controller import potentiostat_controller_v1 as ctrl
 
 TAB_INDEX = {
@@ -168,6 +170,16 @@ DROPDOWN_MAP = {
     }
 }
 
+CHECKBUTTON_MAP = {
+    "CV": ctrl.cv_variables_checkbutton,
+    "LSV": ctrl.lsv_variables_checkbutton,
+    "GCD": ctrl.gcd_variables_checkbutton,
+    "Chronoamperometry": ctrl.ca_variables_checkbutton,
+    "Chronopotentiometry": ctrl.cp_variables_checkbutton,
+    "Self-discharge": ctrl.sd_variables_checkbutton,
+    "C-Rate": ctrl.rate_variables_checkbutton,
+}
+
 def prompt_experiment():
     """Prompt the user to select which experiment to test."""
     experiment_map = {
@@ -246,6 +258,12 @@ def switch_to_tab(experiment="cv"):
     ctrl.tab_frame.setCurrentIndex(idx)
     print(f"\nSwitched to {experiment} tab.")
 
+def click_checkbutton(experiment="cv"):
+    """Simulate a click of the 'CHECK' button within the GUI experiment tab."""
+    checkbutton = CHECKBUTTON_MAP.get(experiment)
+    QTest.mouseClick(checkbutton, Qt.LeftButton)
+    print(f"\nSimulated mouse click on 'CHECK' button for {experiment} experiments.")
+
 def run_test():
     """Launch GUI and schedule automated population of fields from TOML."""
 
@@ -254,7 +272,8 @@ def run_test():
 
     # Delay population slightly so GUI is initialised first
     QTimer.singleShot(1000, lambda: switch_to_tab(experiment))
-    QTimer.singleShot(1000, lambda: populate_fields_from_toml(config_path, experiment))
+    QTimer.singleShot(1500, lambda: populate_fields_from_toml(config_path, experiment))
+    QTimer.singleShot(2500, lambda: click_checkbutton(experiment))
 
     # Launch the main program
     ctrl.main()
