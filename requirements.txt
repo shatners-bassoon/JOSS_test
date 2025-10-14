@@ -1,6 +1,0 @@
-pyusb==1.2.1
-scipy==1.15.1
-numpy==2.2.1
-PyQt5==5.15.11
-pyqtgraph==0.13.7
-matplotlib==3.10.0
