@@ -13,12 +13,12 @@ license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-    "pyusb==1.2.1",
-    "scipy==1.15.1",
-    "numpy==2.2.1",
-    "PyQt5==5.15.11",
-    "pyqtgraph==0.13.7",
-    "matplotlib==3.10.0",
+    "pyusb>=1.2,<2.0",
+    "scipy>=1.9,<1.16",
+    "numpy>=1.23,<3.0",
+    "PyQt5>=5.15,<6.0",
+    "pyqtgraph>=0.13,<0.14",
+    "matplotlib>=3.7,<3.11",
 ]
 
 [project.optional-dependencies]
