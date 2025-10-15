@@ -297,6 +297,7 @@ def run_test():
     def show_instructions_if_success():
         """Show instructions to the user on how to run the example experiments using an information dialog."""
         if success["ok"]:
+            print("\nAll automated steps completed successfully. Please see the GUI window for next steps.")
             QtWidgets.QMessageBox.information(
                 ctrl.mainwidget,
                 "Next steps",
@@ -307,7 +308,6 @@ def run_test():
                 "3. Navigate to the hardware tab and connect the USB potentiostat.\n"
                 "4. Return to the experiment tab and press the 'Start' button."
             )
-            print("\nAll automated steps completed successfully. Please refer to the GUI window for next steps.")
         else:
             print("\nPrevious steps did not complete successfully. The user is not shown next steps instructions.")
 
