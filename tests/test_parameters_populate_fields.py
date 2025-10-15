@@ -12,6 +12,7 @@ import toml
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QTimer
 from PyQt5.QtTest import QTest
+from PyQt5 import QtWidgets
 from potentiostat_controller import potentiostat_controller_v1 as ctrl
 
 TAB_INDEX = {
@@ -205,7 +206,6 @@ def prompt_experiment():
         choice = input("\nEnter choice: ").strip()
     return experiment_map[choice]
 
-
 def populate_fields_from_toml(config_path="tests/example_parameters.toml", experiment="cv"):
     """Populate GUI widgets using values from the TOML config file."""
 
@@ -270,13 +270,56 @@ def run_test():
     experiment = prompt_experiment()
     config_path = "tests/example_parameters.toml"
 
+    # Flag to track success
+    success = {"ok": True}
+
+    def safe_switch_tab():
+        try:
+            switch_to_tab(experiment)
+        except Exception as e:
+            print(f"\nError switching tab: {e}")
+            success["ok"] = False
+
+    def safe_populate_fields():
+        try:
+            populate_fields_from_toml(config_path, experiment)
+        except Exception as e:
+            print(f"\nError populating fields: {e}")
+            success["ok"] = False
+
+    def safe_click_check():
+        try:
+            click_checkbutton(experiment)
+        except Exception as e:
+            print(f"\nError clicking check button: {e}")
+            success["ok"] = False
+
+    def show_instructions_if_success():
+        """Show instructions to the user on how to run the example experiments using an information dialog."""
+        if success["ok"]:
+            QtWidgets.QMessageBox.information(
+                ctrl.mainwidget,
+                "Next steps",
+                "The GUI has been successfully populated with parameters for the chosen experiment.\n\n"
+                "Next steps:\n"
+                "1. Enter an appropriate filepath in the 'Output filepath' box.\n"
+                "2. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
+                "3. Navigate to the hardware tab and connect the USB potentiostat.\n"
+                "4. Return to the experiment tab and press the 'Start' button."
+            )
+            print("\nAll automated steps completed successfully. Please refer to the GUI window for next steps.")
+        else:
+            print("\nPrevious steps did not complete successfully. The user is not shown next steps instructions.")
+
     # Delay population slightly so GUI is initialised first
-    QTimer.singleShot(1000, lambda: switch_to_tab(experiment))
-    QTimer.singleShot(1500, lambda: populate_fields_from_toml(config_path, experiment))
-    QTimer.singleShot(2500, lambda: click_checkbutton(experiment))
+    QTimer.singleShot(1000, safe_switch_tab)
+    QTimer.singleShot(1500, safe_populate_fields)
+    QTimer.singleShot(2000, safe_click_check)
+    QTimer.singleShot(3000, show_instructions_if_success)
 
     # Launch the main program
     ctrl.main()
+
 
 if __name__ == "__main__":
     run_test()
