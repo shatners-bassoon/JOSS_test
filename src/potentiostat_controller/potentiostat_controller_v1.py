@@ -19278,7 +19278,7 @@ tab_frame_min_width_pixels = tab_frame.sizeHint().width()
 print("min width pixels:", tab_frame_min_width_pixels)
 font_metrics = QtGui.QFontMetrics(statustext.font())
 char_width = font_metrics.horizontalAdvance(' ')
-tab_frame_min_width_chars = int(round((tab_frame_min_width_pixels / char_width) * 0.8))
+tab_frame_min_width_chars = int(round((tab_frame_min_width_pixels / char_width) * 0.85))
 print("min width spaces:", tab_frame_min_width_chars)
 global_software_settings['tab_frame_width'] = tab_frame_min_width_chars
 apply_tab_frame_width()
