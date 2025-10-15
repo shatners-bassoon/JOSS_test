@@ -19262,7 +19262,6 @@ hbox.addWidget(tab_frame)
 vbox = QtWidgets.QVBoxLayout()
 statustext = QtWidgets.QPlainTextEdit()
 statustext.setFixedHeight(90)
-apply_tab_frame_width()
 vbox.addLayout(hbox)
 vbox.addWidget(statustext)
 
@@ -19271,19 +19270,13 @@ win.setCentralWidget(mainwidget)
 vbox.setContentsMargins(0, 0, 0, 0)
 mainwidget.setLayout(vbox)
 
-
-# ????? Updated tab frame code
-
+# Automatically set tab frame width according to display
 tab_frame_min_width_pixels = tab_frame.sizeHint().width()
-print("min width pixels:", tab_frame_min_width_pixels)
 font_metrics = QtGui.QFontMetrics(statustext.font())
 char_width = font_metrics.horizontalAdvance(' ')
 tab_frame_min_width_chars = int(round((tab_frame_min_width_pixels / char_width) * 0.85))
-print("min width spaces:", tab_frame_min_width_chars)
 global_software_settings['tab_frame_width'] = tab_frame_min_width_chars
 apply_tab_frame_width()
-
-# ?????
 
 
 def periodic_update():  # A state machine is used to determine which functions need to be called, depending on the current state of the program
