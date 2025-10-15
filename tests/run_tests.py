@@ -268,7 +268,7 @@ def run_test():
     """Launch GUI and schedule automated population of fields from TOML."""
 
     experiment = prompt_experiment()
-    config_path = "tests/example_parameters.toml"
+    config_path = "tests/test_parameters.toml"
 
     # Flag to track success
     success = {"ok": True}
