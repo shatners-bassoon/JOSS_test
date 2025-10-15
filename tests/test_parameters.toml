@@ -1,13 +1,13 @@
 [CV]
 lower_bounds = "0.0, 0.0"
-upper_bounds = "1.0, 2.0"
+upper_bounds = "0.1, 0.2"
 start_potentials = "0.0, 0.0"
 stop_potentials = "0.0, 0.0"
-scan_rates = "5, 10, 20"
+scan_rates = "10, 20"
 reverse_currents_negative = "-1000, -2000, -4000"
-reverse_currents_negative_checkbox = true
+reverse_currents_negative_checkbox = false
 reverse_currents_positive = "1000, 2000, 4000"
-reverse_currents_positive_checkbox = true
+reverse_currents_positive_checkbox = false
 number_of_cycles = "20"
 samples_to_average = "3"
 scan_rate_delay = "5.0"

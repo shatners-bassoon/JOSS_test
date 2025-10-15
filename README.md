@@ -45,6 +45,10 @@ sudo bash -c 'echo "SUBSYSTEM==\"usb\", ATTR{idVendor}==\"a0a0\", ATTR{idProduct
 sudo udevadm control --reload
 sudo udevadm trigger
 ```
+> You can check your device's Vendor and Product IDs by running:
+```bash
+lsusb
+```
 
 
 ## Usage

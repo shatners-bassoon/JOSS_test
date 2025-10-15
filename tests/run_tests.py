@@ -303,10 +303,11 @@ def run_test():
                 "Next steps",
                 "The GUI has been successfully populated with parameters for the chosen experiment.\n\n"
                 "Next steps:\n"
-                "1. Enter an appropriate filepath in the 'Output filepath' box.\n"
-                "2. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
-                "3. Navigate to the hardware tab and connect the USB potentiostat.\n"
-                "4. Return to the experiment tab and press the 'Start' button."
+                "1. Navigate to the 'Hardware' tab and connect the USB potentiostat.\n"
+                "2. Return to the experiment tab.\n"
+                "3. Enter an appropriate filepath in the 'Output filepath' box.\n"
+                "4. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
+                "5. Press the 'Start' button to run the experiments."
             )
         else:
             print("\nPrevious steps did not complete successfully. The user is not shown next steps instructions.")
