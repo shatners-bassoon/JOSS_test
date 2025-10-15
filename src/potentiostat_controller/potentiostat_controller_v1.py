@@ -13819,7 +13819,6 @@ preview_cancel_button.hide()
 """_____TAB FRAMES_____"""
 
 tab_frame = QtWidgets.QTabWidget()
-tab_frame.setFixedWidth(400)
 
 tab_names = ["Hardware", "CV", "LSV", "GCD", "CA", "CP", "Self-discharge", "C-Rate", "Plotting"]
 tabs = [add_my_tab(tab_frame, tab_name) for tab_name in tab_names]
@@ -19256,7 +19255,6 @@ plotter_layout.setContentsMargins(0, 0, 0, 0)
 plotter_layout.addWidget(plotter_scroll_area)
 tabs[8].setLayout(plotter_layout)
 
-
 hbox = QtWidgets.QHBoxLayout()
 hbox.addLayout(display_plot_frame)
 hbox.addWidget(tab_frame)
@@ -19272,6 +19270,20 @@ mainwidget = QtWidgets.QWidget()
 win.setCentralWidget(mainwidget)
 vbox.setContentsMargins(0, 0, 0, 0)
 mainwidget.setLayout(vbox)
+
+
+# ????? Updated tab frame code
+
+tab_frame_min_width_pixels = tab_frame.sizeHint().width()
+print("min width pixels:", tab_frame_min_width_pixels)
+font_metrics = QtGui.QFontMetrics(statustext.font())
+char_width = font_metrics.horizontalAdvance(' ')
+tab_frame_min_width_chars = int(round((tab_frame_min_width_pixels / char_width) * 0.8))
+print("min width spaces:", tab_frame_min_width_chars)
+global_software_settings['tab_frame_width'] = tab_frame_min_width_chars
+apply_tab_frame_width()
+
+# ?????
 
 
 def periodic_update():  # A state machine is used to determine which functions need to be called, depending on the current state of the program
