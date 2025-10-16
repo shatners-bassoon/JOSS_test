@@ -84,7 +84,7 @@ sudo -E $(which python) -m potentiostat_controller
 A demonstration script (`tests/test_parameters_populate_fields.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/example_parameters.toml`), and simulates a "CHECK" button click using PyQt5's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
 > Note: After choosing a filepath, the `CHECK` button within the GUI experiment tab must be pressed again to ensure that a valid filepath was chosen.
 
-A schematic for an appropriate dummy cell is located under `tests/dummy_cell_schematic.png`.
+Example data from the test scripts has been generated using a dummy cell. A schematic for the dummy cell is located under `examples/dummy_cell_schematic.png`, with example data stored in `examples/example_data/`.
 
 ### Option 1: Run after installing the package
 
