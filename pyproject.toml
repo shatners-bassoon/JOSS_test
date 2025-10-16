@@ -22,7 +22,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["toml"]
+tests = ["toml"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
