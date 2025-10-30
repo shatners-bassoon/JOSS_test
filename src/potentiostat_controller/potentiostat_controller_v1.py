@@ -825,6 +825,9 @@ def wait_for_adcread():
 def read_potential_current():
 	"""Read the most recent potential and current values from the device's ADC."""
 	global potential, current, raw_potential, raw_current, time_of_last_adcread
+	if dev is None:
+		log_message("Attempted to read USB data, but no device is connected.")
+		return
 	wait_for_adcread()
 	time_of_last_adcread = timeit.default_timer()
 	dev.write(0x01, b'ADCREAD')  # 0x01 = write address of EP1
