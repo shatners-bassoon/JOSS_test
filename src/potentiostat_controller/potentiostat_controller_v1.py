@@ -10930,6 +10930,7 @@ def sd_write_summary_file(segment_index, section):
 			sd_summary_file.write("\n")
 
 			sd_summary_file.write("Self-discharge acquisition parameters:\n")
+			sd_summary_file.write(f"Acquisition time (s): {sd_parameters['acquisition_time'][segment_index]}\n")
 			sd_summary_file.write(f"Potential cutoff threshold (V): {sd_parameters['pot_cutoff'][segment_index]}\n")
 			sd_summary_file.write(f"Equilibration tolerance (mV): {sd_parameters['pot_eq_tolerance'][segment_index]}\n")
 			sd_summary_file.write(f"Equilibration timescale (s): {sd_parameters['pot_eq_timescale'][segment_index]}\n")
