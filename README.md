@@ -90,22 +90,22 @@ Example data from the test scripts has been generated using a dummy cell. A sche
 
 If you have installed the package (editable or normal installation), run the following from the root of the repository:
 ```bash
-python -m tests.test_parameters_populate_fields
+python -m tests.run_test
 ```
 Or, for users running with elevated privileges:
 ```bash
-sudo -E $(which python) -m tests.test_parameters_populate_fields
+sudo -E $(which python) -m tests.run_test
 ```
 
 ### Option 2: Run from the cloned repository (no installation required)
 
 For users who have successfully set up udev rules, run the following from the root of the repository:
 ```bash
-PYTHONPATH=src python -m tests.test_parameters_populate_fields
+PYTHONPATH=src python -m tests.run_test
 ```
 Or, for users running with elevated privileges:
 ```bash
-sudo -E PYTHONPATH=src $(which python) -m tests.test_parameters_populate_fields
+sudo -E PYTHONPATH=src $(which python) -m tests.run_test
 ```
 
 
