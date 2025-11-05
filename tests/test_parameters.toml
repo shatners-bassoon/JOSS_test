@@ -15,20 +15,20 @@ potential_window_delay = "5.0"
 OCP_equilibration_checkbox = false
 
 [LSV]
-start_potentials = "0.0, 1.0"
-stop_potentials = "1.0, 3.0"
-scan_rates = "5, 10, 20"
-current_limits_negative = "-2000, -4000, -8000"
-current_limits_negative_checkbox = true
-current_limits_positive = "2000, 4000, 8000"
-current_limits_positive_checkbox = true
-initialisation_scan_rates = "5, 10, 20"
+start_potentials = "0.0, 0.5, 1.0, 0.5"
+stop_potentials = "0.5, 1.0, 0.5, 0.0"
+scan_rates = "20, 50"
+current_limits_negative = ""
+current_limits_negative_checkbox = false
+current_limits_positive = ""
+current_limits_positive_checkbox = false
+initialisation_scan_rates = "20, 50"
 initialisation_scan_rates_checkbox = true
-initialisation_hold_time = "10"
-samples_to_average = "5"
-scan_rate_delay = "10.0"
-potential_window_delay = "20.0"
-OCP_equilibration_checkbox = true
+initialisation_hold_time = "5"
+samples_to_average = "1"
+scan_rate_delay = "5.0"
+potential_window_delay = "5.0"
+OCP_equilibration_checkbox = false
 
 [GCD]
 lower_bounds = "0.0, 0.0"
