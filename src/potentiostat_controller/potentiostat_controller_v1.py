@@ -7253,6 +7253,16 @@ def ca_start(segment_index):
 		for data in [ca_time_data, ca_segment_time_data, ca_potential_data, ca_current_data]:
 			data.samples = []
 
+		# Re-calculate ramp time and segment timelength based on measured potential
+		if ca_parameters['ramp_rate'][segment_index] != "STEP":
+			ramp_rate = ca_parameters['ramp_rate'][segment_index]
+			segment_potential = ca_parameters['potential_sequence'][segment_index]
+			segment_potential = segment_potential if segment_potential != "OCP" else ca_parameters['current_OCP']
+			potential_to_sweep = segment_potential - ca_data['startpot'][segment_index]
+			ramp_time = abs(potential_to_sweep / ramp_rate)
+			ca_parameters['ramp_time'][segment_index] = ramp_time
+			ca_parameters['segment_timelength'][segment_index] = ramp_time + ca_parameters['hold_time'][segment_index]
+
 	# Initialise deque to store current history for equilibration
 	ca_curr_eq_history = collections.deque()
 
@@ -9010,6 +9020,15 @@ def cp_start(segment_index):
 		# Refresh data sample buffers
 		for data in [cp_time_data, cp_segment_time_data, cp_potential_data, cp_current_data]:
 			data.samples = []
+
+		# Re-calculate ramp time and segment timelength based on measured current
+		if cp_parameters['ramp_rate'][segment_index] != "STEP":
+			ramp_rate = cp_parameters['ramp_rate'][segment_index]
+			segment_current = cp_parameters['current_sequence'][segment_index]
+			current_to_sweep = segment_current - cp_data['startcurr'][segment_index] * 1e3  # Convert from mA to µA
+			ramp_time = abs(current_to_sweep / ramp_rate)
+			cp_parameters['ramp_time'][segment_index] = ramp_time
+			cp_parameters['segment_timelength'][segment_index] = ramp_time + cp_parameters['hold_time'][segment_index]
 
 	# Initialise deque to store potential history for equilibration
 	cp_pot_eq_history = collections.deque()
