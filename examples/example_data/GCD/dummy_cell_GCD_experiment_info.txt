@@ -1,0 +1,112 @@
+GCD EXPERIMENTS INFORMATION FILE
+********************************
+
+Experiment notes: No notes provided.
+
+Experiment information file for the experiments stored in:
+/examples/example_data/GCD/dummy_cell_GCD_exp1_0.0_0.4_V_50.0_-50.0_uA.dat
+/examples/example_data/GCD/dummy_cell_GCD_exp2_0.0_0.4_V_100.0_-100.0_uA.dat
+/examples/example_data/GCD/dummy_cell_GCD_exp3_0.0_0.5_V_50.0_-50.0_uA.dat
+/examples/example_data/GCD/dummy_cell_GCD_exp4_0.0_0.5_V_100.0_-100.0_uA.dat
+
+Calculated charge/discharge capacities for each full cycle are stored in:
+/examples/example_data/GCD/dummy_cell_GCD_exp1_0.0_0.4_V_50.0_-50.0_uA_capacities.dat
+/examples/example_data/GCD/dummy_cell_GCD_exp2_0.0_0.4_V_100.0_-100.0_uA_capacities.dat
+/examples/example_data/GCD/dummy_cell_GCD_exp3_0.0_0.5_V_50.0_-50.0_uA_capacities.dat
+/examples/example_data/GCD/dummy_cell_GCD_exp4_0.0_0.5_V_100.0_-100.0_uA_capacities.dat
+
+Potential windows cycled through (V): [0.0, 0.4], [0.0, 0.5]
+Charge/discharge currents cycled through (µA): [50.0, -50.0], [100.0, -100.0]
+Number of experiments: 4
+Number of half cycles per charge/discharge current: 6
+Number of full cycles per charge/discharge current: 3
+Samples to average per charge/discharge current: [1, 1]
+Pre-charge/discharge current delay (s): 2.0
+Pre-potential window delay (s): 5.0
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 1/4 ***
+
+***************************************
+	GCD MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/GCD/dummy_cell_GCD_exp1_0.0_0.4_V_50.0_-50.0_uA.dat
+Experiment number: 1/4
+Lower/upper potential limits (V): 0.0, 0.4
+Charge/discharge currents (µA): 50.0, -50.0
+Number of half cycles: 6
+Number of full cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 13:01:52.790
+Experiment finish time: 2025-11-06 13:03:42.676
+
+*****************************************
+	GCD MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-charge/discharge current delay of 2.0 seconds for experiment: 2/4 ***
+
+***************************************
+	GCD MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/GCD/dummy_cell_GCD_exp2_0.0_0.4_V_100.0_-100.0_uA.dat
+Experiment number: 2/4
+Lower/upper potential limits (V): 0.0, 0.4
+Charge/discharge currents (µA): 100.0, -100.0
+Number of half cycles: 6
+Number of full cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 13:03:44.777
+Experiment finish time: 2025-11-06 13:04:38.429
+
+*****************************************
+	GCD MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 3/4 ***
+
+***************************************
+	GCD MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/GCD/dummy_cell_GCD_exp3_0.0_0.5_V_50.0_-50.0_uA.dat
+Experiment number: 3/4
+Lower/upper potential limits (V): 0.0, 0.5
+Charge/discharge currents (µA): 50.0, -50.0
+Number of half cycles: 6
+Number of full cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 13:04:43.681
+Experiment finish time: 2025-11-06 13:07:01.020
+
+*****************************************
+	GCD MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-charge/discharge current delay of 2.0 seconds for experiment: 4/4 ***
+
+***************************************
+	GCD MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/GCD/dummy_cell_GCD_exp4_0.0_0.5_V_100.0_-100.0_uA.dat
+Experiment number: 4/4
+Lower/upper potential limits (V): 0.0, 0.5
+Charge/discharge currents (µA): 100.0, -100.0
+Number of half cycles: 6
+Number of full cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 13:07:02.922
+Experiment finish time: 2025-11-06 13:08:10.477
+
+*****************************************
+	GCD MEASUREMENT COMPLETED
+*****************************************
+
+******************************************************
+	ALL EXPERIMENTS COMPLETED SUCCESSFULLY
+******************************************************
+
+********************
+EXPERIMENTS COMPLETE
