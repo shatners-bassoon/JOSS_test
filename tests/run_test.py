@@ -1,8 +1,28 @@
 """
-Semi-automated GUI test for the potentiostat controller.
+Semi-automated GUI validation script for the potentiostat controller.
 
-Reads test parameters from a TOML file, populates GUI fields automatically, switches to the "CV" tab,
-and then lets the user interact manually (connect the device, choose save path, etc.)
+This script assists in testing the GUI by automatically populating experiment
+parameters and triggering initial GUI interactions, while still allowing the user
+to manually complete hardware-dependent steps.
+
+Workflow:
+1. Prompts the user in the terminal to select an experiment type (CV, LSV, GCD, etc.).
+2. Loads example test parameters for the chosen experiment from a TOML file.
+3. Launches the GUI and waits briefly for initialisation.
+4. Performs the following actions for the chosen experiment:
+   - Switches to the experiment tab.
+   - Populates input parameter fields using the TOML values.
+   - Configures plotting options.
+   - Simulates a click of the "CHECK" button to validate inputs.
+5. Displays an information dialog with next steps if all automated tasks succeed.
+6. The user then manually:
+   - Connects the USB potentiostat (Hardware tab).
+   - Enters an output file path.
+   - Clicks "CHECK" again to validate the file path.
+   - Starts the experiment by clicking the "Start experiment" button.
+
+This script is intended to speed up GUI testing and validation without requiring
+hardware during the parameter-entry stage.
 
 Usage:
     python -m tests.run_test
@@ -244,7 +264,6 @@ def prompt_experiment():
 
 def populate_fields_from_toml(config_path="tests/example_parameters.toml", experiment="CV"):
     """Populate GUI widgets using values from the TOML config file."""
-
     try:
         params = toml.load(config_path)
         exp_params = params.get(experiment, {})
@@ -310,7 +329,6 @@ def click_checkbutton(experiment="CV"):
 
 def run_test():
     """Launch GUI and schedule automated population of fields from TOML."""
-
     experiment = prompt_experiment()
     config_path = "tests/test_parameters.toml"
 
