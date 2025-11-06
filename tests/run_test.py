@@ -5,7 +5,7 @@ Reads test parameters from a TOML file, populates GUI fields automatically, swit
 and then lets the user interact manually (connect the device, choose save path, etc.)
 
 Usage:
-    python -m tests.test_parameters_populate_fields
+    python -m tests.run_test
 """
 
 import toml
@@ -171,6 +171,42 @@ DROPDOWN_MAP = {
     }
 }
 
+PLOT_OPTIONS_MAP = {
+    "CV": {
+        "reverse_currents": lambda: ctrl.cv_plot_options_reverse_currents_checkbox.setChecked(False),
+        "prev_cycles": lambda: ctrl.cv_plot_options_prev_cycles_checkbox.setChecked(False),
+        "prev_experiments": lambda: ctrl.cv_plot_options_prev_experiments_checkbox.setChecked(True),
+        "prev_experiments_dropdown": lambda: ctrl.cv_plot_options_prev_experiments_dropdown.setCurrentIndex(0),
+    },
+    "LSV": {
+        "current_limits": lambda: ctrl.lsv_plot_options_current_limits_checkbox.setChecked(False),
+        "prev_experiments": lambda: ctrl.lsv_plot_options_prev_experiments_checkbox.setChecked(True),
+        "prev_experiments_dropdown": lambda: ctrl.lsv_plot_options_prev_experiments_dropdown.setCurrentIndex(0),
+        "initialisation_segments": lambda: ctrl.lsv_plot_options_init_segments_checkbox.setChecked(False),
+    },
+    "GCD": {
+        "time_charge_units": lambda: ctrl.gcd_plot_options_x_time_radiobutton.setChecked(True),
+        "this_cycle": lambda: ctrl.gcd_plot_options_this_cycle_radiobutton.setChecked(True),
+        "prev_experiments": lambda: ctrl.gcd_plot_options_prev_experiments_checkbox.setChecked(True),
+        "prev_experiments_dropdown": lambda: ctrl.gcd_plot_options_prev_experiments_dropdown.setCurrentIndex(0),
+    },
+    "Chronoamperometry": {
+        "all_segments": lambda: ctrl.ca_plot_options_all_segments_radiobutton.setChecked(True),
+    },
+    "Chronopotentiometry": {
+        "all_segments": lambda: ctrl.cp_plot_options_all_segments_radiobutton.setChecked(True),
+    },
+    "Self-discharge": {
+        "all_segments": lambda: ctrl.sd_plot_options_all_segments_radiobutton.setChecked(True),
+        "potential_cutoff": lambda: ctrl.sd_plot_options_pot_cutoff_checkbox.setChecked(False),
+        "charging_stages": lambda: ctrl.sd_plot_options_show_charging_checkbox.setChecked(True),
+    },
+    "C-Rate": {
+        "scale": lambda: ctrl.rate_plot_options_c_rate_scale_linear_radiobutton.setChecked(True),
+        "prev_experiments": lambda: ctrl.rate_plot_options_all_prev_experiments_radiobutton.setChecked(True),
+    },
+}
+
 CHECKBUTTON_MAP = {
     "CV": ctrl.cv_variables_checkbutton,
     "LSV": ctrl.lsv_variables_checkbutton,
@@ -206,7 +242,7 @@ def prompt_experiment():
         choice = input("\nEnter choice: ").strip()
     return experiment_map[choice]
 
-def populate_fields_from_toml(config_path="tests/example_parameters.toml", experiment="cv"):
+def populate_fields_from_toml(config_path="tests/example_parameters.toml", experiment="CV"):
     """Populate GUI widgets using values from the TOML config file."""
 
     try:
@@ -251,14 +287,22 @@ def populate_fields_from_toml(config_path="tests/example_parameters.toml", exper
     except Exception as e:
         print(f"Error populating {experiment} tab: {e}")
 
+def set_plot_options(experiment="CV"):
+    """Apply plot options in the GUI for the selected experiment."""
+    try:
+        for key, setter in PLOT_OPTIONS_MAP[experiment].items():
+            setter()
+        print(f"\nPlot options set.")
+    except Exception as e:
+        print(f"\nError setting plot options for {experiment}: {e}")
 
-def switch_to_tab(experiment="cv"):
+def switch_to_tab(experiment="CV"):
     """Switch the GUI to the tab for the selected experiment."""
     idx = TAB_INDEX.get(experiment, 0)
     ctrl.tab_frame.setCurrentIndex(idx)
     print(f"\nSwitched to {experiment} tab.")
 
-def click_checkbutton(experiment="cv"):
+def click_checkbutton(experiment="CV"):
     """Simulate a click of the 'CHECK' button within the GUI experiment tab."""
     checkbutton = CHECKBUTTON_MAP.get(experiment)
     QTest.mouseClick(checkbutton, Qt.LeftButton)
@@ -285,6 +329,13 @@ def run_test():
             populate_fields_from_toml(config_path, experiment)
         except Exception as e:
             print(f"\nError populating fields: {e}")
+            success["ok"] = False
+
+    def safe_set_plot_options():
+        try:
+            set_plot_options(experiment)
+        except Exception as e:
+            print(f"\nError setting plot options: {e}")
             success["ok"] = False
 
     def safe_click_check():
@@ -315,6 +366,7 @@ def run_test():
     # Delay population slightly so GUI is initialised first
     QTimer.singleShot(1000, safe_switch_tab)
     QTimer.singleShot(1500, safe_populate_fields)
+    QTimer.singleShot(1800, safe_set_plot_options)
     QTimer.singleShot(2000, safe_click_check)
     QTimer.singleShot(3000, show_instructions_if_success)
 

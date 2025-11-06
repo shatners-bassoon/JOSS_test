@@ -1,0 +1,123 @@
+CV EXPERIMENTS INFORMATION FILE
+*******************************
+
+Experiment notes: No notes provided.
+
+
+Experiment information file for the experiments stored in:
+/examples/example_data/CV/dummy_cell_CV_exp1_0.0_0.5_V_20.0_mV_s.dat
+/examples/example_data/CV/dummy_cell_CV_exp2_0.0_0.5_V_50.0_mV_s.dat
+/examples/example_data/CV/dummy_cell_CV_exp3_0.0_1.0_V_20.0_mV_s.dat
+/examples/example_data/CV/dummy_cell_CV_exp4_0.0_1.0_V_50.0_mV_s.dat
+
+Potential windows cycled through (V): [0.0, 0.5], [0.0, 1.0]
+Scan rates cycled through (mV/s): [20.0, 50.0]
+Number of experiments: 4
+Start potentials (V): [0.0, 0.0]
+Stop potentials (V): [0.0, 0.0]
+Negative reverse current limits per scan rate (µA): [None, None]
+Positive reverse current limits per scan rate (µA): [None, None]
+Number of cycles per scan rate: 3
+Samples to average per scan rate: [1, 1]
+Autoranging: 20 mA, 200 µA, 2 µA
+Pre-scan rate delay (s): 2.0
+Pre-potential window delay (s): 5.0
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 1/4 ***
+
+**************************************
+	CV MEASUREMENT STARTED
+**************************************
+Filepath: /examples/example_data/CV/dummy_cell_CV_exp1_0.0_0.5_V_20.0_mV_s.dat
+Experiment number: 1/4
+Lower/upper potential limits (V): 0.0, 0.5
+Starting potential (V): 0.0
+Stop potential (V): 0.0
+Scan rate (mV/s): 20.0
+Negative/positive reverse current limits (µA): None, None
+Number of cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 12:15:43.791
+Experiment finish time: 2025-11-06 12:18:14.395
+
+****************************************
+	CV MEASUREMENT COMPLETED
+****************************************
+Calculated charges (µAh): [0.33, -0.32, 0.33, -0.32, 0.33]
+
+*** Pre-scan rate delay of 2.0 seconds for experiment: 2/4 ***
+
+**************************************
+	CV MEASUREMENT STARTED
+**************************************
+Filepath: /examples/example_data/CV/dummy_cell_CV_exp2_0.0_0.5_V_50.0_mV_s.dat
+Experiment number: 2/4
+Lower/upper potential limits (V): 0.0, 0.5
+Starting potential (V): 0.0
+Stop potential (V): 0.0
+Scan rate (mV/s): 50.0
+Negative/positive reverse current limits (µA): None, None
+Number of cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 12:18:16.297
+Experiment finish time: 2025-11-06 12:19:16.874
+
+****************************************
+	CV MEASUREMENT COMPLETED
+****************************************
+Calculated charges (µAh): [0.33, -0.30, 0.32, -0.30, 0.32]
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 3/4 ***
+
+**************************************
+	CV MEASUREMENT STARTED
+**************************************
+Filepath: /examples/example_data/CV/dummy_cell_CV_exp3_0.0_1.0_V_20.0_mV_s.dat
+Experiment number: 3/4
+Lower/upper potential limits (V): 0.0, 1.0
+Starting potential (V): 0.0
+Stop potential (V): 0.0
+Scan rate (mV/s): 20.0
+Negative/positive reverse current limits (µA): None, None
+Number of cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 12:19:21.790
+Experiment finish time: 2025-11-06 12:24:22.347
+
+****************************************
+	CV MEASUREMENT COMPLETED
+****************************************
+Calculated charges (µAh): [0.67, -0.65, 0.66, -0.65, 0.66]
+
+*** Pre-scan rate delay of 2.0 seconds for experiment: 4/4 ***
+
+**************************************
+	CV MEASUREMENT STARTED
+**************************************
+Filepath: /examples/example_data/CV/dummy_cell_CV_exp4_0.0_1.0_V_50.0_mV_s.dat
+Experiment number: 4/4
+Lower/upper potential limits (V): 0.0, 1.0
+Starting potential (V): 0.0
+Stop potential (V): 0.0
+Scan rate (mV/s): 50.0
+Negative/positive reverse current limits (µA): None, None
+Number of cycles: 3
+Samples to average: 1
+
+Experiment start time:  2025-11-06 12:24:24.291
+Experiment finish time: 2025-11-06 12:26:24.891
+
+****************************************
+	CV MEASUREMENT COMPLETED
+****************************************
+Calculated charges (µAh): [0.67, -0.62, 0.66, -0.62, 0.66]
+
+******************************************************
+	ALL EXPERIMENTS COMPLETED SUCCESSFULLY
+******************************************************
+
+********************
+EXPERIMENTS COMPLETE
