@@ -12,8 +12,7 @@
 import sys
 import platform
 import pyqtgraph
-from pyqtgraph.Qt import QtCore, QtGui
-from PyQt5 import QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 import time
 import datetime
 import timeit
@@ -338,48 +337,41 @@ def add_my_tab(tab_frame, tab_name):
 
 def format_box_for_display(box):
 	"""Adjust the appearance of a groupbox border for the status display."""
-	color = box.palette().color(QtGui.QPalette.Background)  # Get the background color
-	r, g, b = int(0.9*color.red()), int(0.9*color.green()), int(0.9*color.blue())  # Make background 10% darker to make the border color
 	box.setStyleSheet("""
 		QGroupBox {
-			border: 1px solid rgb(%d,%d,%d);
+			border: 1px solid #d3d3d3;
 			border-radius: 4px;
 			margin-top: 0.5em;
 			font-weight: normal;
-			color: gray;
 		}
 		GroupBox::title {
-			subcontrol-origin:
-			margin; left: 10px;
-			padding: 0 3px 0 3px;
+			subcontrol-origin: margin;
+			left: 10px;
+			padding: 0 3px;
 		}
-	""" % (r, g, b))
+	""")
 
 def format_box_for_parameter(box):
 	"""Adjust the appearance of a groupbox border for parameter input."""
-	color = box.palette().color(QtGui.QPalette.Background)  # Get the background color
-	r, g, b = int(0.7*color.red()), int(0.7*color.green()), int(0.7*color.blue())  # Make background 30% darker to make the border color
 	box.setStyleSheet("""
 		QGroupBox {
-			border: 1px solid rgb(%d,%d,%d);
+			border: 1px solid #d3d3d3;
 			border-radius: 4px;
 			margin-top: 0.5em;
-			font-weight: bold
+			font-weight: bold;
 		}
 		QGroupBox::title {
 			subcontrol-origin: margin;
 			left: 10px;
-			padding: 0 3px 0 3px;
+			padding: 0 3px;
 		}
-	""" % (r, g, b))
+	""")
 
 def format_box_for_parameter_centered_title(box):
 	"""Adjust the appearance of a groupbox border for parameter input."""
-	color = box.palette().color(QtGui.QPalette.Background)  # Get the background color
-	r, g, b = int(0.7*color.red()), int(0.7*color.green()), int(0.7*color.blue())  # Make background 30% darker to make the border color
 	box.setStyleSheet("""
 		QGroupBox {
-			border: 1px solid rgb(%d,%d,%d);
+			border: 1px solid #d3d3d3;
 			border-radius: 4px;
 			margin-top: 0.5em;
 			font-weight: bold;
@@ -389,7 +381,7 @@ def format_box_for_parameter_centered_title(box):
 			subcontrol-position: top center;
 			padding: 0 3px;
 		}
-	""" % (r, g, b))
+	""")
 
 def make_label_entry(parent, labelname):
 	"""Make a labelled input field for parameter input."""
@@ -698,37 +690,55 @@ def offset_changed_callback():
 	global potential_offset, current_offset
 	try:
 		potential_offset = int(hardware_calibration_potential_offset.text())
-		hardware_calibration_potential_offset.setStyleSheet("")
+		hardware_calibration_potential_offset.setProperty("invalid", False)
+		hardware_calibration_potential_offset.style().unpolish(hardware_calibration_potential_offset)
+		hardware_calibration_potential_offset.style().polish(hardware_calibration_potential_offset)
 	except ValueError:  # If the input field cannot be interpreted as a number, color it red
-		hardware_calibration_potential_offset.setStyleSheet("QLineEdit { background: red; }")
+		hardware_calibration_potential_offset.setProperty("invalid", True)
+		hardware_calibration_potential_offset.style().unpolish(hardware_calibration_potential_offset)
+		hardware_calibration_potential_offset.style().polish(hardware_calibration_potential_offset)
 	try:
 		current_offset = int(hardware_calibration_current_offset.text())
-		hardware_calibration_current_offset.setStyleSheet("")
+		hardware_calibration_current_offset.setProperty("invalid", False)
+		hardware_calibration_current_offset.style().unpolish(hardware_calibration_current_offset)
+		hardware_calibration_current_offset.style().polish(hardware_calibration_current_offset)
 	except ValueError:  # If the input field cannot be interpreted as a number, color it red
-		hardware_calibration_current_offset.setStyleSheet("QLineEdit { background: red; }")
+		hardware_calibration_current_offset.setProperty("invalid", True)
+		hardware_calibration_current_offset.style().unpolish(hardware_calibration_current_offset)
+		hardware_calibration_current_offset.style().polish(hardware_calibration_current_offset)
 
 def shunt_calibration_changed_callback():
 	"""Set the shunt calibration values from the input fields."""
 	for i in range(0, 3):
 		try:
 			shunt_calibration[i] = float(hardware_calibration_shuntvalues[i].text())
-			hardware_calibration_shuntvalues[i].setStyleSheet("")
+			hardware_calibration_shuntvalues[i].setProperty("invalid", False)
 		except ValueError:  # If the input field cannot be interpreted as a number, color it red
-			hardware_calibration_shuntvalues[i].setStyleSheet("QLineEdit { background: red; }")
+			hardware_calibration_shuntvalues[i].setProperty("invalid", True)
+		hardware_calibration_shuntvalues[i].style().unpolish(hardware_calibration_shuntvalues[i])
+		hardware_calibration_shuntvalues[i].style().unpolish(hardware_calibration_shuntvalues[i])
 
 def set_dac_calibration():
 	"""Save DAC calibration values to the DAC and the device's flash memory."""
 	try:
 		dac_offset = int(hardware_calibration_dac_offset.text())
-		hardware_calibration_dac_offset.setStyleSheet("")
+		hardware_calibration_dac_offset.setProperty("invalid", False)
+		hardware_calibration_dac_offset.style().unpolish(hardware_calibration_dac_offset)
+		hardware_calibration_dac_offset.style().polish(hardware_calibration_dac_offset)
 	except ValueError:  # If the input field cannot be interpreted as a number, color it red
-		hardware_calibration_dac_offset.setStyleSheet("QLineEdit { background: red; }")
+		hardware_calibration_dac_offset.setProperty("invalid", True)
+		hardware_calibration_dac_offset.style().unpolish(hardware_calibration_dac_offset)
+		hardware_calibration_dac_offset.style().polish(hardware_calibration_dac_offset)
 		return
 	try:
 		dac_gain = int(hardware_calibration_dac_gain.text())
-		hardware_calibration_dac_gain.setStyleSheet("")
+		hardware_calibration_dac_gain.setProperty("invalid", False)
+		hardware_calibration_dac_gain.style().unpolish(hardware_calibration_dac_gain)
+		hardware_calibration_dac_gain.style().polish(hardware_calibration_dac_gain)
 	except ValueError:  # If the input field cannot be interpreted as a number, color it red
-		hardware_calibration_dac_gain.setStyleSheet("QLineEdit { background: red; }")
+		hardware_calibration_dac_gain.setProperty("invalid", True)
+		hardware_calibration_dac_gain.style().unpolish(hardware_calibration_dac_gain)
+		hardware_calibration_dac_gain.style().polish(hardware_calibration_dac_gain)
 		return
 	send_command(b'DACCALSET '+decimal_to_dac_bytes(dac_offset)+decimal_to_dac_bytes(dac_gain-2**19), b'OK', "DAC calibration saved to flash memory.")
 
@@ -953,7 +963,7 @@ def cv_checkbutton_callback():
 	# Initialise with parameters_checked = False, filenames_checked = False, and a check button style reset
 	cv_parameters_checked = False
 	cv_filenames_checked = False
-	cv_variables_checkbutton.setStyleSheet("")
+	cv_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	cv_info_program_state_entry.setText("No experiments running")
@@ -990,7 +1000,7 @@ def cv_checkbutton_callback():
 	cv_parameters_checked = True
 
 	# Make check button green
-	cv_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	cv_variables_checkbutton.mark_valid()
 
 	# Calculate the time this experiment will take if init_OCP_valid
 	if not cv_parameters['OCP_bool'] or (cv_parameters['OCP_bool'] and cv_parameters['future_OCP_valid_bool']):
@@ -2329,7 +2339,7 @@ def cv_reset_experiment_controller(mode):
 			# Reset globals
 			cv_parameters_checked = False
 			cv_filenames_checked = False
-			cv_variables_checkbutton.setStyleSheet("")
+			cv_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			cv_total_time = None
@@ -2362,7 +2372,7 @@ def cv_reset_experiment_controller(mode):
 	# Reset globals
 	cv_parameters_checked = False
 	cv_filenames_checked = False
-	cv_variables_checkbutton.setStyleSheet("")
+	cv_variables_checkbutton.clear_valid()
 	cv_parameters = {'type': 'cv'}
 	cv_data = {}
 	cv_current_exp_index = None
@@ -2889,7 +2899,7 @@ def lsv_checkbutton_callback():
 	# Initialise with parameters_checked = False, filenames_checked = False, and a check button style reset
 	lsv_parameters_checked = False
 	lsv_filenames_checked = False
-	lsv_variables_checkbutton.setStyleSheet("")
+	lsv_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	lsv_info_program_state_entry.setText("No experiments running")
@@ -2926,7 +2936,7 @@ def lsv_checkbutton_callback():
 	lsv_parameters_checked = True
 
 	# Make check button green
-	lsv_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	lsv_variables_checkbutton.mark_valid()
 
 	# Calculate the time this experiment will take
 	lsv_calculate_experiment_time(lsv_current_exp_index, initial=True)
@@ -4045,7 +4055,7 @@ def lsv_reset_experiment_controller(mode):
 			# Reset globals
 			lsv_parameters_checked = False
 			lsv_filenames_checked = False
-			lsv_variables_checkbutton.setStyleSheet("")
+			lsv_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			lsv_total_time = None
@@ -4086,8 +4096,8 @@ def lsv_reset_experiment_controller(mode):
 	# Reset globals
 	lsv_parameters_checked = False
 	lsv_filenames_checked = False
-	lsv_variables_checkbutton.setStyleSheet("")
-	lsv_parameters = {'type' : 'lsv'}
+	lsv_variables_checkbutton.clear_valid()
+	lsv_parameters = {'type': 'lsv'}
 	lsv_data = {}
 	lsv_current_exp_index = None
 	lsv_total_time = None
@@ -4620,7 +4630,7 @@ def gcd_checkbutton_callback():
 	# Initialise with gcd_parameters_checked = False, gcd_filenames_checked = False, and a check button style reset
 	gcd_parameters_checked = False
 	gcd_filenames_checked = False
-	gcd_variables_checkbutton.setStyleSheet("")
+	gcd_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	gcd_info_program_state_entry.setText("No experiments running")
@@ -4657,7 +4667,7 @@ def gcd_checkbutton_callback():
 	gcd_parameters_checked = True
 
 	# Make check button green
-	gcd_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	gcd_variables_checkbutton.mark_valid()
 
 	# Calculate the number of halfcycles this experiment will perform
 	gcd_calculate_experiment_halfcycles(initial=True)
@@ -5663,7 +5673,7 @@ def gcd_reset_experiment_controller(mode):
 			# Reset globals
 			gcd_parameters_checked = False
 			gcd_filenames_checked = False
-			gcd_variables_checkbutton.setStyleSheet("")
+			gcd_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			gcd_total_halfcycles = None
@@ -5696,7 +5706,7 @@ def gcd_reset_experiment_controller(mode):
 	# Reset globals
 	gcd_parameters_checked = False
 	gcd_filenames_checked = False
-	gcd_variables_checkbutton.setStyleSheet("")
+	gcd_variables_checkbutton.clear_valid()
 	gcd_parameters = {'type': 'gcd'}
 	gcd_data = {}
 	gcd_current_exp_index = None
@@ -5708,7 +5718,7 @@ def gcd_reset_experiment_controller(mode):
 	# Reset GUI
 	gcd_info_expnum_entry.setText("-/-")
 	gcd_info_halfcyclenum_entry.setText("-/-")
-	gcd_update_num_halfcycles_input_button.setStyleSheet("")
+	gcd_update_num_halfcycles_input_button.clear_valid()
 	gcd_plot_options_nth_cycles_dropdown.clear()
 
 	# Unfreeze input fields
@@ -5977,13 +5987,13 @@ def gcd_update_num_halfcycles_input():
 
 	# Remove new number of half cycles from input field and make button green
 	gcd_update_num_halfcycles_input_entry.setText("")
-	gcd_update_num_halfcycles_input_button.setStyleSheet("background-color: green; color: white;")
+	gcd_update_num_halfcycles_input_button.mark_valid()
 
 	# Start timer to reset button stylesheet
 	if gcd_update_num_halfcycles_input_button_timer is None:
 		gcd_update_num_halfcycles_input_button_timer = QtCore.QTimer()
 		gcd_update_num_halfcycles_input_button_timer.setSingleShot(True)  # We only need it to trigger once
-		gcd_update_num_halfcycles_input_button_timer.timeout.connect(lambda: gcd_update_num_halfcycles_input_button.setStyleSheet(""))  # Revert to original
+		gcd_update_num_halfcycles_input_button_timer.timeout.connect(lambda: gcd_update_num_halfcycles_input_button.clear_valid())  # Revert to original
 	gcd_update_num_halfcycles_input_button_timer.start(1000)
 
 	# Write updated number of half cycles to summary file
@@ -6170,7 +6180,7 @@ def ca_checkbutton_callback():
 	# Initialise with parameters_checked = False, filenames_checked = False, and a check button style reset
 	ca_parameters_checked = False
 	ca_filenames_checked = False
-	ca_variables_checkbutton.setStyleSheet("")
+	ca_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	ca_info_program_state_entry.setText("No experiments running")
@@ -6207,7 +6217,7 @@ def ca_checkbutton_callback():
 	ca_parameters_checked = True
 
 	# Make check button green
-	ca_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	ca_variables_checkbutton.mark_valid()
 
 	# Store the number of halfcycles this experiment will perform
 	ca_total_segments = ca_parameters['num_segments']
@@ -7495,7 +7505,7 @@ def ca_reset_experiment_controller(mode):
 			# Reset globals
 			ca_parameters_checked = False
 			ca_filenames_checked = False
-			ca_variables_checkbutton.setStyleSheet("")
+			ca_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			ca_total_segments = None
@@ -7536,7 +7546,7 @@ def ca_reset_experiment_controller(mode):
 	# Reset globals
 	ca_parameters_checked = False
 	ca_filenames_checked = False
-	ca_variables_checkbutton.setStyleSheet("")
+	ca_variables_checkbutton.clear_valid()
 	ca_parameters = {'type': 'ca'}
 	ca_data = {}
 	ca_total_segments = None
@@ -7969,7 +7979,7 @@ def cp_checkbutton_callback():
 	# Initialise with parameters_checked = False, filenames_checked = False, and a check button style reset
 	cp_parameters_checked = False
 	cp_filenames_checked = False
-	cp_variables_checkbutton.setStyleSheet("")
+	cp_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	cp_info_program_state_entry.setText("No experiments running")
@@ -8006,7 +8016,7 @@ def cp_checkbutton_callback():
 	cp_parameters_checked = True
 
 	# Make check button green
-	cp_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	cp_variables_checkbutton.mark_valid()
 
 	# Store the number of halfcycles this experiment will perform
 	cp_total_segments = cp_parameters['num_segments']
@@ -9267,7 +9277,7 @@ def cp_reset_experiment_controller(mode):
 			# Reset globals
 			cp_parameters_checked = False
 			cp_filenames_checked = False
-			cp_variables_checkbutton.setStyleSheet("")
+			cp_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			cp_total_segments = None
@@ -9308,7 +9318,7 @@ def cp_reset_experiment_controller(mode):
 	# Reset globals
 	cp_parameters_checked = False
 	cp_filenames_checked = False
-	cp_variables_checkbutton.setStyleSheet("")
+	cp_variables_checkbutton.clear_valid()
 	cp_parameters = {'type': 'cp'}
 	cp_data = {}
 	cp_total_segments = None
@@ -9764,7 +9774,7 @@ def sd_checkbutton_callback():
 	# Initialise with parameters_checked = False, filenames_checked = False, and a check button style reset
 	sd_parameters_checked = False
 	sd_filenames_checked = False
-	sd_variables_checkbutton.setStyleSheet("")
+	sd_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	sd_info_program_state_entry.setText("No experiments running")
@@ -9801,7 +9811,7 @@ def sd_checkbutton_callback():
 	sd_parameters_checked = True
 
 	# Make check button green
-	sd_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	sd_variables_checkbutton.mark_valid()
 
 	# Calculate the number of halfcycles this experiment will perform
 	sd_total_segments = sd_parameters['num_segments']
@@ -10832,7 +10842,7 @@ def sd_reset_experiment_controller(mode):
 			# Reset globals
 			sd_parameters_checked = False
 			sd_filenames_checked = False
-			sd_variables_checkbutton.setStyleSheet("")
+			sd_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			sd_total_segments = None
@@ -10844,11 +10854,6 @@ def sd_reset_experiment_controller(mode):
 		return
 
 	elif mode == "checkbutton_failed":
-
-		# Reset globals
-		sd_parameters_checked = False
-		sd_filenames_checked = False
-		sd_variables_checkbutton.setStyleSheet("")
 
 		# Reset progress bar
 		sd_total_segments = None
@@ -10870,7 +10875,7 @@ def sd_reset_experiment_controller(mode):
 	# Reset globals
 	sd_parameters_checked = False
 	sd_filenames_checked = False
-	sd_variables_checkbutton.setStyleSheet("")
+	sd_variables_checkbutton.clear_valid()
 	sd_parameters = {'type': 'sd'}
 	sd_data = {}
 	sd_total_segments = None
@@ -11179,7 +11184,7 @@ def rate_checkbutton_callback():
 	# Initialise with parameters_checked = False, filenames_checked = False, and a check button style reset
 	rate_parameters_checked = False
 	rate_filenames_checked = False
-	rate_variables_checkbutton.setStyleSheet("")
+	rate_variables_checkbutton.clear_valid()
 
 	# Remove any previous program state entry
 	rate_info_program_state_entry.setText("No experiments running")
@@ -11216,7 +11221,7 @@ def rate_checkbutton_callback():
 	rate_parameters_checked = True
 
 	# Make check button green
-	rate_variables_checkbutton.setStyleSheet("background-color: green; color: white;")
+	rate_variables_checkbutton.mark_valid()
 
 	# Store the number of C-rates this experiment will perform
 	rate_total_c_rates = rate_parameters['total_c_rates']
@@ -12543,7 +12548,7 @@ def rate_reset_experiment_controller(mode):
 			# Reset globals
 			rate_parameters_checked = False
 			rate_filenames_checked = False
-			rate_variables_checkbutton.setStyleSheet("")
+			rate_variables_checkbutton.clear_valid()
 
 			# Reset progress bar
 			rate_total_c_rates = None
@@ -12576,7 +12581,7 @@ def rate_reset_experiment_controller(mode):
 	# Reset globals
 	rate_parameters_checked = False
 	rate_filenames_checked = False
-	rate_variables_checkbutton.setStyleSheet("")
+	rate_variables_checkbutton.clear_valid()
 	rate_parameters = {'type': 'rate'}
 	rate_data = {}
 	rate_total_c_rates = None
@@ -13624,6 +13629,7 @@ class GenericProgressBar(QtWidgets.QProgressBar):
 				border: 2px {border_style} {border_color};
 				border-radius: 5px;
 				text-align: center;
+				background-color: white;
 			}}
 			QProgressBar::chunk {{
 				background-color: {chunk_color};
@@ -13784,6 +13790,28 @@ class LabeledProgressBar(GenericProgressBar):
 
 
 
+"""_____CHECK BUTTONS_____"""
+
+class GreenGUIButton(QtWidgets.QPushButton):
+	def __init__(self, text="", parent=None):
+		super().__init__(text, parent)
+		self._is_valid = False  # Track temporary green highlight
+
+	def mark_valid(self):
+		"""Temporarily mark button as valid"""
+		self.setStyleSheet("background-color: green; color: white;")
+		self._is_valid = True
+
+	def clear_valid(self):
+		"""Clear the valid mark and revert to normal style"""
+		self.setStyleSheet("")
+		self._is_valid = False
+
+		self.style().unpolish(self)
+		self.style().polish(self)
+		self.update()
+
+
 """_____SET UP THE GUI_____"""
 
 
@@ -13901,7 +13929,13 @@ hardware_calibration_box_layout.addLayout(hardware_calibration_dac_hlayout)
 hardware_calibration_dac_vlayout = QtWidgets.QVBoxLayout()
 hardware_calibration_dac_hlayout.addLayout(hardware_calibration_dac_vlayout)
 hardware_calibration_dac_offset = make_label_entry(hardware_calibration_dac_vlayout, "DAC Offset")
+hardware_calibration_dac_offset.setStyleSheet(
+    'QLineEdit[invalid="true"] {background: red;}'
+)
 hardware_calibration_dac_gain = make_label_entry(hardware_calibration_dac_vlayout, "DAC Gain")
+hardware_calibration_dac_gain.setStyleSheet(
+    'QLineEdit[invalid="true"] {background: red;}'
+)
 hardware_calibration_dac_calibrate_button = QtWidgets.QPushButton("Auto\nCalibrate")
 hardware_calibration_dac_calibrate_button.setMaximumHeight(50)
 hardware_calibration_dac_calibrate_button.clicked.connect(dac_calibrate)
@@ -13914,9 +13948,15 @@ hardware_calibration_offset_hlayout.addLayout(hardware_calibration_offset_vlayou
 hardware_calibration_potential_offset = make_label_entry(hardware_calibration_offset_vlayout, "Pot. Offset")
 hardware_calibration_potential_offset.editingFinished.connect(offset_changed_callback)
 hardware_calibration_potential_offset.setText("0")
+hardware_calibration_potential_offset.setStyleSheet(
+	'QLineEdit[invalid="true"] {background: red;}'
+)
 hardware_calibration_current_offset = make_label_entry(hardware_calibration_offset_vlayout, "Curr. Offset")
 hardware_calibration_current_offset.editingFinished.connect(offset_changed_callback)
 hardware_calibration_current_offset.setText("0")
+hardware_calibration_current_offset.setStyleSheet(
+	'QLineEdit[invalid="true"] {background: red;}'
+)
 hardware_calibration_adc_measure_button = QtWidgets.QPushButton("Auto\nZero")
 hardware_calibration_adc_measure_button.setMaximumHeight(50)
 hardware_calibration_adc_measure_button.clicked.connect(zero_offset)
@@ -13928,6 +13968,9 @@ hardware_calibration_shuntvalues = [make_label_entry(hardware_calibration_shunt_
 for i in range(0, 3):
 	hardware_calibration_shuntvalues[i].editingFinished.connect(shunt_calibration_changed_callback)
 	hardware_calibration_shuntvalues[i].setText("%.4f" % shunt_calibration[i])
+	hardware_calibration_shuntvalues[i].setStyleSheet(
+		'QLineEdit[invalid="true"] {background: red;}'
+	)
 
 hardware_calibration_button_layout = QtWidgets.QHBoxLayout()
 hardware_calibration_get_button = QtWidgets.QPushButton("Load from device")
@@ -14129,14 +14172,14 @@ class SoftwareGlobalsDialog(QtWidgets.QDialog):
 
 def open_software_globals_menu():
 	dialog = SoftwareGlobalsDialog(mainwidget)
-	dialog.exec_()
-
+	dialog.exec()
 
 def apply_tab_frame_width():
 	tab_frame_width = global_software_settings.get('tab_frame_width', 125)
 	font_metrics = QtGui.QFontMetrics(statustext.font())
 	char_width = font_metrics.horizontalAdvance(' ')
 	tab_frame.setFixedWidth(tab_frame_width * char_width)
+
 
 software_globals_menu_box = QtWidgets.QGroupBox(title="Software options", flat=False)
 format_box_for_parameter(software_globals_menu_box)
@@ -14377,7 +14420,7 @@ format_box_for_parameter_centered_title(cv_checking_box)
 cv_checking_layout = QtWidgets.QHBoxLayout()
 cv_checking_box.setLayout(cv_checking_layout)
 
-cv_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+cv_variables_checkbutton = GreenGUIButton("CHECK")
 cv_variables_checkbutton.clicked.connect(cv_checkbutton_callback)
 cv_checking_layout.addWidget(cv_variables_checkbutton)
 
@@ -14439,9 +14482,6 @@ cv_file_layout.addLayout(cv_file_choose_hlayout)
 cv_file_notes_entry = QtWidgets.QTextEdit()
 cv_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 cv_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -14796,7 +14836,7 @@ format_box_for_parameter_centered_title(lsv_checking_box)
 lsv_checking_layout = QtWidgets.QHBoxLayout()
 lsv_checking_box.setLayout(lsv_checking_layout)
 
-lsv_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+lsv_variables_checkbutton = GreenGUIButton("CHECK")
 lsv_variables_checkbutton.clicked.connect(lsv_checkbutton_callback)
 lsv_checking_layout.addWidget(lsv_variables_checkbutton)
 
@@ -14858,9 +14898,6 @@ lsv_file_layout.addLayout(lsv_file_choose_hlayout)
 lsv_file_notes_entry = QtWidgets.QTextEdit()
 lsv_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 lsv_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -15146,7 +15183,7 @@ format_box_for_parameter_centered_title(gcd_checking_box)
 gcd_checking_layout = QtWidgets.QHBoxLayout()
 gcd_checking_box.setLayout(gcd_checking_layout)
 
-gcd_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+gcd_variables_checkbutton = GreenGUIButton("CHECK")
 gcd_variables_checkbutton.clicked.connect(gcd_checkbutton_callback)
 gcd_checking_layout.addWidget(gcd_variables_checkbutton)
 
@@ -15182,9 +15219,6 @@ gcd_file_layout.addLayout(gcd_file_choose_hlayout)
 gcd_file_notes_entry = QtWidgets.QTextEdit()
 gcd_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 gcd_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -15356,7 +15390,7 @@ gcd_update_num_halfcycles_input_box.setLayout(gcd_update_num_halfcycles_input_la
 gcd_update_hlayout = QtWidgets.QHBoxLayout()
 gcd_update_num_halfcycles_input_label = QtWidgets.QLabel(text="No. of half cycles:")
 gcd_update_num_halfcycles_input_entry = QtWidgets.QLineEdit()
-gcd_update_num_halfcycles_input_button = QtWidgets.QPushButton("UPDATE")
+gcd_update_num_halfcycles_input_button = GreenGUIButton("UPDATE")
 gcd_update_num_halfcycles_input_button_timer = None
 gcd_update_num_halfcycles_input_button.clicked.connect(gcd_update_num_halfcycles_input)
 gcd_update_num_halfcycles_input_button.setEnabled(False)
@@ -15778,7 +15812,7 @@ format_box_for_parameter_centered_title(ca_checking_box)
 ca_checking_layout = QtWidgets.QHBoxLayout()
 ca_checking_box.setLayout(ca_checking_layout)
 
-ca_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+ca_variables_checkbutton = GreenGUIButton("CHECK")
 ca_variables_checkbutton.clicked.connect(ca_checkbutton_callback)
 ca_checking_layout.addWidget(ca_variables_checkbutton)
 
@@ -15845,9 +15879,6 @@ ca_file_layout.addLayout(ca_file_choose_hlayout)
 ca_file_notes_entry = QtWidgets.QTextEdit()
 ca_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 ca_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -16413,7 +16444,7 @@ format_box_for_parameter_centered_title(cp_checking_box)
 cp_checking_layout = QtWidgets.QHBoxLayout()
 cp_checking_box.setLayout(cp_checking_layout)
 
-cp_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+cp_variables_checkbutton = GreenGUIButton("CHECK")
 cp_variables_checkbutton.clicked.connect(cp_checkbutton_callback)
 cp_checking_layout.addWidget(cp_variables_checkbutton)
 
@@ -16447,9 +16478,6 @@ cp_file_layout.addLayout(cp_file_choose_hlayout)
 cp_file_notes_entry = QtWidgets.QTextEdit()
 cp_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 cp_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -16802,7 +16830,7 @@ format_box_for_parameter_centered_title(sd_checking_box)
 sd_checking_layout = QtWidgets.QHBoxLayout()
 sd_checking_box.setLayout(sd_checking_layout)
 
-sd_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+sd_variables_checkbutton = GreenGUIButton("CHECK")
 sd_variables_checkbutton.clicked.connect(sd_checkbutton_callback)
 sd_checking_layout.addWidget(sd_variables_checkbutton)
 
@@ -16836,9 +16864,6 @@ sd_file_layout.addLayout(sd_file_choose_hlayout)
 sd_file_notes_entry = QtWidgets.QTextEdit()
 sd_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 sd_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -17237,7 +17262,7 @@ format_box_for_parameter_centered_title(rate_checking_box)
 rate_checking_layout = QtWidgets.QHBoxLayout()
 rate_checking_box.setLayout(rate_checking_layout)
 
-rate_variables_checkbutton = QtWidgets.QPushButton("CHECK")
+rate_variables_checkbutton = GreenGUIButton("CHECK")
 rate_variables_checkbutton.clicked.connect(rate_checkbutton_callback)
 rate_checking_layout.addWidget(rate_variables_checkbutton)
 
@@ -17276,9 +17301,6 @@ rate_file_layout.addLayout(rate_file_choose_hlayout)
 rate_file_notes_entry = QtWidgets.QTextEdit()
 rate_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 rate_file_notes_entry.setStyleSheet("""
-	QTextEdit {
-		color: black;
-	}
 	QTextEdit: empty {
 		color:grey;
 	}
@@ -19206,7 +19228,7 @@ class Plotter_DropdownArea(QtWidgets.QWidget):
 		layout.addWidget(toolbar)
 
 		# Show the pop-up
-		popup.exec_()
+		popup.exec()
 
 	def toggleDropdown(self):
 		if self.dropdown_frame.isHidden():
@@ -19297,7 +19319,7 @@ mainwidget.setLayout(vbox)
 tab_frame_min_width_pixels = tab_frame.sizeHint().width()
 font_metrics = QtGui.QFontMetrics(statustext.font())
 char_width = font_metrics.horizontalAdvance(' ')
-tab_frame_min_width_chars = int(round((tab_frame_min_width_pixels / char_width) * 0.85))
+tab_frame_min_width_chars = int(round((tab_frame_min_width_pixels / char_width) * 0.90))
 global_software_settings['tab_frame_width'] = tab_frame_min_width_chars
 apply_tab_frame_width()
 
@@ -19417,4 +19439,4 @@ log_message("Default software parameters loaded. Press the \"Global parameters\"
 
 def main():
 	win.show()  # Show the main window
-	sys.exit(app.exec_())  # Keep the program running by periodically calling the periodic_update() until the GUI window is closed
+	sys.exit(app.exec())  # Keep the program running by periodically calling the periodic_update() until the GUI window is closed
