@@ -28,4 +28,4 @@ tests = ["toml"]
 where = ["src"]
 
 [project.scripts]
-potentiostat-controller = "potentiostat_controller.potentiostat_controller_v1_pyside6:main"
+potentiostat-controller = "potentiostat_controller.potentiostat_controller_v1:main"
