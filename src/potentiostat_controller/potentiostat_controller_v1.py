@@ -5916,7 +5916,7 @@ def gcd_write_summary_file(experiment_index, section):
 			gcd_summary_file.write(f"Experiment interruption time: {gcd_data['finishtime_readable'][experiment_index]}\n")
 			gcd_summary_file.write(f"GCD measurement interrupted: {gcd_parameters['lbound'][experiment_index]}/{gcd_parameters['ubound'][experiment_index]} V; {gcd_parameters['charge_current'][experiment_index]}/{gcd_parameters['discharge_current'][experiment_index]} µA\n")
 			gcd_summary_file.write(f"Interrupted measurement data saved to: {gcd_parameters['path_filenames'][experiment_index]}\n")
-			gcd_summary_file.write(f"Interrupted capacities data saved to: {gcd_parameters['path_filenames_capacities']}\n")
+			gcd_summary_file.write(f"Interrupted capacities data saved to: {gcd_parameters['path_filenames_capacities'][experiment_index]}\n")
 
 			gcd_summary_file.write("\n")
 			gcd_summary_file.write("**********************\n")
