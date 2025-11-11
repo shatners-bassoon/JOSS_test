@@ -14482,7 +14482,7 @@ cv_file_layout.addLayout(cv_file_choose_hlayout)
 cv_file_notes_entry = QtWidgets.QTextEdit()
 cv_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 cv_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)
@@ -14898,7 +14898,7 @@ lsv_file_layout.addLayout(lsv_file_choose_hlayout)
 lsv_file_notes_entry = QtWidgets.QTextEdit()
 lsv_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 lsv_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)
@@ -15219,7 +15219,7 @@ gcd_file_layout.addLayout(gcd_file_choose_hlayout)
 gcd_file_notes_entry = QtWidgets.QTextEdit()
 gcd_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 gcd_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)
@@ -15879,7 +15879,7 @@ ca_file_layout.addLayout(ca_file_choose_hlayout)
 ca_file_notes_entry = QtWidgets.QTextEdit()
 ca_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 ca_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)
@@ -16478,7 +16478,7 @@ cp_file_layout.addLayout(cp_file_choose_hlayout)
 cp_file_notes_entry = QtWidgets.QTextEdit()
 cp_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 cp_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)
@@ -16864,7 +16864,7 @@ sd_file_layout.addLayout(sd_file_choose_hlayout)
 sd_file_notes_entry = QtWidgets.QTextEdit()
 sd_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 sd_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)
@@ -17301,7 +17301,7 @@ rate_file_layout.addLayout(rate_file_choose_hlayout)
 rate_file_notes_entry = QtWidgets.QTextEdit()
 rate_file_notes_entry.setPlaceholderText("*** Optional experiment notes to write in summary file ***")
 rate_file_notes_entry.setStyleSheet("""
-	QTextEdit: empty {
+	QTextEdit:empty {
 		color:grey;
 	}
 """)

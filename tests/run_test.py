@@ -29,11 +29,10 @@ Usage:
 """
 
 import toml
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QTimer
-from PyQt5.QtTest import QTest
-from PyQt5 import QtWidgets
-from potentiostat_controller import potentiostat_controller_v1 as ctrl
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtTest import QTest
+from PySide6 import QtWidgets
+from potentiostat_controller import potentiostat_controller_v1_pyside6 as ctrl
 
 TAB_INDEX = {
     "CV": 1,
