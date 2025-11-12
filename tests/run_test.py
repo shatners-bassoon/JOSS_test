@@ -6,7 +6,7 @@ parameters and triggering initial GUI interactions, while still allowing the use
 to manually complete hardware-dependent steps.
 
 Workflow:
-1. Prompts the user in the terminal to select an experiment type (CV, LSV, GCD, etc.).
+1. Prompts the user to select an experiment type (CV, LSV, GCD, etc.) using a GUI dialog.
 2. Loads example test parameters for the chosen experiment from a TOML file.
 3. Launches the GUI and waits briefly for initialisation.
 4. Performs the following actions for the chosen experiment:
@@ -33,6 +33,17 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtTest import QTest
 from PySide6 import QtWidgets
 from potentiostat_controller import potentiostat_controller_v1 as ctrl
+
+experiment, ok = QtWidgets.QInputDialog.getItem(
+    None,
+    "Select Experiment",
+    "Choose experiment type:",
+    ["CV", "LSV", "GCD", "Chronoamperometry", "Chronopotentiometry", "Self-discharge", "C-Rate"],
+    0,
+    False,
+)
+if not ok:
+    sys.exit(0)
 
 TAB_INDEX = {
     "CV": 1,
@@ -328,11 +339,8 @@ def click_checkbutton(experiment="CV"):
 
 def run_test():
     """Launch GUI and schedule automated population of fields from TOML."""
-    experiment = prompt_experiment()
     config_path = "tests/test_parameters.toml"
-
-    # Flag to track success
-    success = {"ok": True}
+    success = {"ok": True}  # Flag to track success
 
     def safe_switch_tab():
         try:
