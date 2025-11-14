@@ -34,17 +34,6 @@ from PySide6.QtTest import QTest
 from PySide6 import QtWidgets
 from potentiostat_controller import potentiostat_controller_v1 as ctrl
 
-experiment, ok = QtWidgets.QInputDialog.getItem(
-    None,
-    "Select Experiment",
-    "Choose experiment type:",
-    ["CV", "LSV", "GCD", "Chronoamperometry", "Chronopotentiometry", "Self-discharge", "C-Rate"],
-    0,
-    False,
-)
-if not ok:
-    sys.exit(0)
-
 TAB_INDEX = {
     "CV": 1,
     "LSV": 2,
@@ -400,4 +389,15 @@ def run_test():
 
 
 if __name__ == "__main__":
+    experiment, ok = QtWidgets.QInputDialog.getItem(
+        None,
+        "Select Experiment",
+        "Choose experiment type:",
+        ["CV", "LSV", "GCD", "Chronoamperometry", "Chronopotentiometry", "Self-discharge", "C-Rate"],
+        0,
+        False,
+    )
+    if not ok:
+        sys.exit(0)
+
     run_test()
