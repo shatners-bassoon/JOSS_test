@@ -15,7 +15,9 @@ This GUI-based software is designed to work with a low-cost USB Potentiostat/Gal
 
 ## Installation
 
-You can install the program directly from GitHub using:
+It is recommended to use a virtual environment to install this program, e.g. conda.
+
+You can install directly from GitHub using pip:
 
 ```bash
 pip install git+https://github.com/shatners-bassoon/JOSS_test.git
@@ -35,7 +37,15 @@ cd JOSS_test
 pip install .[tests]
 ```
 
-### Optional for Linux/Mac users: Set up USB permissions (recommended)
+### Windows and MacOS users using a Conda environment: Install USB backend
+
+To allow communication with the USB device on Windows and MacOS devices using a Conda environment, install `libusb`:
+
+```bash
+conda install -c conda-forge libusb
+```
+
+### Optional for Linux users: Set up USB permissions (recommended)
 
 To avoid running the program with `sudo`, create a udev rule to give your user access to the USB device automatically.
 
@@ -55,9 +65,9 @@ lsusb
 
 This program requires USB access to communicate with the potentiostat.
 
-### Normal use (with udev rule)
+### Normal use
 
-If you have already set up a udev rule, simply run:
+Launch the program with:
 ```bash
 potentiostat-controller
 ```
@@ -66,7 +76,7 @@ or equivalently:
 python -m potentiostat_controller
 ```
 
-### Without udev rule (requires `sudo`)
+### Linux users without udev rule (requires `sudo`)
 
 If your system does not have USB permissions configured, run with elevated privileges:
 ```bash
@@ -81,7 +91,7 @@ sudo -E $(which python) -m potentiostat_controller
 
 ## Running example tests
 
-A demonstration script (`tests/test_parameters_populate_fields.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/example_parameters.toml`), and simulates a "CHECK" button click using PyQt5's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
+A demonstration script (`tests/run_test.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/example_parameters.toml`), and simulates a "CHECK" button click using PyQt5's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
 > Note: After choosing a filepath, the `CHECK` button within the GUI experiment tab must be pressed again to ensure that a valid filepath was chosen.
 
 Example data from the test scripts has been generated using a dummy cell. A schematic for the dummy cell is located under `examples/dummy_cell_schematic.png`, and example data is stored in `examples/example_data/`.
