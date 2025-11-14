@@ -39,7 +39,7 @@ pip install ".[tests]"
 
 ### Windows and MacOS users using a Conda environment: Install USB backend
 
-To allow communication with the USB device on Windows and MacOS devices using a Conda environment, install `libusb`:
+`PyUSB` requires the `libusb` backend to communicate with USB devices when using Puthon installed via Conda on Windows or MacOS. Install it with:
 
 ```bash
 conda install -c conda-forge libusb
