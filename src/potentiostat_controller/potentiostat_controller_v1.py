@@ -3,7 +3,7 @@
 
 # This Python program allows control over the USB potentiostat/galvanostat using a graphical user interface. It supports real-time data acquisition and plotting, manual control and
 # calibration, and three pre-programmed measurement methods geared towards battery research (staircase cyclic voltammetry, constant-current charge/discharge, and rate testing).
-# It is cross-platform, requiring a working installation of Python 3.x together with the PyUSB, Scipy, Numpy, PyQt5, PyQtGraph, and Matplotlib packages.
+# It is cross-platform, requiring a working installation of Python >=3.10 together with the PyUSB, Numpy, SciPy, PySide6, PyQtGraph, and Matplotlib packages.
 # Adapted from code originally written by Thomas Dobbelaere.
 
 # Author: Alexander Bell
