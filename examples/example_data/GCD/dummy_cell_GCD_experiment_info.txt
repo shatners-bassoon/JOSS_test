@@ -37,8 +37,8 @@ Number of half cycles: 6
 Number of full cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 13:01:52.790
-Experiment finish time: 2025-11-06 13:03:42.676
+Experiment start time:  2025-11-14 12:31:30.790
+Experiment finish time: 2025-11-14 12:33:18.740
 
 *****************************************
 	GCD MEASUREMENT COMPLETED
@@ -57,8 +57,8 @@ Number of half cycles: 6
 Number of full cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 13:03:44.777
-Experiment finish time: 2025-11-06 13:04:38.429
+Experiment start time:  2025-11-14 12:33:20.790
+Experiment finish time: 2025-11-14 12:34:14.268
 
 *****************************************
 	GCD MEASUREMENT COMPLETED
@@ -77,8 +77,8 @@ Number of half cycles: 6
 Number of full cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 13:04:43.681
-Experiment finish time: 2025-11-06 13:07:01.020
+Experiment start time:  2025-11-14 12:34:19.021
+Experiment finish time: 2025-11-14 12:36:36.101
 
 *****************************************
 	GCD MEASUREMENT COMPLETED
@@ -97,8 +97,8 @@ Number of half cycles: 6
 Number of full cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 13:07:02.922
-Experiment finish time: 2025-11-06 13:08:10.477
+Experiment start time:  2025-11-14 12:36:38.203
+Experiment finish time: 2025-11-14 12:37:45.764
 
 *****************************************
 	GCD MEASUREMENT COMPLETED

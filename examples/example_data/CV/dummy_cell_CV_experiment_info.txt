@@ -38,8 +38,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 12:15:43.791
-Experiment finish time: 2025-11-06 12:18:14.395
+Experiment start time:  2025-11-14 12:17:40.674
+Experiment finish time: 2025-11-14 12:20:11.283
 
 ****************************************
 	CV MEASUREMENT COMPLETED
@@ -61,8 +61,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 12:18:16.297
-Experiment finish time: 2025-11-06 12:19:16.874
+Experiment start time:  2025-11-14 12:20:13.291
+Experiment finish time: 2025-11-14 12:21:13.867
 
 ****************************************
 	CV MEASUREMENT COMPLETED
@@ -84,8 +84,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 12:19:21.790
-Experiment finish time: 2025-11-06 12:24:22.347
+Experiment start time:  2025-11-14 12:21:18.791
+Experiment finish time: 2025-11-14 12:26:19.346
 
 ****************************************
 	CV MEASUREMENT COMPLETED
@@ -107,8 +107,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-06 12:24:24.291
-Experiment finish time: 2025-11-06 12:26:24.891
+Experiment start time:  2025-11-14 12:26:21.290
+Experiment finish time: 2025-11-14 12:28:21.891
 
 ****************************************
 	CV MEASUREMENT COMPLETED

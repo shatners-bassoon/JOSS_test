@@ -892,7 +892,7 @@ def update_live_graph():
 
 def choose_file(file_entry_field, questionstring):
 	"""Open a file dialog and write the path of the selected file to a given entry field."""
-	file_path, _ = QtWidgets.QFileDialog.getSaveFileName(mainwidget, questionstring, "", "ASCII data (*.txt)",options=QtWidgets.QFileDialog.DontConfirmOverwrite)
+	file_path, _ = QtWidgets.QFileDialog.getSaveFileName(mainwidget, questionstring, "", "ASCII data (*.txt)", options=QtWidgets.QFileDialog.DontConfirmOverwrite)
 	file_entry_field.setText(file_path)
 
 def toggle_logging(checkbox_state):
@@ -13820,14 +13820,15 @@ class GreenGUIButton(QtWidgets.QPushButton):
 # Set up the GUI - Main Window
 app = QtWidgets.QApplication([])
 win = QtWidgets.QMainWindow()
-win.setGeometry(250, 200, 1200, 650)
+#win.setGeometry(250, 200, 1200, 650)
+win.setGeometry(250, 50, 1400, 1025)
 win.setWindowTitle('USB potentiostat/galvanostat controller')
 #win.setWindowIcon(QtGui.QIcon('icon/icon.png'))
 
 potential_monitor, potential_monitor_box = make_groupbox_indicator("Measured potential", "+#.### V")
-potential_monitor.setFont(QtGui.QFont("monospace", 8))
+potential_monitor.setFont(QtGui.QFont("monospace", 10))
 current_monitor, current_monitor_box = make_groupbox_indicator("Measured current", "+#.### mA")
-current_monitor.setFont(QtGui.QFont("monospace", 8))
+current_monitor.setFont(QtGui.QFont("monospace", 10))
 potential_current_display_frame = QtWidgets.QHBoxLayout()
 potential_current_display_frame.setSpacing(1)
 potential_current_display_frame.setContentsMargins(0, 0, 0, 0)
@@ -13838,11 +13839,11 @@ mode_display_frame = QtWidgets.QHBoxLayout()
 mode_display_frame.setSpacing(1)
 mode_display_frame.setContentsMargins(0, 0, 0, 5)
 cell_status_monitor, cell_status_monitor_box = make_groupbox_indicator("Cell status", "        ")
-cell_status_monitor.setFont(custom_size_font(8))
+cell_status_monitor.setFont(custom_size_font(10))
 control_mode_monitor, control_mode_monitor_box = make_groupbox_indicator("Control mode", "             ")
-control_mode_monitor.setFont(custom_size_font(8))
+control_mode_monitor.setFont(custom_size_font(10))
 current_range_monitor, current_range_monitor_box = make_groupbox_indicator("Current range", "     ")
-current_range_monitor.setFont(custom_size_font(8))
+current_range_monitor.setFont(custom_size_font(10))
 mode_display_frame.addWidget(cell_status_monitor_box)
 mode_display_frame.addWidget(control_mode_monitor_box)
 mode_display_frame.addWidget(current_range_monitor_box)
