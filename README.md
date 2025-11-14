@@ -34,7 +34,7 @@ For users wishing to use the test scripts found under `tests/`, instead run:
 ```bash
 git clone https://github.com/shatners-bassoon/JOSS_test
 cd JOSS_test
-pip install .[tests]
+pip install ".[tests]"
 ```
 
 ### Windows and MacOS users using a Conda environment: Install USB backend
@@ -109,13 +109,18 @@ sudo -E $(which python) -m tests.run_test
 
 ### Option 2: Run from the cloned repository (no installation required)
 
-For users who have successfully set up udev rules, run the following from the root of the repository:
+For MacOS users or Linux users who have successfully set up udev rules, run the following from the root of the repository:
 ```bash
 PYTHONPATH=src python -m tests.run_test
 ```
-Or, for users running with elevated privileges:
+Or, for Linux users running with elevated privileges:
 ```bash
 sudo -E PYTHONPATH=src $(which python) -m tests.run_test
+```
+For Windows users, run:
+```bash
+set PYTHONPATH=src
+python -m tests.run_test
 ```
 
 
