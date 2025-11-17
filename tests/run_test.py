@@ -28,6 +28,7 @@ Usage:
     python -m tests.run_test
 """
 
+import sys
 import toml
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtTest import QTest
@@ -198,6 +199,7 @@ PLOT_OPTIONS_MAP = {
         "prev_experiments_dropdown": lambda: ctrl.cv_plot_options_prev_experiments_dropdown.setCurrentIndex(0),
     },
     "LSV": {
+        "autorange_checkbox_uncheck": lambda: ctrl.lsv_range_checkboxes[2].setChecked(False),
         "current_limits": lambda: ctrl.lsv_plot_options_current_limits_checkbox.setChecked(False),
         "prev_experiments": lambda: ctrl.lsv_plot_options_prev_experiments_checkbox.setChecked(True),
         "prev_experiments_dropdown": lambda: ctrl.lsv_plot_options_prev_experiments_dropdown.setCurrentIndex(0),

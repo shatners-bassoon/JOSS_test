@@ -1,0 +1,213 @@
+LSV EXPERIMENTS INFORMATION FILE
+********************************
+
+Experiment notes: No notes provided.
+
+Experiment information file for the experiments stored in:
+/examples/example_data/LSV/dummy_cell_LSV_exp1_0.0_0.5_V_20.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp2_0.0_0.5_V_50.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp3_0.5_1.0_V_20.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp4_0.5_1.0_V_50.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp5_1.0_0.5_V_20.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp6_1.0_0.5_V_50.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp7_0.5_0.0_V_20.0_mV_s.dat
+/examples/example_data/LSV/dummy_cell_LSV_exp8_0.5_0.0_V_50.0_mV_s.dat
+
+Linear sweep measurement parameters:
+Potential windows cycled through (V): [0.0, 0.5], [0.5, 1.0], [1.0, 0.5], [0.5, 0.0]
+Scan rates cycled through (mV/s): [20.0, 50.0]
+Number of experiments: 8
+Negative current limits per scan rate (µA): [None, None]
+Positive current limits per scan rate (µA): [None, None]
+
+Initialisation parameters:
+Scan rates (mV/s): [20.0, 50.0]
+Hold time at start potential (s): 5.0
+
+Samples to average per scan rate: [1, 1]
+Autoranging: 20 mA, 200 µA, 2 µA
+Pre-scan rate delay (s): 5.0
+Pre-potential window delay (s): 5.0
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 1/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp1_0.0_0.5_V_20.0_mV_s.dat
+Experiment number: 1/8
+Start and stop potentials (V): 0.0, 0.5
+Scan rate (mV/s): 20.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 20.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:54:04.542
+Experiment finish time: 2025-11-17 11:54:36.443
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-scan rate delay of 5.0 seconds for experiment: 2/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp2_0.0_0.5_V_50.0_mV_s.dat
+Experiment number: 2/8
+Start and stop potentials (V): 0.0, 0.5
+Scan rate (mV/s): 50.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 50.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:54:41.694
+Experiment finish time: 2025-11-17 11:55:07.251
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 3/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp3_0.5_1.0_V_20.0_mV_s.dat
+Experiment number: 3/8
+Start and stop potentials (V): 0.5, 1.0
+Scan rate (mV/s): 20.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 20.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:55:12.003
+Experiment finish time: 2025-11-17 11:55:42.843
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-scan rate delay of 5.0 seconds for experiment: 4/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp4_0.5_1.0_V_50.0_mV_s.dat
+Experiment number: 4/8
+Start and stop potentials (V): 0.5, 1.0
+Scan rate (mV/s): 50.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 50.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:55:47.790
+Experiment finish time: 2025-11-17 11:56:13.354
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 5/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp5_1.0_0.5_V_20.0_mV_s.dat
+Experiment number: 5/8
+Start and stop potentials (V): 1.0, 0.5
+Scan rate (mV/s): 20.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 20.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:56:18.606
+Experiment finish time: 2025-11-17 11:56:49.450
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-scan rate delay of 5.0 seconds for experiment: 6/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp6_1.0_0.5_V_50.0_mV_s.dat
+Experiment number: 6/8
+Start and stop potentials (V): 1.0, 0.5
+Scan rate (mV/s): 50.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 50.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:56:54.702
+Experiment finish time: 2025-11-17 11:57:20.267
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-potential window delay of 5.0 seconds for experiment: 7/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp7_0.5_0.0_V_20.0_mV_s.dat
+Experiment number: 7/8
+Start and stop potentials (V): 0.5, 0.0
+Scan rate (mV/s): 20.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 20.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:57:25.018
+Experiment finish time: 2025-11-17 11:57:55.867
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+*** Pre-scan rate delay of 5.0 seconds for experiment: 8/8 ***
+
+***************************************
+	LSV MEASUREMENT STARTED
+***************************************
+Filepath: /examples/example_data/LSV/dummy_cell_LSV_exp8_0.5_0.0_V_50.0_mV_s.dat
+Experiment number: 8/8
+Start and stop potentials (V): 0.5, 0.0
+Scan rate (mV/s): 50.0
+Negative/positive current limits (µA): None, None
+Initialisation start potential (V): 0.0
+Initialisation scan rate (mV/s): 50.0
+Initialisation hold time at start potential (s): 5.0
+Samples to average: 1
+
+Experiment start time:  2025-11-17 11:58:00.790
+Experiment finish time: 2025-11-17 11:58:26.266
+
+*****************************************
+	LSV MEASUREMENT COMPLETED
+*****************************************
+
+******************************************************
+	ALL EXPERIMENTS COMPLETED SUCCESSFULLY
+******************************************************
+
+********************
+EXPERIMENTS COMPLETE

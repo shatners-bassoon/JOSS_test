@@ -38,13 +38,13 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-14 12:17:40.674
-Experiment finish time: 2025-11-14 12:20:11.283
+Experiment start time:  2025-11-17 12:08:05.790
+Experiment finish time: 2025-11-17 12:10:36.395
 
 ****************************************
 	CV MEASUREMENT COMPLETED
 ****************************************
-Calculated charges (µAh): [0.33, -0.32, 0.33, -0.32, 0.33]
+Calculated charges (µAh): [0.33, -0.32, 0.33, -0.32, 0.32]
 
 *** Pre-scan rate delay of 2.0 seconds for experiment: 2/4 ***
 
@@ -61,8 +61,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-14 12:20:13.291
-Experiment finish time: 2025-11-14 12:21:13.867
+Experiment start time:  2025-11-17 12:10:38.299
+Experiment finish time: 2025-11-17 12:11:38.882
 
 ****************************************
 	CV MEASUREMENT COMPLETED
@@ -84,8 +84,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-14 12:21:18.791
-Experiment finish time: 2025-11-14 12:26:19.346
+Experiment start time:  2025-11-17 12:11:43.791
+Experiment finish time: 2025-11-17 12:16:44.347
 
 ****************************************
 	CV MEASUREMENT COMPLETED
@@ -107,8 +107,8 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-14 12:26:21.290
-Experiment finish time: 2025-11-14 12:28:21.891
+Experiment start time:  2025-11-17 12:16:46.290
+Experiment finish time: 2025-11-17 12:18:46.891
 
 ****************************************
 	CV MEASUREMENT COMPLETED
