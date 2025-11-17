@@ -777,7 +777,6 @@ def dac_calibrate():
 
 def set_output(value_units_index, value):
 	"""Output data to the DAC; units can be either V (index 0), mA (index 1), or raw counts (index 2)."""
-	global last_potentiostatic_command, last_galvanostatic_command
 	if value_units_index == 0:
 		send_command(b'DACSET '+decimal_to_dac_bytes(value/8.*2.**19+int(round(potential_offset/4.))), b'OK')
 	elif value_units_index == 1:
@@ -893,6 +892,11 @@ def update_live_graph():
 def choose_file(file_entry_field, questionstring):
 	"""Open a file dialog and write the path of the selected file to a given entry field."""
 	file_path, _ = QtWidgets.QFileDialog.getSaveFileName(mainwidget, questionstring, "", "ASCII data (*.txt)", options=QtWidgets.QFileDialog.DontConfirmOverwrite)
+	file_entry_field.setText(file_path)
+
+def choose_plot_data_file(file_entry_field, questionstring):
+	"""Open a file dialog and write the path of the selected file to a given entry field."""
+	file_path, _ = QtWidgets.QFileDialog.getOpenFileName(mainwidget, questionstring, "", "ASCII data (*.txt)")
 	file_entry_field.setText(file_path)
 
 def toggle_logging(checkbox_state):
@@ -15210,7 +15214,7 @@ gcd_file_entry.setToolTip(
 )
 gcd_file_choose_button = QtWidgets.QPushButton("...")
 gcd_file_choose_button.setFixedWidth(32)
-gcd_file_choose_button.clicked.connect(lambda: choose_file(gcd_file_entry,"Choose where to save the charge/discharge measurement data"))
+gcd_file_choose_button.clicked.connect(lambda: choose_file(gcd_file_entry, "Choose where to save the charge/discharge measurement data"))
 
 gcd_file_choose_hlayout.addWidget(gcd_file_entry)
 gcd_file_choose_hlayout.addWidget(gcd_file_choose_button)
@@ -15848,7 +15852,7 @@ for curr in current_range_list:
 	ca_range_checkboxes.append(checkbox)
 	ca_range_layout.addWidget(checkbox)
 	checkbox.setChecked(False)  # Set checked to False as multiple can cause issues
-ca_range_checkboxes[0].setChecked(True)  # Check 20 mA as this gives best results for CA
+ca_range_checkboxes[0].setChecked(True)  # Check 20 mA
 
 ca_range_layout.setSpacing(50)
 ca_range_layout.setContentsMargins(3, 10, 3, 3)
@@ -15871,7 +15875,7 @@ ca_file_entry.setToolTip(
 )
 ca_file_choose_button = QtWidgets.QPushButton("...")
 ca_file_choose_button.setFixedWidth(32)
-ca_file_choose_button.clicked.connect(lambda: choose_file(ca_file_entry,"Choose where to save the chronoamperometry measurement data"))
+ca_file_choose_button.clicked.connect(lambda: choose_file(ca_file_entry, "Choose where to save the chronoamperometry measurement data"))
 ca_file_choose_hlayout.addWidget(ca_file_entry)
 ca_file_choose_hlayout.addWidget(ca_file_choose_button)
 ca_file_layout.addLayout(ca_file_choose_hlayout)
@@ -16470,7 +16474,7 @@ cp_file_entry.setToolTip(
 )
 cp_file_choose_button = QtWidgets.QPushButton("...")
 cp_file_choose_button.setFixedWidth(32)
-cp_file_choose_button.clicked.connect(lambda: choose_file(cp_file_entry,"Choose where to save the chronopotentiometry measurement data"))
+cp_file_choose_button.clicked.connect(lambda: choose_file(cp_file_entry, "Choose where to save the chronopotentiometry measurement data"))
 cp_file_choose_hlayout.addWidget(cp_file_entry)
 cp_file_choose_hlayout.addWidget(cp_file_choose_button)
 cp_file_layout.addLayout(cp_file_choose_hlayout)
@@ -16856,7 +16860,7 @@ sd_file_entry.setToolTip(
 )
 sd_file_choose_button = QtWidgets.QPushButton("...")
 sd_file_choose_button.setFixedWidth(32)
-sd_file_choose_button.clicked.connect(lambda: choose_file(sd_file_entry,"Choose where to save the self-discharge measurement data"))
+sd_file_choose_button.clicked.connect(lambda: choose_file(sd_file_entry, "Choose where to save the self-discharge measurement data"))
 sd_file_choose_hlayout.addWidget(sd_file_entry)
 sd_file_choose_hlayout.addWidget(sd_file_choose_button)
 sd_file_layout.addLayout(sd_file_choose_hlayout)
@@ -17292,7 +17296,7 @@ rate_file_entry.setToolTip(
 )
 rate_file_choose_button = QtWidgets.QPushButton("...")
 rate_file_choose_button.setFixedWidth(32)
-rate_file_choose_button.clicked.connect(lambda: choose_file(rate_file_entry,"Choose where to save the rate-testing measurement data"))
+rate_file_choose_button.clicked.connect(lambda: choose_file(rate_file_entry, "Choose where to save the rate-testing measurement data"))
 
 rate_file_choose_hlayout.addWidget(rate_file_entry)
 rate_file_choose_hlayout.addWidget(rate_file_choose_button)
@@ -17481,7 +17485,7 @@ plotter_file_choose_hlayout = QtWidgets.QHBoxLayout()
 plotter_file_entry = QtWidgets.QLineEdit()
 plotter_file_choose_button = QtWidgets.QPushButton("...")
 plotter_file_choose_button.setFixedWidth(32)
-plotter_file_choose_button.clicked.connect(lambda: choose_file(plotter_file_entry,"Choose the summary file to load data from"))
+plotter_file_choose_button.clicked.connect(lambda: choose_plot_data_file(plotter_file_entry, "Choose the summary file to load data from"))
 plotter_file_choose_hlayout.addWidget(plotter_file_entry)
 plotter_file_choose_hlayout.addWidget(plotter_file_choose_button)
 plotter_file_layout.addLayout(plotter_file_choose_hlayout)
