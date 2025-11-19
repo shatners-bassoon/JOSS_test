@@ -72,6 +72,8 @@ time_of_last_adcread = 0.
 adcread_interval = 0.09  # ADC sampling interval (in seconds)
 logging_enabled = False  # Enable logging of potential and current in idle mode (can be adjusted in the GUI)
 legend_in_use = None  # Store legend currently in use
+legend = None  # Store legend
+
 
 """USER-DEFINED SOFTWARE SETTINGS"""
 
@@ -84,6 +86,7 @@ global_software_settings = {
 	'gcd_nth_cycles': 100,  # GCD experiments store every nth cycle for plotting
 	'tab_frame_width': 125,  # Tab frame width (in spaces)
 }
+
 
 """CV GLOBALS"""
 
@@ -233,6 +236,9 @@ class States:
 	Measuring_Rate_OCP_eq = 25
 	Measuring_Rate_Delay = 26
 
+
+state = States.NotConnected  # Initial state
+
 class Legends:
 	"""Manages plot legend across experiment types and previews."""
 	legends = {
@@ -261,10 +267,11 @@ class Legends:
 				except AttributeError:
 					pass  # Legend might have already been removed
 
-
-state = States.NotConnected  # Initial state
-
-legend = None  # Initial legend
+def add_legend_item(legend, curve, name, fontsize="12pt"):
+	"""Add a curve to a LegendItem."""
+	legend.addItem(curve, name)
+	label_item = legend.items[-1][1]
+	label_item.setText(name, size=fontsize)
 
 def current_to_string(currentrange, current_in_mA):
 	"""Format the measured current into a string with appropriate units and number of significant digits."""
@@ -869,9 +876,9 @@ def idle_init():
 	plot_frame.getAxis('bottom').setTicks(None)
 	plot_frame.setXRange(0, 200, update=True)
 	potential_plot_curve = plot_frame.plot(pen='g', name='Potential (V)')
-	legend.addItem(potential_plot_curve, "Potential (V)")
+	add_legend_item(legend, potential_plot_curve, "Potential (V)")
 	current_plot_curve = plot_frame.plot(pen='r', name='Current (mA)')
-	legend.addItem(current_plot_curve, "Current (mA)")
+	add_legend_item(legend, current_plot_curve, "Current (mA)")
 
 	# Update the active legend in the Legends dictionary
 	Legends.legends['live_graph'] = legend
@@ -2806,7 +2813,7 @@ def cv_update_plot(experiment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Cyclic voltammetry experiments:")
+	add_legend_item(legend, dummy_item, "Cyclic voltammetry experiments:")
 
 	# Cache current experiment parameters
 	lbound = cv_parameters['lbound'][experiment_index]
@@ -2815,7 +2822,7 @@ def cv_update_plot(experiment_index):
 	current_scanrate = cv_parameters['scanrate_mV/s'][experiment_index]
 
 	# Add current cycle to the top of the legend
-	legend.addItem(cv_plot_curve, f"Current experiment: {current_potential_window} V; {current_scanrate} mV/s")
+	add_legend_item(legend, cv_plot_curve, f"Current experiment: {current_potential_window} V; {current_scanrate} mV/s")
 
 	# Plot previous cycles from this experiment
 	if cv_plot_options_prev_cycles_checkbox.isChecked():
@@ -2845,7 +2852,7 @@ def cv_update_plot(experiment_index):
 				x = cv_data['potential_data_finalcycle'][potential_window][scanrate]
 				y = cv_data['current_data_finalcycle'][potential_window][scanrate]
 				cv_prev_exp_curve = plot_frame.plot(x, y, pen=pen)
-				legend.addItem(cv_prev_exp_curve, f"Previous experiment: {potential_window} V; {scanrate} mV/s")
+				add_legend_item(legend, cv_prev_exp_curve, f"Previous experiment: {potential_window} V; {scanrate} mV/s")
 
 	# Plot current limits
 	if cv_plot_options_reverse_currents_checkbox.isChecked():
@@ -4210,12 +4217,12 @@ def lsv_preview():
 
 		sweep_curve = pyqtgraph.PlotDataItem([], [], pen='g')
 		init_curve = pyqtgraph.PlotDataItem([], [], pen='w')
-		legend.addItem(sweep_curve, "LSV potential profile")
-		legend.addItem(init_curve, "Initialisation")
+		add_legend_item(legend, sweep_curve, "LSV potential profile")
+		add_legend_item(legend, init_curve, "Initialisation")
 
 		if OCP_in_use:
 			dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-			legend.addItem(dummy_item, f"(estimating OCP as measured potential: {potential:.3f} V)")
+			add_legend_item(legend, dummy_item, f"(estimating OCP as measured potential: {potential:.3f} V)")
 
 		# Plot segment lines and labels
 		all_potentials = [pot for segment in lsv_potentials for pot in segment]
@@ -4509,7 +4516,7 @@ def lsv_update_plot(experiment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Linear sweep voltammetry experiments:")
+	add_legend_item(legend, dummy_item, "Linear sweep voltammetry experiments:")
 
 	# Cache current experiment parameters
 	startpot = lsv_parameters['startpot'][experiment_index]
@@ -4526,7 +4533,7 @@ def lsv_update_plot(experiment_index):
 	lsv_indices = numpy.flatnonzero(segment_types == "Sweeping")
 
 	# Add current experiment to the top of the legend
-	legend.addItem(lsv_plot_curve, f"Current experiment: {current_potential_window} V; {current_scanrate_mV} mV/s")
+	add_legend_item(legend, lsv_plot_curve, f"Current experiment: {current_potential_window} V; {current_scanrate_mV} mV/s")
 
 	# Plot previous experiments
 	if lsv_plot_options_prev_experiments_checkbox.isChecked():
@@ -4547,7 +4554,7 @@ def lsv_update_plot(experiment_index):
 				color = lsv_parameters['plot_pen_color'][potential_window][scanrate_mV]
 				pen = pyqtgraph.mkPen(color=color)
 				lsv_prev_exp_curve = plot_frame.plot(x_prev, y_prev, pen=pen)
-				legend.addItem(lsv_prev_exp_curve, f"Previous experiment: {potential_window} V; {scanrate_mV} mV/s")
+				add_legend_item(legend, lsv_prev_exp_curve, f"Previous experiment: {potential_window} V; {scanrate_mV} mV/s")
 
 				if plot_init_bool:
 					x_init_prev = numpy.array(lsv_data['prev_potential'][potential_window][scanrate_mV])[init_indices_prev]
@@ -4588,20 +4595,20 @@ def lsv_update_plot(experiment_index):
 
 	if lsv_info_current_segment_entry.text() == "Initialising":
 		if len(lsv_time_data.averagebuffer) > 1:
-			legend.addItem(dummy_item, "")
-			legend.addItem(dummy_item, "__________________")
-			legend.addItem(dummy_item, "Initialisation sweep:")
-			legend.addItem(dummy_item, f"Current potential: {potential:.3f}")
-			legend.addItem(dummy_item, f"Next experiment start potential: {lsv_parameters['startpot'][experiment_index]:.3f}")
-			legend.addItem(dummy_item, f"Time to start potential: {lsv_parameters['init_sweep_time'][experiment_index] - lsv_time_data.averagebuffer[-1]:.1f}")
+			add_legend_item(legend, dummy_item, "")
+			add_legend_item(legend, dummy_item, "__________________")
+			add_legend_item(legend, dummy_item, "Initialisation sweep:")
+			add_legend_item(legend, dummy_item, f"Current potential: {potential:.3f}")
+			add_legend_item(legend, dummy_item, f"Next experiment start potential: {lsv_parameters['startpot'][experiment_index]:.3f}")
+			add_legend_item(legend, dummy_item, f"Time to start potential: {lsv_parameters['init_sweep_time'][experiment_index] - lsv_time_data.averagebuffer[-1]:.1f}")
 
 	if lsv_info_current_segment_entry.text() == "Holding":
 		if len(lsv_time_data.averagebuffer) > 1:
 			hold_time_remaining = (lsv_parameters['init_hold_time'] + lsv_parameters['init_sweep_time'][experiment_index]) - lsv_time_data.averagebuffer[-1]
-			legend.addItem(dummy_item, "")
-			legend.addItem(dummy_item, "_____________")
-			legend.addItem(dummy_item, "Holding at start potential:")
-			legend.addItem(dummy_item, f"Hold time remaining: {hold_time_remaining:.1f}")
+			add_legend_item(legend, dummy_item, "")
+			add_legend_item(legend, dummy_item, "_____________")
+			add_legend_item(legend, dummy_item, "Holding at start potential:")
+			add_legend_item(legend, dummy_item, f"Hold time remaining: {hold_time_remaining:.1f}")
 
 def lsv_experiment_progress_controller():
 	"""Called periodically to control updates to the remaining time and progress bar."""
@@ -6038,7 +6045,7 @@ def gcd_update_plot(experiment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Galvanostatic charge/discharge experiments:")
+	add_legend_item(legend, dummy_item, "Galvanostatic charge/discharge experiments:")
 
 	# Determine x-axis units
 	if gcd_plot_options_x_time_radiobutton.isChecked():
@@ -6057,7 +6064,7 @@ def gcd_update_plot(experiment_index):
 	current_cd_current = f"{chg_curr}/{dis_curr}"
 
 	# Add current cycle to the top of the legend
-	legend.addItem(gcd_plot_curve, f"Current experiment: {current_potential_window} V; {current_cd_current} µA")
+	add_legend_item(legend, gcd_plot_curve, f"Current experiment: {current_potential_window} V; {current_cd_current} µA")
 
 	# Plot previous 10 cycles from this experiment
 	if gcd_plot_options_prev10_cycles_radiobutton.isChecked():
@@ -6140,7 +6147,7 @@ def gcd_update_plot(experiment_index):
 					gcd_prev_exps_curve = plot_frame.plot(x1, y1, pen=pen)
 					plot_frame.plot(x2, y2, pen=pen)
 
-				legend.addItem(gcd_prev_exps_curve, f"Previous experiment: {window} V; {curr} µA")
+				add_legend_item(legend, gcd_prev_exps_curve, f"Previous experiment: {window} V; {curr} µA")
 
 	# Plot current cycle over the top
 	if x_key == "time_data":
@@ -7660,11 +7667,11 @@ def ca_preview():
 		legend_in_use = 'ca_preview'
 
 		potential_curve = pyqtgraph.PlotDataItem([], [], pen='g')
-		legend.addItem(potential_curve, "Chronoamperometry potential profile")
+		add_legend_item(legend, potential_curve, "Chronoamperometry potential profile")
 
 		if OCP_in_use:
 			dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-			legend.addItem(dummy_item, f"(estimating OCP as measured potential: {potential:.3f} V)")
+			add_legend_item(legend, dummy_item, f"(estimating OCP as measured potential: {potential:.3f} V)")
 
 		# Plot individual segment lines
 		min_pot = min(potential_sequence)
@@ -7904,7 +7911,7 @@ def ca_update_plot(segment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Chronoamperometry experiment:")
+	add_legend_item(legend, dummy_item, "Chronoamperometry experiment:")
 
 	# Initialise plotting arrays and lists
 	time_data = numpy.array([])
@@ -7946,23 +7953,23 @@ def ca_update_plot(segment_index):
 	plot_frame.addItem(ca_current_plot_curve)
 	plot_frame.addItem(ca_potential_plot_curve)
 
-	legend.addItem(ca_current_plot_curve, "Current")
-	legend.addItem(ca_potential_plot_curve, "Potential (scaled)")
+	add_legend_item(legend, ca_current_plot_curve, "Current")
+	add_legend_item(legend, ca_potential_plot_curve, "Potential (scaled)")
 
 	# Add equilibration info to legend
 	if ca_parameters['curr_eq_tolerance'][segment_index] is not None:
-		legend.addItem(dummy_item, "")
-		legend.addItem(dummy_item, "Equilibration information:")
-		legend.addItem(dummy_item, f"Tolerance (µA): {ca_parameters['curr_eq_tolerance'][segment_index]}")
-		legend.addItem(dummy_item, f"Timescale (s): {ca_parameters['curr_eq_timescale'][segment_index]}")
+		add_legend_item(legend, dummy_item, "")
+		add_legend_item(legend, dummy_item, "Equilibration information:")
+		add_legend_item(legend, dummy_item, f"Tolerance (µA): {ca_parameters['curr_eq_tolerance'][segment_index]}")
+		add_legend_item(legend, dummy_item, f"Timescale (s): {ca_parameters['curr_eq_timescale'][segment_index]}")
 		if ca_curr_eq_history:
 			if ca_curr_eq_history[-1][0] >= ca_parameters['curr_eq_timescale'][segment_index]:
-				legend.addItem(dummy_item, f"Current {ca_parameters['curr_eq_timescale'][segment_index]} s ago (µA): {ca_curr_eq_history[0][1] * 1e6:.3g}")
+				add_legend_item(legend, dummy_item, f"Current {ca_parameters['curr_eq_timescale'][segment_index]} s ago (µA): {ca_curr_eq_history[0][1] * 1e6:.3g}")
 			else:
-				legend.addItem(dummy_item, f"Current {ca_curr_eq_history[-1][0] - ca_curr_eq_history[0][0]:.3f} s ago (µA): {ca_curr_eq_history[0][1] * 1e6:.3g}")
-			legend.addItem(dummy_item, f"Measured current (µA): {ca_curr_eq_history[-1][1] * 1e6:.3g}")
+				add_legend_item(legend, dummy_item, f"Current {ca_curr_eq_history[-1][0] - ca_curr_eq_history[0][0]:.3f} s ago (µA): {ca_curr_eq_history[0][1] * 1e6:.3g}")
+			add_legend_item(legend, dummy_item, f"Measured current (µA): {ca_curr_eq_history[-1][1] * 1e6:.3g}")
 			curr_diff = (ca_curr_eq_history[-1][1] - ca_curr_eq_history[0][1])
-			legend.addItem(dummy_item, f"Difference (µA): {curr_diff * 1e6:.3g}")
+			add_legend_item(legend, dummy_item, f"Difference (µA): {curr_diff * 1e6:.3g}")
 
 def ca_update_progress_bar():
 	"""Update the progress bar to reflect percentage of segments completed."""
@@ -9428,7 +9435,7 @@ def cp_preview():
 		legend_in_use = 'cp_preview'
 
 		current_curve = pyqtgraph.PlotDataItem([], [], pen='g')
-		legend.addItem(current_curve, "Chronopotentiometry current profile")
+		add_legend_item(legend, current_curve, "Chronopotentiometry current profile")
 
 		# Plot individual segment lines
 		min_curr = min(current_sequence)
@@ -9700,7 +9707,7 @@ def cp_update_plot(segment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Chronopotentiometry experiment:")
+	add_legend_item(legend, dummy_item, "Chronopotentiometry experiment:")
 
 	time_data = numpy.array([])
 	current_data = numpy.array([])
@@ -9741,23 +9748,23 @@ def cp_update_plot(segment_index):
 	plot_frame.addItem(cp_current_plot_curve)
 	plot_frame.addItem(cp_potential_plot_curve)
 
-	legend.addItem(cp_potential_plot_curve, "Potential")
-	legend.addItem(cp_current_plot_curve, "Current (scaled)")
+	add_legend_item(legend, cp_potential_plot_curve, "Potential")
+	add_legend_item(legend, cp_current_plot_curve, "Current (scaled)")
 
 	# Add equilibration info to legend
 	if cp_parameters['pot_eq_tolerance'][segment_index] is not None:
-		legend.addItem(dummy_item, "")
-		legend.addItem(dummy_item, "Equilibration information:")
-		legend.addItem(dummy_item, f"Tolerance (mV): {cp_parameters['pot_eq_tolerance'][segment_index]}")
-		legend.addItem(dummy_item, f"Timescale (s): {cp_parameters['pot_eq_timescale'][segment_index]}")
+		add_legend_item(legend, dummy_item, "")
+		add_legend_item(legend, dummy_item, "Equilibration information:")
+		add_legend_item(legend, dummy_item, f"Tolerance (mV): {cp_parameters['pot_eq_tolerance'][segment_index]}")
+		add_legend_item(legend, dummy_item, f"Timescale (s): {cp_parameters['pot_eq_timescale'][segment_index]}")
 		if cp_pot_eq_history:
 			if cp_pot_eq_history[-1][0] >= cp_parameters['pot_eq_timescale'][segment_index]:
-				legend.addItem(dummy_item, f"Potential {cp_parameters['pot_eq_timescale'][segment_index]} s ago (mV): {cp_pot_eq_history[0][1] * 1000:.3g}")
+				add_legend_item(legend, dummy_item, f"Potential {cp_parameters['pot_eq_timescale'][segment_index]} s ago (mV): {cp_pot_eq_history[0][1] * 1000:.3g}")
 			else:
-				legend.addItem(dummy_item, f"Potential {cp_pot_eq_history[-1][0] - cp_pot_eq_history[0][0]:.3f} s ago (mV): {cp_pot_eq_history[0][1] * 1000:.3g}")
-			legend.addItem(dummy_item, f"Measured potential (mV): {cp_pot_eq_history[-1][1] * 1000:.3g}")
+				add_legend_item(legend, dummy_item, f"Potential {cp_pot_eq_history[-1][0] - cp_pot_eq_history[0][0]:.3f} s ago (mV): {cp_pot_eq_history[0][1] * 1000:.3g}")
+			add_legend_item(legend, dummy_item, f"Measured potential (mV): {cp_pot_eq_history[-1][1] * 1000:.3g}")
 			pot_diff = (cp_pot_eq_history[-1][1] - cp_pot_eq_history[0][1])
-			legend.addItem(dummy_item, f"Difference (mV): {pot_diff * 1000:.3g}")
+			add_legend_item(legend, dummy_item, f"Difference (mV): {pot_diff * 1000:.3g}")
 
 def cp_update_progress_bar():
 	"""Update the progress bar to reflect percentage of segments completed."""
@@ -11069,7 +11076,7 @@ def sd_update_plot(segment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Self-discharge experiments:")
+	add_legend_item(legend, dummy_item, "Self-discharge experiments:")
 
 	# Store whether plotting charging
 	plot_chg_bool = sd_plot_options_show_charging_checkbox.isChecked()
@@ -11086,7 +11093,7 @@ def sd_update_plot(segment_index):
 		ref_time = sd_parameters['charging_time'][segment_index]  # At estimated start of discharge
 
 	# Add current segment to the top of the legend
-	legend.addItem(sd_discharge_potential_plot_curve, f"Current self-discharge: {sd_parameters['charge_potential'][segment_index]}")
+	add_legend_item(legend, sd_discharge_potential_plot_curve, f"Current self-discharge: {sd_parameters['charge_potential'][segment_index]}")
 
 	# Plot all previous segments
 	if sd_plot_options_all_segments_radiobutton.isChecked():
@@ -11106,7 +11113,7 @@ def sd_update_plot(segment_index):
 				color = sd_parameters['plot_pen_color'][seg_idx]
 				pen = pyqtgraph.mkPen(color=color)
 				sd_prev_seg_potential_curve = plot_frame.plot(x_sd_prev, y_sd_prev, pen=pen)
-				legend.addItem(sd_prev_seg_potential_curve, f"Previous segment: {sd_parameters['charge_potential'][seg_idx]} V")
+				add_legend_item(legend, sd_prev_seg_potential_curve, f"Previous segment: {sd_parameters['charge_potential'][seg_idx]} V")
 
 				if plot_chg_bool:
 					x_chg_prev = segment_time_prev[chg_indices_prev] - ref_time_prev
@@ -11137,14 +11144,14 @@ def sd_update_plot(segment_index):
 		y_chg = numpy.array(sd_data['potential'][segment_index])[chg_indices]
 		sd_charge_potential_plot_curve.setData(x_chg, y_chg)
 		plot_frame.addItem(sd_charge_potential_plot_curve)
-		legend.addItem(sd_charge_potential_plot_curve, f"Charging potential")
+		add_legend_item(legend, sd_charge_potential_plot_curve, f"Charging potential")
 
 	# Update legend for acquisition segments
 	if sd_parameters['charging/self-discharging'][segment_index] == "Self-discharging":
 
 		if sd_parameters['pot_cutoff'][segment_index]:
-			legend.addItem(dummy_item, "")
-			legend.addItem(dummy_item, "Current segment potential cutoff information:")
+			add_legend_item(legend, dummy_item, "")
+			add_legend_item(legend, dummy_item, "Current segment potential cutoff information:")
 			pot_cutoff = sd_parameters['pot_cutoff'][segment_index]
 			if pot_cutoff == "OCP":
 				pot_cutoff = sd_parameters['current_OCP']
@@ -11152,22 +11159,22 @@ def sd_update_plot(segment_index):
 			else:
 				pot_cutoff_str = f"{sd_parameters['pot_cutoff'][segment_index]}"
 			pot_cutoff_diff = (y_sd[-1] - pot_cutoff)
-			legend.addItem(dummy_item, f"Cutoff potential (V): {pot_cutoff_str}")
-			legend.addItem(dummy_item, f"Distance to cutoff (V): {pot_cutoff_diff:.3g}")
+			add_legend_item(legend, dummy_item, f"Cutoff potential (V): {pot_cutoff_str}")
+			add_legend_item(legend, dummy_item, f"Distance to cutoff (V): {pot_cutoff_diff:.3g}")
 
 		if sd_parameters['pot_eq_tolerance'][segment_index]:
-			legend.addItem(dummy_item, "")
-			legend.addItem(dummy_item, "Current segment equilibration information:")
-			legend.addItem(dummy_item, f"Equilibration tolerance (mV): {sd_parameters['pot_eq_tolerance'][segment_index]}")
-			legend.addItem(dummy_item, f"Equilibration timescale (s): {sd_parameters['pot_eq_timescale'][segment_index]}")
+			add_legend_item(legend, dummy_item, "")
+			add_legend_item(legend, dummy_item, "Current segment equilibration information:")
+			add_legend_item(legend, dummy_item, f"Equilibration tolerance (mV): {sd_parameters['pot_eq_tolerance'][segment_index]}")
+			add_legend_item(legend, dummy_item, f"Equilibration timescale (s): {sd_parameters['pot_eq_timescale'][segment_index]}")
 			if sd_pot_eq_history:
 				if sd_pot_eq_history[-1][0] >= sd_parameters['pot_eq_timescale'][segment_index] + sd_parameters['charging_time'][segment_index]:
-					legend.addItem(dummy_item, f"Potential {sd_parameters['pot_eq_timescale'][segment_index]} s ago (mV): {sd_pot_eq_history[0][1] * 1000:.3g}")
+					add_legend_item(legend, dummy_item, f"Potential {sd_parameters['pot_eq_timescale'][segment_index]} s ago (mV): {sd_pot_eq_history[0][1] * 1000:.3g}")
 				else:
-					legend.addItem(dummy_item, f"Potential {sd_pot_eq_history[-1][0] - sd_pot_eq_history[0][0]:.3f} s ago (mV): {sd_pot_eq_history[0][1] * 1000:.3g}")
-				legend.addItem(dummy_item, f"Measured potential (mV): {sd_pot_eq_history[-1][1] * 1000:.3g}")
+					add_legend_item(legend, dummy_item, f"Potential {sd_pot_eq_history[-1][0] - sd_pot_eq_history[0][0]:.3f} s ago (mV): {sd_pot_eq_history[0][1] * 1000:.3g}")
+				add_legend_item(legend, dummy_item, f"Measured potential (mV): {sd_pot_eq_history[-1][1] * 1000:.3g}")
 				pot_diff = (sd_pot_eq_history[-1][1] - sd_pot_eq_history[0][1])
-				legend.addItem(dummy_item, f"Difference (mV): {pot_diff * 1000:.3g}")
+				add_legend_item(legend, dummy_item, f"Difference (mV): {pot_diff * 1000:.3g}")
 
 def sd_update_progress_bar():
 	"""Update the progress bar to reflect percentage of segments completed."""
@@ -12897,10 +12904,10 @@ def rate_update_plot(experiment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Rate-testing experiments:")
-	legend.addItem(dummy_item, f"Current experiment C-rate: {rate_parameters['c_rates'][rate_current_c_rate_index]} C")
-	legend.addItem(dummy_item, f"Current experiment halfcycle: {rate_current_halfcyclenum}/{rate_parameters['num_halfcycles']}")
-	legend.addItem(dummy_item, "")
+	add_legend_item(legend, dummy_item, "Rate-testing experiments:")
+	add_legend_item(legend, dummy_item, f"Current experiment C-rate: {rate_parameters['c_rates'][rate_current_c_rate_index]} C")
+	add_legend_item(legend, dummy_item, f"Current experiment halfcycle: {rate_current_halfcyclenum}/{rate_parameters['num_halfcycles']}")
+	add_legend_item(legend, dummy_item, "")
 
 	c_rates = rate_parameters['c_rates']
 	chg_vals = rate_data['final_chg_charge'].get(experiment_index, {})
@@ -12932,10 +12939,10 @@ def rate_update_plot(experiment_index):
 
 	# Add current charges to the top of the legend
 	if chg_x_data_curr:
-		legend.addItem(rate_chg_plot_scatter, f"Charge from current experiment: {rate_parameters['lbound'][experiment_index]}/{rate_parameters['ubound'][experiment_index]} V")
+		add_legend_item(legend, rate_chg_plot_scatter, f"Charge from current experiment: {rate_parameters['lbound'][experiment_index]}/{rate_parameters['ubound'][experiment_index]} V")
 
 	if dis_x_data_curr:
-		legend.addItem(rate_dis_plot_scatter, f"Discharge from current experiment: {rate_parameters['lbound'][experiment_index]}/{rate_parameters['ubound'][experiment_index]} V")
+		add_legend_item(legend, rate_dis_plot_scatter, f"Discharge from current experiment: {rate_parameters['lbound'][experiment_index]}/{rate_parameters['ubound'][experiment_index]} V")
 
 	# Plot data from all previous experiments
 	if rate_plot_options_all_prev_experiments_radiobutton.isChecked():
@@ -12956,8 +12963,8 @@ def rate_update_plot(experiment_index):
 			rate_prev_exp_chg_curve = plot_frame.plot(x_data_prev, chg_y_data_prev, pen=None, symbol='t1', symbolPen=pen, symbolBrush=color)
 			rate_prev_exp_dis_curve = plot_frame.plot(x_data_prev, dis_y_data_prev, pen=None, symbol='t', symbolPen=pen, symbolBrush=None)
 
-			legend.addItem(rate_prev_exp_chg_curve, f"Charge from previous experiment: {rate_parameters['lbound'][i]}/{rate_parameters['ubound'][i]} V")
-			legend.addItem(rate_prev_exp_dis_curve, f"Discharge from previous experiment: {rate_parameters['lbound'][i]}/{rate_parameters['ubound'][i]} V")
+			add_legend_item(legend, rate_prev_exp_chg_curve, f"Charge from previous experiment: {rate_parameters['lbound'][i]}/{rate_parameters['ubound'][i]} V")
+			add_legend_item(legend, rate_prev_exp_dis_curve, f"Discharge from previous experiment: {rate_parameters['lbound'][i]}/{rate_parameters['ubound'][i]} V")
 
 	# Plot current charges over the top
 	if chg_x_data_curr:
@@ -12991,10 +12998,10 @@ def rate_one_c_calc_update_plot(experiment_index):
 
 	# Title for legend
 	dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-	legend.addItem(dummy_item, "Calculating 1C:")
-	legend.addItem(rate_one_c_calc_plot_curve, f"Calculating for experiment: {rate_parameters['lbound'][experiment_index]}/{rate_parameters['ubound'][experiment_index]} V")
-	legend.addItem(dummy_item, f"Charge/Discharge current: {rate_parameters['one_c_calc_current']} µA")
-	legend.addItem(dummy_item, f"Cycle: {rate_one_c_calc_current_cyclenum}/{rate_parameters['one_c_calc_num_cycles']}")
+	add_legend_item(legend, dummy_item, "Calculating 1C:")
+	add_legend_item(legend, rate_one_c_calc_plot_curve, f"Calculating for experiment: {rate_parameters['lbound'][experiment_index]}/{rate_parameters['ubound'][experiment_index]} V")
+	add_legend_item(legend, dummy_item, f"Charge/Discharge current: {rate_parameters['one_c_calc_current']} µA")
+	add_legend_item(legend, dummy_item, f"Cycle: {rate_one_c_calc_current_cyclenum}/{rate_parameters['one_c_calc_num_cycles']}")
 
 def rate_update_progress_bar():
 	"""Update the progress bar to reflect percentage of C-rates completed."""
@@ -13054,7 +13061,7 @@ def OCP_equilibration_controller(experiment_parameters, experiment_data, experim
 		plot_frame.setLabel('bottom', 'Time', units="s")
 		plot_frame.setLabel('left', 'Potential', units="V")
 		OCP_potential_plot_curve = plot_frame.plot(pen='y')
-		legend = pyqtgraph.LegendItem(offset=(60, 30))
+		legend = pyqtgraph.LegendItem(offset=(60, 10))
 		legend.setParentItem(plot_frame.plotItem)
 		Legends.legends['OCP_eq'] = legend
 		legend_in_use = 'OCP_eq'
@@ -13599,21 +13606,21 @@ def OCP_equilibration_update_live_graph(experiment_parameters, elapsed_time):
 		experiment_str = experiment_names.get(param_type, "UNKNOWN EXPERIMENT")
 
 		dummy_item = pyqtgraph.PlotDataItem([], [], pen=None)
-		legend.addItem(OCP_potential_plot_curve, "Potential (V)")
-		legend.addItem(dummy_item, "")
-		legend.addItem(dummy_item, f"OCP EQUILIBRATION INFO FOR {experiment_str} EXPERIMENTS:")
-		legend.addItem(dummy_item, f"Equilibration tolerance (mV): {float(global_software_settings['OCP_eq_tolerance']):.3g}")
-		legend.addItem(dummy_item, f"Equilibration timescale (s): {global_software_settings['OCP_eq_timescale']:.3g}")
-		legend.addItem(dummy_item, f"Equilibration timeout (s): {global_software_settings['OCP_eq_timeout']:.3g}")
-		legend.addItem(dummy_item, "")
-		legend.addItem(dummy_item, f"Elapsed time (s): {elapsed_time:.3f}")
+		add_legend_item(legend, OCP_potential_plot_curve, "Potential (V)")
+		add_legend_item(legend, dummy_item, "")
+		add_legend_item(legend, dummy_item, f"OCP EQUILIBRATION INFO FOR {experiment_str} EXPERIMENTS:")
+		add_legend_item(legend, dummy_item, f"Equilibration tolerance (mV): {float(global_software_settings['OCP_eq_tolerance']):.3g}")
+		add_legend_item(legend, dummy_item, f"Equilibration timescale (s): {global_software_settings['OCP_eq_timescale']:.3g}")
+		add_legend_item(legend, dummy_item, f"Equilibration timeout (s): {global_software_settings['OCP_eq_timeout']:.3g}")
+		add_legend_item(legend, dummy_item, "")
+		add_legend_item(legend, dummy_item, f"Elapsed time (s): {elapsed_time:.3f}")
 		if elapsed_time >= global_software_settings['OCP_eq_timescale']:
-			legend.addItem(dummy_item, f"Potential {global_software_settings['OCP_eq_timescale']} s ago (mV): {OCP_eq_history[0][1] * 1000:.3g}")
+			add_legend_item(legend, dummy_item, f"Potential {global_software_settings['OCP_eq_timescale']} s ago (mV): {OCP_eq_history[0][1] * 1000:.3g}")
 		else:
-			legend.addItem(dummy_item, f"Potential {elapsed_time:.3f} s ago (mV): {OCP_eq_history[0][1] * 1000:.3g}")
-		legend.addItem(dummy_item, f"Measured potential (mV): {OCP_eq_history[-1][1] * 1000:.3g}")
+			add_legend_item(legend, dummy_item, f"Potential {elapsed_time:.3f} s ago (mV): {OCP_eq_history[0][1] * 1000:.3g}")
+		add_legend_item(legend, dummy_item, f"Measured potential (mV): {OCP_eq_history[-1][1] * 1000:.3g}")
 		potential_diff = (OCP_eq_history[-1][1] - OCP_eq_history[0][1])
-		legend.addItem(dummy_item, f"Difference (mV): {potential_diff * 1000:.3g}")
+		add_legend_item(legend, dummy_item, f"Difference (mV): {potential_diff * 1000:.3g}")
 
 
 """_____PROGRESS BARS_____"""
