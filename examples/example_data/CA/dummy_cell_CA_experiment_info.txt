@@ -1,0 +1,168 @@
+CA EXPERIMENTS INFORMATION FILE
+*******************************
+
+Experiment notes: No notes provided.
+
+Experiment information file for the experiments stored in:
+/examples/example_data/CA/dummy_cell_CA_0.1_0.0_0.2_0.0_0.5_0.0_1.0_0.0_V.dat
+
+Alternating parameters?: Yes
+The following potential sequence, hold times, and ramp rates follow A-B-A-B-A-...
+
+Potential sequence (V): [0.1, 0.0, 0.2, 0.0, 0.5, 0.0, 1.0, 0.0]
+Hold times per potential (s): [10.0, 30.0, 10.0, 30.0, 10.0, 30.0, 10.0, 30.0]
+Ramp rate per potential (mV/s): [20.0, 'STEP', 20.0, 'STEP', 20.0, 'STEP', 20.0, 'STEP']
+Equilibration tolerance A (µA): None
+Equilibration timescale A (s): None
+Equilibration tolerance B (µA): None
+Equilibration timescale B (s): None
+Autoranging: 20 mA
+Lower current limit (mA): None
+Upper current limit (mA): None
+Samples to average: 1
+Pre-experiment delay (s): 5.0
+
+*** Pre-experiment delay of 5.0 seconds ***
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 1/8
+Hold potential (V): 0.1
+Hold time (s): 10.0
+Ramp rate (mV/s): 20.0
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:25:23.790
+Segment finish time: 2025-11-17 13:25:39.234
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 2/8
+Hold potential (V): 0.0
+Hold time (s): 30.0
+Ramp rate (mV/s): STEP
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:25:39.235
+Segment finish time: 2025-11-17 13:26:09.243
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 3/8
+Hold potential (V): 0.2
+Hold time (s): 10.0
+Ramp rate (mV/s): 20.0
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:26:09.243
+Segment finish time: 2025-11-17 13:26:29.218
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 4/8
+Hold potential (V): 0.0
+Hold time (s): 30.0
+Ramp rate (mV/s): STEP
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:26:29.219
+Segment finish time: 2025-11-17 13:26:59.226
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 5/8
+Hold potential (V): 0.5
+Hold time (s): 10.0
+Ramp rate (mV/s): 20.0
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:26:59.227
+Segment finish time: 2025-11-17 13:27:34.250
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 6/8
+Hold potential (V): 0.0
+Hold time (s): 30.0
+Ramp rate (mV/s): STEP
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:27:34.250
+Segment finish time: 2025-11-17 13:28:04.258
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 7/8
+Hold potential (V): 1.0
+Hold time (s): 10.0
+Ramp rate (mV/s): 20.0
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:28:04.259
+Segment finish time: 2025-11-17 13:29:04.274
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+**********************************
+	CA SEGMENT STARTED
+**********************************
+Segment number: 8/8
+Hold potential (V): 0.0
+Hold time (s): 30.0
+Ramp rate (mV/s): STEP
+Equilibration tolerance (µA): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-17 13:29:04.275
+Segment finish time: 2025-11-17 13:29:34.282
+
+************************************
+	CA SEGMENT COMPLETED
+************************************
+
+***************************************************
+	ALL SEGMENTS COMPLETED SUCCESSFULLY
+***************************************************
+
+********************
+EXPERIMENTS COMPLETE
