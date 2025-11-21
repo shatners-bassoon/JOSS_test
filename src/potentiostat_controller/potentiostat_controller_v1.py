@@ -267,7 +267,7 @@ class Legends:
 				except AttributeError:
 					pass  # Legend might have already been removed
 
-def add_legend_item(legend, curve, name, fontsize="12pt"):
+def add_legend_item(legend, curve, name, fontsize="10pt"):
 	"""Add a curve to a LegendItem."""
 	legend.addItem(curve, name)
 	label_item = legend.items[-1][1]
@@ -857,7 +857,7 @@ def read_potential_current():
 		current_monitor.setText(current_to_string(currentrange, current))
 		if logging_enabled:  # If enabled, all measurements are appended to an output file (even in idle mode)
 			try:
-				print("%.2f\t%e\t%e" % (time_of_last_adcread, potential, current*1e-3), file=open(hardware_log_filename.text(), 'a', 1))  # Output tab-separated data containing time (in s), potential (in V), and current (in A)
+				print("%.2f\t%e\t%e" % (time_of_last_adcread, potential, current*1e-3), file =open(hardware_log_filename.text(), 'a', 1))  # Output tab-separated data containing time (in s), potential (in V), and current (in A)
 			except:
 				QtWidgets.QMessageBox.critical(mainwidget, "Logging error!", "Logging error!")
 				hardware_log_checkbox.setChecked(False)  # Disable logging in case of file errors
@@ -13825,21 +13825,21 @@ class GreenGUIButton(QtWidgets.QPushButton):
 
 """_____SET UP THE GUI_____"""
 
-
 """MAIN WINDOW"""
 
 # Set up the GUI - Main Window
 app = QtWidgets.QApplication([])
 win = QtWidgets.QMainWindow()
-#win.setGeometry(250, 200, 1200, 650)
-win.setGeometry(250, 50, 1400, 1025)
+#win.setGeometry(250, 200, 1200, 650)  #????? Original window size
+win.setGeometry(250, 50, 1200, 900)  #????? Paper screenshots
+#win.setGeometry(250, 50, 1400, 1025)  #????? Example data screenshots
 win.setWindowTitle('USB potentiostat/galvanostat controller')
 #win.setWindowIcon(QtGui.QIcon('icon/icon.png'))
 
 potential_monitor, potential_monitor_box = make_groupbox_indicator("Measured potential", "+#.### V")
-potential_monitor.setFont(QtGui.QFont("monospace", 10))
+potential_monitor.setFont(custom_size_font(10))
 current_monitor, current_monitor_box = make_groupbox_indicator("Measured current", "+#.### mA")
-current_monitor.setFont(QtGui.QFont("monospace", 10))
+current_monitor.setFont(custom_size_font(10))
 potential_current_display_frame = QtWidgets.QHBoxLayout()
 potential_current_display_frame.setSpacing(1)
 potential_current_display_frame.setContentsMargins(0, 0, 0, 0)

@@ -72,6 +72,8 @@ To improve software and experimental accessibility, hover-over tooltips are feat
 
 ![An example GUI during a cyclic voltammetry experiment showing real-time data visualisation options, experiment progress information, and optional experiment notes to be written to the summary file.\label{fig:CV_GUI}](figures/CV_GUI.png){width="100%"}
 
+![An example GUI during a cyclic voltammetry experiment showing real-time data visualisation options, experiment progress information, and optional experiment notes to be written to the summary file.\label{fig:CV_GUI}](figures/CV_GUI_blank.png){width="100%"}
+
 ![Flowchart of the typical execution stack for a set of experiments.\label{fig:flowchart}](figures/flowchart_mainloop.png){width="100%"}
 
 ![Sections of the summary file generated for the CV experiments seen running in \autoref{fig:CV_GUI}, with a base filename of `2025-06-25`.\label{fig:summary_file}](figures/summary_file.png){width="100%"}
