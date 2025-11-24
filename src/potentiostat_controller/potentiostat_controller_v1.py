@@ -267,7 +267,7 @@ class Legends:
 				except AttributeError:
 					pass  # Legend might have already been removed
 
-def add_legend_item(legend, curve, name, fontsize="10pt"):
+def add_legend_item(legend, curve, name, fontsize="12pt"):
 	"""Add a curve to a LegendItem."""
 	legend.addItem(curve, name)
 	label_item = legend.items[-1][1]
