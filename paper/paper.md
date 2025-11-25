@@ -80,7 +80,9 @@ To improve software and experimental accessibility, hover-over tooltips are feat
 
 ![Sections of the summary file generated for the CV experiments seen running in \autoref{fig:CV_GUI}, with a base filename of `2025-06-25`.\label{fig:summary_file}](figures/summary_file.png){width="100%"}
 
-![Sections of the summary file generated for the CV experiments seen running in \autoref{fig:CV_GUI}, with a base filename of `2025-06-25`.\label{fig:summary_file}](figures/summary_file_pyside6.png){width="100%"}
+![Sections of the summary file generated for the CV experiments seen running in \autoref{fig:CV_GUI}, with a base filename of `2025-06-25`.\label{fig:summary_file}](figures/summary_file_pyside6_shadow.png){width="100%"}
+
+![Sections of the summary file generated for the CV experiments seen running in \autoref{fig:CV_GUI}, with a base filename of `2025-06-25`.\label{fig:summary_file}](figures/summary_file_pyside6_noshadow.png){width="100%"}
 
 ![A tooltip for the current input when automatically calculating 1C for rate-testing experiments.\label{fig:tooltip}](figures/tooltip.png){width="80%"}
 
