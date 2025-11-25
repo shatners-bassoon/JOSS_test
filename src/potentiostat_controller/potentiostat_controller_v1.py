@@ -7309,8 +7309,11 @@ def ca_update(segment_index):
 
 		# Progress to the next segment
 		ca_stop(segment_index, interrupted=False)
+		return
 
 	else:
+		read_potential_current()  # Read new potential and current
+
 		# DAC control logic
 		ramp_rate = ca_parameters['ramp_rate'][segment_index]
 		ramp_time = ca_parameters['ramp_time'][segment_index]
@@ -7328,8 +7331,6 @@ def ca_update(segment_index):
 					holdpot = ca_parameters['current_OCP']
 				set_output(0, holdpot)  # Send potential to the DAC
 				ca_potential_hold = True
-
-		read_potential_current()  # Read new potential and current
 
 		if skipcounter == 0:  # Process new measurements
 			ca_time_data.add_sample(elapsed_time)
@@ -9079,6 +9080,8 @@ def cp_update(segment_index):
 		return
 
 	else:
+		read_potential_current()  # Read new potential and current
+
 		# DAC control logic
 		ramp_rate = cp_parameters['ramp_rate'][segment_index]
 		ramp_time = cp_parameters['ramp_time'][segment_index]
@@ -9098,8 +9101,6 @@ def cp_update(segment_index):
 				set_current_range()  # Set new current range
 				set_output(1, cp_currentsetpoint)  # Send current to the DAC
 				cp_currentsetpoint_hold = True
-
-		read_potential_current()  # Read new potential and current
 
 		cp_time_data.add_sample(elapsed_time)
 		cp_segment_time_data.add_sample(segment_elapsed_time)
@@ -9349,7 +9350,7 @@ def cp_reset_experiment_controller(mode):
 
 	elif mode == "interrupted":
 		cp_info_program_state_entry.setText(f"Experiments interrupted")
-		cp_progress_bar.set_completed_state()
+		cp_progress_bar.set_interrupted_state()
 
 	elif mode == "OCP_interrupted":
 		cp_progress_bar.set_OCP_interrupted_state()
@@ -10644,6 +10645,8 @@ def sd_update(segment_index):
 		return
 
 	else:
+		read_potential_current()  # Read new potential and current
+
 		# DAC control logic
 		ramp_rate = sd_parameters['ramp_rate'][segment_index]
 		ramp_time = sd_parameters['ramp_time'][segment_index]
@@ -10670,8 +10673,6 @@ def sd_update(segment_index):
 				sd_info_charge_self_discharge_entry.setText("Self-discharging")
 				sd_parameters['charging/self-discharging'][segment_index] = "Self-discharging"
 				sd_acquiring = True
-
-		read_potential_current()  # Read new potential and current
 
 		if skipcounter == 0:  # Process new measurements
 			sd_time_data.add_sample(elapsed_time)
@@ -11093,7 +11094,7 @@ def sd_update_plot(segment_index):
 		ref_time = sd_parameters['charging_time'][segment_index]  # At estimated start of discharge
 
 	# Add current segment to the top of the legend
-	add_legend_item(legend, sd_discharge_potential_plot_curve, f"Current self-discharge: {sd_parameters['charge_potential'][segment_index]}")
+	add_legend_item(legend, sd_discharge_potential_plot_curve, f"Current self-discharge: {sd_parameters['charge_potential'][segment_index]} V")
 
 	# Plot all previous segments
 	if sd_plot_options_all_segments_radiobutton.isChecked():
@@ -13831,8 +13832,8 @@ class GreenGUIButton(QtWidgets.QPushButton):
 app = QtWidgets.QApplication([])
 win = QtWidgets.QMainWindow()
 #win.setGeometry(250, 200, 1200, 650)  #????? Original window size
-win.setGeometry(250, 50, 1200, 900)  #????? Paper screenshots
-#win.setGeometry(250, 50, 1400, 1025)  #????? Example data screenshots
+#win.setGeometry(250, 50, 1200, 900)  #????? Paper screenshots
+win.setGeometry(250, 50, 1400, 1025)  #????? Example data screenshots
 win.setWindowTitle('USB potentiostat/galvanostat controller')
 #win.setWindowIcon(QtGui.QIcon('icon/icon.png'))
 
@@ -15843,10 +15844,9 @@ ca_range_box.setToolTip(
 	"current level in real time.<br><br>"
 	"If specific current ranges are undesirable for these experiments,<br>"
 	"untick their checkboxes to prevent them from being selected by autoranging.<br><br>"
-	"<b>NOTE:</b> Chronoamperometry experiments may experience difficulty<br>"
-	"stepping and holding at a fixed potential for measurement if multiple<br>"
-	"current ranges are selected. <b>This can impact the stability and<br>"
-	"quality of the recorded data.</b>"
+	"<b>NOTE:</b> Chronoamperometry experiment data may be adversely impacted by<br>"
+	"cycling through current ranges in quick succession.<br>"
+	"<b>This can impact the stability and quality of the recorded data.</b>"
 	"</body></html>"
 )
 format_box_for_parameter(ca_range_box)

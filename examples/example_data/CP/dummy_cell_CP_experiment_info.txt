@@ -1,0 +1,218 @@
+CP EXPERIMENTS INFORMATION FILE
+*******************************
+
+Experiment notes: No notes provided.
+
+Experiment information file for the experiments stored in:
+/examples/example_data/CP/dummy_cell_CP_50.0_-50.0_100.0_-100.0_0.0_0.0_50.0_-50.0_100.0_-100.0_uA.dat
+
+Alternating parameters?: Yes
+The following current sequence, hold times, and ramp rates follow A-B-A-B-A-...
+Current sequence (µA): [50.0, -50.0, 100.0, -100.0, 0.0, 0.0, 50.0, -50.0, 100.0, -100.0]
+Hold times per current (s): [10.0, 5.0, 10.0, 5.0, 10.0, 5.0, 10.0, 5.0, 10.0, 5.0]
+Ramp rate per current (µA/s): ['STEP', 'STEP', 'STEP', 'STEP', 'STEP', 'STEP', 10.0, 10.0, 20.0, 20.0]
+Equilibration tolerance A (mV): None
+Equilibration timescale A (s): None
+Equilibration tolerance B (mV): None
+Equilibration timescale B (s): None
+Lower potential limit (V): None
+Upper potential limit (V): None
+Samples to average: 1
+Pre-experiment delay (s): Wait for OCP equilibration.
+
+*********************************
+	OCP EQUILIBRATING
+*********************************
+Equilibration tolerance (mV): 1.0
+Equilibration timescale (s): 60.0
+Equilibration timeout (s): 3600.0
+
+OCP equilibration start time: 2025-11-25 16:20:57.302
+OCP equilibration finish time: 2025-11-25 16:21:57.611
+
+Elapsed time (s): 60.195
+Starting potential (V): 0.0093714
+Final equilibrated OCP (V): 0.0098279
+Total potential difference (V): 0.00045649
+Final (60.0) s potential difference (V): 0.00045649
+
+***** OCP successfully equilibrated *****
+
+All experiment parameters are valid after OCP equilibration.
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 1/10
+Hold current (µA): 50.0
+Hold time (s): 10.0
+Ramp rate (µA/s): STEP
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:21:57.612
+Segment finish time: 2025-11-25 16:22:07.874
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 2/10
+Hold current (µA): -50.0
+Hold time (s): 5.0
+Ramp rate (µA/s): STEP
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:07.875
+Segment finish time: 2025-11-25 16:22:12.890
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 3/10
+Hold current (µA): 100.0
+Hold time (s): 10.0
+Ramp rate (µA/s): STEP
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:12.890
+Segment finish time: 2025-11-25 16:22:22.922
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 4/10
+Hold current (µA): -100.0
+Hold time (s): 5.0
+Ramp rate (µA/s): STEP
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:22.923
+Segment finish time: 2025-11-25 16:22:27.938
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 5/10
+Hold current (µA): 0.0
+Hold time (s): 10.0
+Ramp rate (µA/s): STEP
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:27.939
+Segment finish time: 2025-11-25 16:22:37.970
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 6/10
+Hold current (µA): 0.0
+Hold time (s): 5.0
+Ramp rate (µA/s): STEP
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:37.971
+Segment finish time: 2025-11-25 16:22:42.986
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 7/10
+Hold current (µA): 50.0
+Hold time (s): 10.0
+Ramp rate (µA/s): 10.0
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:42.987
+Segment finish time: 2025-11-25 16:22:58.034
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 8/10
+Hold current (µA): -50.0
+Hold time (s): 5.0
+Ramp rate (µA/s): 10.0
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:22:58.035
+Segment finish time: 2025-11-25 16:23:13.082
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 9/10
+Hold current (µA): 100.0
+Hold time (s): 10.0
+Ramp rate (µA/s): 20.0
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:23:13.083
+Segment finish time: 2025-11-25 16:23:30.594
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+**********************************
+	CP SEGMENT STARTED
+**********************************
+Segment number: 10/10
+Hold current (µA): -100.0
+Hold time (s): 5.0
+Ramp rate (µA/s): 20.0
+Equilibration tolerance (mV): None
+Equilibration timescale (s): None
+
+Segment start time:  2025-11-25 16:23:30.595
+Segment finish time: 2025-11-25 16:23:45.642
+
+************************************
+	CP SEGMENT COMPLETED
+************************************
+
+***************************************************
+	ALL SEGMENTS COMPLETED SUCCESSFULLY
+***************************************************
+
+********************
+EXPERIMENTS COMPLETE

@@ -34,8 +34,8 @@ Ramp rate (mV/s): 20.0
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:25:23.790
-Segment finish time: 2025-11-17 13:25:39.234
+Segment start time:  2025-11-25 16:13:25.791
+Segment finish time: 2025-11-25 16:13:41.147
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -51,8 +51,8 @@ Ramp rate (mV/s): STEP
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:25:39.235
-Segment finish time: 2025-11-17 13:26:09.243
+Segment start time:  2025-11-25 16:13:41.147
+Segment finish time: 2025-11-25 16:14:11.154
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -68,8 +68,8 @@ Ramp rate (mV/s): 20.0
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:26:09.243
-Segment finish time: 2025-11-17 13:26:29.218
+Segment start time:  2025-11-25 16:14:11.155
+Segment finish time: 2025-11-25 16:14:31.130
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -85,8 +85,8 @@ Ramp rate (mV/s): STEP
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:26:29.219
-Segment finish time: 2025-11-17 13:26:59.226
+Segment start time:  2025-11-25 16:14:31.131
+Segment finish time: 2025-11-25 16:15:01.138
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -102,8 +102,8 @@ Ramp rate (mV/s): 20.0
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:26:59.227
-Segment finish time: 2025-11-17 13:27:34.250
+Segment start time:  2025-11-25 16:15:01.139
+Segment finish time: 2025-11-25 16:15:36.163
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -119,8 +119,8 @@ Ramp rate (mV/s): STEP
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:27:34.250
-Segment finish time: 2025-11-17 13:28:04.258
+Segment start time:  2025-11-25 16:15:36.163
+Segment finish time: 2025-11-25 16:16:06.170
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -136,8 +136,8 @@ Ramp rate (mV/s): 20.0
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:28:04.259
-Segment finish time: 2025-11-17 13:29:04.274
+Segment start time:  2025-11-25 16:16:06.171
+Segment finish time: 2025-11-25 16:17:06.186
 
 ************************************
 	CA SEGMENT COMPLETED
@@ -153,8 +153,8 @@ Ramp rate (mV/s): STEP
 Equilibration tolerance (µA): None
 Equilibration timescale (s): None
 
-Segment start time:  2025-11-17 13:29:04.275
-Segment finish time: 2025-11-17 13:29:34.282
+Segment start time:  2025-11-25 16:17:06.187
+Segment finish time: 2025-11-25 16:17:36.195
 
 ************************************
 	CA SEGMENT COMPLETED

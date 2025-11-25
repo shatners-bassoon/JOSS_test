@@ -38,13 +38,13 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-17 12:08:05.790
-Experiment finish time: 2025-11-17 12:10:36.395
+Experiment start time:  2025-11-25 11:22:27.022
+Experiment finish time: 2025-11-25 11:24:57.627
 
 ****************************************
 	CV MEASUREMENT COMPLETED
 ****************************************
-Calculated charges (µAh): [0.33, -0.32, 0.33, -0.32, 0.32]
+Calculated charges (µAh): [0.33, -0.32, 0.32, -0.32, 0.32]
 
 *** Pre-scan rate delay of 2.0 seconds for experiment: 2/4 ***
 
@@ -61,13 +61,13 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-17 12:10:38.299
-Experiment finish time: 2025-11-17 12:11:38.882
+Experiment start time:  2025-11-25 11:24:59.728
+Experiment finish time: 2025-11-25 11:26:00.307
 
 ****************************************
 	CV MEASUREMENT COMPLETED
 ****************************************
-Calculated charges (µAh): [0.33, -0.30, 0.32, -0.30, 0.32]
+Calculated charges (µAh): [0.32, -0.30, 0.32, -0.30, 0.32]
 
 *** Pre-potential window delay of 5.0 seconds for experiment: 3/4 ***
 
@@ -84,13 +84,13 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-17 12:11:43.791
-Experiment finish time: 2025-11-17 12:16:44.347
+Experiment start time:  2025-11-25 11:26:05.558
+Experiment finish time: 2025-11-25 11:31:06.115
 
 ****************************************
 	CV MEASUREMENT COMPLETED
 ****************************************
-Calculated charges (µAh): [0.67, -0.65, 0.66, -0.65, 0.66]
+Calculated charges (µAh): [0.66, -0.65, 0.66, -0.65, 0.66]
 
 *** Pre-scan rate delay of 2.0 seconds for experiment: 4/4 ***
 
@@ -107,13 +107,13 @@ Negative/positive reverse current limits (µA): None, None
 Number of cycles: 3
 Samples to average: 1
 
-Experiment start time:  2025-11-17 12:16:46.290
-Experiment finish time: 2025-11-17 12:18:46.891
+Experiment start time:  2025-11-25 11:31:08.216
+Experiment finish time: 2025-11-25 11:33:08.811
 
 ****************************************
 	CV MEASUREMENT COMPLETED
 ****************************************
-Calculated charges (µAh): [0.67, -0.62, 0.66, -0.62, 0.66]
+Calculated charges (µAh): [0.66, -0.62, 0.65, -0.62, 0.66]
 
 ******************************************************
 	ALL EXPERIMENTS COMPLETED SUCCESSFULLY

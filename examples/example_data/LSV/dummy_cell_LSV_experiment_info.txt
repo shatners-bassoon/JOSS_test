@@ -44,8 +44,8 @@ Initialisation scan rate (mV/s): 20.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:54:04.542
-Experiment finish time: 2025-11-17 11:54:36.443
+Experiment start time:  2025-11-25 11:44:19.790
+Experiment finish time: 2025-11-25 11:44:51.859
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -66,8 +66,8 @@ Initialisation scan rate (mV/s): 50.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:54:41.694
-Experiment finish time: 2025-11-17 11:55:07.251
+Experiment start time:  2025-11-25 11:44:56.790
+Experiment finish time: 2025-11-25 11:45:22.347
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -88,8 +88,8 @@ Initialisation scan rate (mV/s): 20.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:55:12.003
-Experiment finish time: 2025-11-17 11:55:42.843
+Experiment start time:  2025-11-25 11:45:27.599
+Experiment finish time: 2025-11-25 11:45:58.523
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -110,8 +110,8 @@ Initialisation scan rate (mV/s): 50.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:55:47.790
-Experiment finish time: 2025-11-17 11:56:13.354
+Experiment start time:  2025-11-25 11:46:03.775
+Experiment finish time: 2025-11-25 11:46:29.338
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -132,8 +132,8 @@ Initialisation scan rate (mV/s): 20.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:56:18.606
-Experiment finish time: 2025-11-17 11:56:49.450
+Experiment start time:  2025-11-25 11:46:34.589
+Experiment finish time: 2025-11-25 11:47:05.522
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -154,8 +154,8 @@ Initialisation scan rate (mV/s): 50.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:56:54.702
-Experiment finish time: 2025-11-17 11:57:20.267
+Experiment start time:  2025-11-25 11:47:10.774
+Experiment finish time: 2025-11-25 11:47:36.331
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -176,8 +176,8 @@ Initialisation scan rate (mV/s): 20.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:57:25.018
-Experiment finish time: 2025-11-17 11:57:55.867
+Experiment start time:  2025-11-25 11:47:41.582
+Experiment finish time: 2025-11-25 11:48:12.515
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
@@ -198,8 +198,8 @@ Initialisation scan rate (mV/s): 50.0
 Initialisation hold time at start potential (s): 5.0
 Samples to average: 1
 
-Experiment start time:  2025-11-17 11:58:00.790
-Experiment finish time: 2025-11-17 11:58:26.266
+Experiment start time:  2025-11-25 11:48:17.766
+Experiment finish time: 2025-11-25 11:48:43.331
 
 *****************************************
 	LSV MEASUREMENT COMPLETED
