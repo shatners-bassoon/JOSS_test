@@ -91,7 +91,7 @@ sudo -E $(which python) -m potentiostat_controller
 
 ## Running example tests
 
-A demonstration script (`tests/run_test.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/example_parameters.toml`), and simulates a "CHECK" button click using PySide6's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
+A demonstration script (`tests/run_test.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/test_parameters.toml`), and simulates a "CHECK" button click using PySide6's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
 > Note: After choosing a filepath, the `CHECK` button within the GUI experiment tab must be pressed again to ensure that a valid filepath was chosen.
 
 Example data from the test scripts has been generated using a dummy cell. A schematic for the dummy cell is located under `examples/dummy_cell_schematic.png`, and example data is stored in `examples/example_data/`.
