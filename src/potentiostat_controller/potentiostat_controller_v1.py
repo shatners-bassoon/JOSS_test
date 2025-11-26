@@ -15837,12 +15837,12 @@ ca_vbox.addWidget(ca_checking_box)
 ca_range_box = QtWidgets.QGroupBox(title="Autoranging", flat=False)
 ca_range_box.setToolTip(
 	"<html><body>"
-	"Enable autoranging to automatically select the optimal current range<br>"
+	"Enable autoranging to automatically select the optimal current range "
 	"based on the measured current during the experiment.<br><br>"
-	"This feature allows the device to accurately measure currents across<br>"
-	"a wide dynamic range, from nanoamps up to 25 mA, by adapting to the<br>"
+	"This feature allows the device to accurately measure currents across "
+	"a wide dynamic range, from nanoamps up to 25 mA, by adapting to the "
 	"current level in real time.<br><br>"
-	"If specific current ranges are undesirable for these experiments,<br>"
+	"If specific current ranges are undesirable for these experiments, "
 	"untick their checkboxes to prevent them from being selected by autoranging.<br><br>"
 	"<b>NOTE:</b> Chronoamperometry experiment data may be adversely impacted by "
 	"cycling through current ranges in quick succession.<br>"
