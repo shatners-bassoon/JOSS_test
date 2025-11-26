@@ -265,87 +265,86 @@ def prompt_experiment():
 
 def populate_fields_from_toml(config_path="tests/example_parameters.toml", experiment="CV"):
     """Populate GUI widgets using values from the TOML config file."""
-    try:
-        params = toml.load(config_path)
-        exp_params = params.get(experiment, {})
+    print(f"\nPopulating {experiment} tab...")
+    params = toml.load(config_path)
+    exp_params = params.get(experiment, {})
 
-        # Handle dropdown toggles
-        dropdown_info = DROPDOWN_MAP.get(experiment)
-        if dropdown_info:
-            attr = dropdown_info["attr"]
-            cond_key = dropdown_info["condition_key"]
-            checkbox_attr = dropdown_info["checkbox_attr"]
-            dropdown_name = dropdown_info["dropdown_name"]
+    # Handle dropdown toggles
+    dropdown_info = DROPDOWN_MAP.get(experiment)
+    if dropdown_info:
+        attr = dropdown_info["attr"]
+        cond_key = dropdown_info["condition_key"]
+        checkbox_attr = dropdown_info["checkbox_attr"]
+        dropdown_name = dropdown_info["dropdown_name"]
 
-            condition = exp_params.get(cond_key, False)
-            dropdown_widget = getattr(ctrl, attr, None)
+        condition = exp_params.get(cond_key, False)
+        dropdown_widget = getattr(ctrl, attr, None)
 
-            if dropdown_widget:
-                # Sync checkbox if one exists
-                if checkbox_attr:
-                    checkbox = getattr(ctrl, checkbox_attr, None)
-                    if checkbox:
-                        checkbox.setChecked(bool(condition))
+        if dropdown_widget:
+            # Sync checkbox if one exists
+            if checkbox_attr:
+                checkbox = getattr(ctrl, checkbox_attr, None)
+                if checkbox:
+                    checkbox.setChecked(bool(condition))
 
-                # Toggle dropdowns if necessary
-                if condition and dropdown_widget.dropdown_frame.isHidden():
-                    dropdown_widget.toggleDropdown()
-                    print(f"\nExpanded {experiment} {dropdown_name} ({cond_key} = True).")
-                elif not condition and not dropdown_widget.dropdown_frame.isHidden():
-                    dropdown_widget.toggleDropdown()
-                    print(f"\nCollapsed {experiment} {dropdown_name} ({cond_key} = False).")
+            # Toggle dropdowns if necessary
+            if condition and dropdown_widget.dropdown_frame.isHidden():
+                dropdown_widget.toggleDropdown()
+                print(f"\nExpanded {experiment} {dropdown_name} ({cond_key} = True).")
+            elif not condition and not dropdown_widget.dropdown_frame.isHidden():
+                dropdown_widget.toggleDropdown()
+                print(f"\nCollapsed {experiment} {dropdown_name} ({cond_key} = False).")
 
-        for key, setter in FIELD_MAP[experiment].items():
-            if key in exp_params:
-                setter(exp_params[key])
-        print(f"\nPopulated {experiment} tab with parameters:")
-        for k, v in exp_params.items():
-            print(f"    {k} = {v}")
+    for key, setter in FIELD_MAP[experiment].items():
+        if key in exp_params:
+            setter(exp_params[key])
 
-    except FileNotFoundError:
-        print(f"Config file not found: {config_path}")
-    except Exception as e:
-        print(f"Error populating {experiment} tab: {e}")
+    print(f"\nExperiment parameters:")
+    for k, v in exp_params.items():
+        print(f"    {k} = {v}")
 
 def set_plot_options(experiment="CV"):
     """Apply plot options in the GUI for the selected experiment."""
-    try:
-        for key, setter in PLOT_OPTIONS_MAP[experiment].items():
-            setter()
-        print(f"\nPlot options set.")
-    except Exception as e:
-        print(f"\nError setting plot options for {experiment}: {e}")
+    print(f"\nSetting plot options...")
+    for key, setter in PLOT_OPTIONS_MAP[experiment].items():
+        setter()
 
 def switch_to_tab(experiment="CV"):
     """Switch the GUI to the tab for the selected experiment."""
+    print(f"\nSwitching to {experiment} tab...")
     idx = TAB_INDEX.get(experiment, 0)
     ctrl.tab_frame.setCurrentIndex(idx)
-    print(f"\nSwitched to {experiment} tab.")
 
 def click_checkbutton(experiment="CV"):
     """Simulate a click of the 'CHECK' button within the GUI experiment tab."""
+    print(f"\nSimulating mouse click on 'CHECK' button for {experiment} experiments...")
     checkbutton = CHECKBUTTON_MAP.get(experiment)
     QTest.mouseClick(checkbutton, Qt.LeftButton)
-    print(f"\nSimulated mouse click on 'CHECK' button for {experiment} experiments.")
 
 def run_test():
     """Launch GUI and schedule automated population of fields from TOML."""
     config_path = "tests/test_parameters.toml"
     success = {"ok": True}  # Flag to track success
 
-    def safe_switch_tab():
+    def stop_if_failed(next_step=None, delay=0):
+        if success["ok"] and next_step:
+            QTimer.singleShot(delay, next_step)
+
+    def safe_switch_to_tab():
         try:
             switch_to_tab(experiment)
         except Exception as e:
             print(f"\nError switching tab: {e}")
             success["ok"] = False
+        stop_if_failed(safe_populate_fields_from_toml, 500)
 
-    def safe_populate_fields():
+    def safe_populate_fields_from_toml():
         try:
             populate_fields_from_toml(config_path, experiment)
         except Exception as e:
             print(f"\nError populating fields: {e}")
             success["ok"] = False
+        stop_if_failed(safe_set_plot_options, 500)
 
     def safe_set_plot_options():
         try:
@@ -353,8 +352,9 @@ def run_test():
         except Exception as e:
             print(f"\nError setting plot options: {e}")
             success["ok"] = False
+        stop_if_failed(safe_click_checkbutton, 500)
 
-    def safe_click_check():
+    def safe_click_checkbutton():
         try:
             click_checkbutton(experiment)
         except Exception as e:
@@ -370,21 +370,25 @@ def run_test():
                 "Next steps",
                 "The GUI has been successfully populated with parameters for the chosen experiment.\n\n"
                 "Next steps:\n"
-                "1. Navigate to the 'Hardware' tab and connect the USB potentiostat.\n"
-                "2. Return to the experiment tab.\n"
-                "3. Enter an appropriate filepath in the 'Output filepath' box.\n"
-                "4. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
-                "5. Press the 'Start' button to run the experiments."
+                "1. Ensure parameters successfully passed the check (green 'CHECK' button).\n"
+                "2. Navigate to the 'Hardware' tab and connect the USB potentiostat.\n"
+                "3. Return to the experiment tab.\n"
+                "4. Enter an appropriate filepath in the 'Output filepath' box.\n"
+                "5. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
+                "6. Press the 'Start' button to run the experiments."
             )
         else:
-            print("\nPrevious steps did not complete successfully. The user is not shown next steps instructions.")
+            print("\nThe automated test did not complete successfully.")
+            QtWidgets.QMessageBox.information(
+                ctrl.mainwidget,
+                "Error completing automated test",
+                "The automated test failed to complete.\n\n"
+                "Please see the terminal window for more information."
+            )
 
-    # Delay population slightly so GUI is initialised first
-    QTimer.singleShot(1000, safe_switch_tab)
-    QTimer.singleShot(1500, safe_populate_fields)
-    QTimer.singleShot(1800, safe_set_plot_options)
-    QTimer.singleShot(2000, safe_click_check)
-    QTimer.singleShot(3000, show_instructions_if_success)
+    # Delay steps slightly for GUI to initialise and steps to complete
+    QTimer.singleShot(1000, safe_switch_to_tab)
+    QTimer.singleShot(3500, show_instructions_if_success)
 
     # Launch the main program
     ctrl.main()
