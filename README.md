@@ -104,7 +104,7 @@ After the automated steps, users can follow the on-screen instructions displayed
 
 > **Note:** After selecting a filepath, the `CHECK` button in the experiment tab must be pressed again to ensure the filepath is valid.
 
-Example data for this demonstration script was generated using a dummy cell. A schematic of the dummy cell and instructions for connecting it to the device are available at `examples/dummy_cell_schematic.png`. Example data files, along with screenshots of the GUI after each experiment, can be found in `examples/example_data`.
+Example data from this demonstration script was generated using a dummy cell. A schematic of the dummy cell and instructions for connecting it to the device are available at `examples/dummy_cell_schematic.png`. Example data files, along with screenshots of the GUI after each experiment, can be found in `examples/example_data`.
 
 ### Option 1: Run after installing the package
 
