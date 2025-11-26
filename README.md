@@ -55,7 +55,7 @@ sudo bash -c 'echo "SUBSYSTEM==\"usb\", ATTR{idVendor}==\"a0a0\", ATTR{idProduct
 sudo udevadm control --reload
 sudo udevadm trigger
 ```
-You can check your device's Vendor and Product IDs by running:
+After connecting the USB Potentiostat/Galvanostat, you can check your device's Vendor and Product IDs by running:
 ```bash
 lsusb
 ```
@@ -89,16 +89,26 @@ sudo -E $(which python) -m potentiostat_controller
 > `sudo -E` is required to preserve your Python environment when running with elevated privileges.
 
 
-## Running example tests
+## Demonstration script
 
-A demonstration script (`tests/run_test.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/test_parameters.toml`), and simulates a "CHECK" button click using PySide6's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save filepath, and start the experiments.
-> Note: After choosing a filepath, the `CHECK` button within the GUI experiment tab must be pressed again to ensure that a valid filepath was chosen.
+A demonstration script (`tests/run_test.py`) is provided to help users test the GUI and parameter validation functionality. The script:
+1. Prompts the user to select an experiment type.
+2. Launches the GUI.
+3. Automatically populates the chosen experiment's input fields with parameters from `tests/test_parameters.toml`.
+4. Simulates a `CHECK` button click using PySide6's `QtTest` framework to verify that GUI responses and parameter validation work as intended.
 
-Example data from the test script has been generated using a dummy cell. A schematic for the dummy cell is located under `examples/dummy_cell_schematic.png`. The example data files, alongside screenshots of the GUI after each experiment, are stored in `examples/example_data`.
+After the automated steps, users can follow the on-screen instructions displayed in a GUI information dialog to:
+- Connect the USB Potentiostat/Galvanostat device.
+- Choose a save filepath.
+- Start the selected experiment.
+
+> **Note:** After selecting a filepath, the `CHECK` button in the experiment tab must be pressed again to ensure the filepath is valid.
+
+Example data used by the test script was generated using a dummy cell. A schematic of the dummy cell and instructions for connecting it to the device are available at `examples/dummy_cell_schematic.png`. Example data files, along with screenshots of the GUI after each experiment, can be found in `examples/example_data`.
 
 ### Option 1: Run after installing the package
 
-If you have installed the package (editable or normal installation), run the following from the root of the repository:
+From the root of the repository, run:
 ```bash
 python -m tests.run_test
 ```
