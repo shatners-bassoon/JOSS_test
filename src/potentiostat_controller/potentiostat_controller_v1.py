@@ -15844,7 +15844,7 @@ ca_range_box.setToolTip(
 	"current level in real time.<br><br>"
 	"If specific current ranges are undesirable for these experiments,<br>"
 	"untick their checkboxes to prevent them from being selected by autoranging.<br><br>"
-	"<b>NOTE:</b> Chronoamperometry experiment data may be adversely impacted by<br>"
+	"<b>NOTE:</b> Chronoamperometry experiment data may be adversely impacted by "
 	"cycling through current ranges in quick succession.<br>"
 	"<b>This can impact the stability and quality of the recorded data.</b>"
 	"</body></html>"
