@@ -1,9 +1,9 @@
 """
-Semi-automated GUI validation script for the potentiostat controller.
+Semi-automated GUI and parameter validation script for the potentiostat controller.
 
-This script assists in testing the GUI by automatically populating experiment
-parameters and triggering initial GUI interactions, while still allowing the user
-to manually complete hardware-dependent steps.
+This script assists in testing the GUI and parameter validation functionality by automatically populating experiment
+parameters and triggering initial GUI interactions, before allowing the user to manually complete hardware-dependent
+steps.
 
 Workflow:
 1. Prompts the user to select an experiment type (CV, LSV, GCD, etc.) using a GUI dialog.
@@ -21,8 +21,8 @@ Workflow:
    - Clicks "CHECK" again to validate the file path.
    - Starts the experiment by clicking the "Start experiment" button.
 
-This script is intended to speed up GUI testing and validation without requiring
-hardware during the parameter-entry stage.
+This script is intended to enable GUI testing and parameter validation without requiring hardware during the parameter
+entry and validation stages.
 
 Usage:
     python -m tests.run_test
@@ -371,11 +371,12 @@ def run_test():
                 "The GUI has been successfully populated with parameters for the chosen experiment.\n\n"
                 "Next steps:\n"
                 "1. Ensure parameters successfully passed the check (green 'CHECK' button).\n"
-                "2. Navigate to the 'Hardware' tab and connect the USB potentiostat.\n"
-                "3. Return to the experiment tab.\n"
-                "4. Enter an appropriate filepath in the 'Output filepath' box.\n"
-                "5. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
-                "6. Press the 'Start' button to run the experiments."
+                "2. Connect the USB Potentiostat/Galvanostat to this computer.\n"
+                "3. Navigate to the 'Hardware' tab and press 'Connect'.\n"
+                "4. Return to the experiment tab.\n"
+                "5. Enter an appropriate filepath in the 'Output filepath' box.\n"
+                "6. Press the 'CHECK' button again to ensure that the filepath is valid.\n"
+                "7. Press the 'Start' button to run the experiments."
             )
         else:
             print("\nThe automated test did not complete successfully.")
