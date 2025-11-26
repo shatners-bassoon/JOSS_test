@@ -30,7 +30,7 @@ cd JOSS_test
 pip install .
 ```
 
-For users wishing to use the test script found under `tests/`, instead run:
+For users wishing to utilise the test script found under `tests/run_test.py`, instead run:
 ```bash
 git clone https://github.com/shatners-bassoon/JOSS_test
 cd JOSS_test
