@@ -91,7 +91,7 @@ sudo -E $(which python) -m potentiostat_controller
 
 ## Demonstration script
 
-A demonstration script (`tests/run_test.py`) is provided to help users test the GUI and parameter validation functionality. The script:
+A demonstration script (`tests/run_test.py`) is provided to help users test the GUI and parameter validation functionality with or without the USB Potentiostat/Galvanostat device. The script:
 1. Prompts the user to select an experiment type.
 2. Launches the GUI.
 3. Automatically populates the chosen experiment's input fields with parameters from `tests/test_parameters.toml`.
