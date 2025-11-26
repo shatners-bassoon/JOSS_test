@@ -30,7 +30,7 @@ cd JOSS_test
 pip install .
 ```
 
-For users wishing to use the test scripts found under `tests/`, instead run:
+For users wishing to use the test script found under `tests/`, instead run:
 ```bash
 git clone https://github.com/shatners-bassoon/JOSS_test
 cd JOSS_test
@@ -39,7 +39,7 @@ pip install ".[tests]"
 
 ### Windows and MacOS users using a Conda environment: Install USB backend
 
-`PyUSB` requires the `libusb` backend to communicate with USB devices when using Puthon installed via Conda on Windows or MacOS. Install it with:
+`PyUSB` requires the `libusb` backend to communicate with USB devices when using Python installed via Conda on Windows or MacOS. Install it with:
 
 ```bash
 conda install -c conda-forge libusb
@@ -55,7 +55,7 @@ sudo bash -c 'echo "SUBSYSTEM==\"usb\", ATTR{idVendor}==\"a0a0\", ATTR{idProduct
 sudo udevadm control --reload
 sudo udevadm trigger
 ```
-> You can check your device's Vendor and Product IDs by running:
+You can check your device's Vendor and Product IDs by running:
 ```bash
 lsusb
 ```
@@ -91,10 +91,10 @@ sudo -E $(which python) -m potentiostat_controller
 
 ## Running example tests
 
-A demonstration script (`tests/run_test.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/test_parameters.toml`), and simulates a "CHECK" button click using PySide6's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save path, and start the experiments.
+A demonstration script (`tests/run_test.py`) is provided. It prompts users to select an experiment type to test, launches the GUI, automatically populates the chosen experiment input fields with parameters (using those stored in `tests/test_parameters.toml`), and simulates a "CHECK" button click using PySide6's `QtTest` framework. This verifies that GUI responses and parameter parsing work as intended. The user may then connect a potentiostat, choose a save filepath, and start the experiments.
 > Note: After choosing a filepath, the `CHECK` button within the GUI experiment tab must be pressed again to ensure that a valid filepath was chosen.
 
-Example data from the test script has been generated using a dummy cell. A schematic for the dummy cell is located under `examples/dummy_cell_schematic.png`. The example data, alongside screenshots of the GUI after each experiment, is stored in `examples/example_data`.
+Example data from the test script has been generated using a dummy cell. A schematic for the dummy cell is located under `examples/dummy_cell_schematic.png`. The example data files, alongside screenshots of the GUI after each experiment, are stored in `examples/example_data`.
 
 ### Option 1: Run after installing the package
 
