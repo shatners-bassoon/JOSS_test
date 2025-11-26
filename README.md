@@ -112,7 +112,7 @@ From the root of the repository, run:
 ```bash
 python -m tests.run_test
 ```
-Or, for users running with elevated privileges:
+Or, for Linux users running with elevated privileges:
 ```bash
 sudo -E $(which python) -m tests.run_test
 ```
