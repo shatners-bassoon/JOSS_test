@@ -68,7 +68,7 @@ The summary file contains experiment metadata written in a standardised format g
 
 To improve software and experimental accessibility, hover-over tooltips are featured for all input parameter fields and checkboxes, guiding the user on their purpose and accepted parameters. An example tooltip is displayed in \autoref{fig:tooltip}.
 
-![The rate-testing experiment tab showing user input fields and checkboxes, with a green `CHECK` button indicating that the experiment parameters are valid.\label{fig:rate_tab}](figures/rate_tab.png){width="80%"}
+![The rate-testing experiment tab showing user input fields and checkboxes, with a green `CHECK` button indicating that the experiment parameters are valid.\label{fig:rate_tab}](figures/rate_tab.png){width="60%"}
 
 ![An example GUI during a cyclic voltammetry experiment showing real-time data visualisation options, experiment progress information, and optional experiment notes to be written to the summary file.\label{fig:CV_GUI}](figures/CV_GUI.png){width="100%"}
 
@@ -76,7 +76,7 @@ To improve software and experimental accessibility, hover-over tooltips are feat
 
 ![Sections of the summary file generated for the CV experiments seen running in \autoref{fig:CV_GUI}, with a base filename of `2025-11-24`.\label{fig:summary_file}](figures/summary_file.png){width="100%"}
 
-![A tooltip for the current input when automatically calculating 1C for rate-testing experiments.\label{fig:tooltip}](figures/tooltip.png){width="80%"}
+![A tooltip for the current input when automatically calculating 1C for rate-testing experiments.\label{fig:tooltip}](figures/tooltip.png){width="60%"}
 
 # Acknowledgements
 This work was supported by the UK Engineering and Physical Sciences Research Council and the Renewable Energy Northeast Universities (ReNU) CDT (EP/S023836/1).
