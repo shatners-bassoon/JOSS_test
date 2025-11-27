@@ -11754,7 +11754,7 @@ def rate_validate_filenames():
 			)
 			return False
 
-	for one_c_calc_file in rate_parameters.get('one_c_calc_filenames', []):
+	for one_c_calc_file in rate_parameters.get('one_c_calc_path_filenames', []):
 		try:
 			with open(one_c_calc_file, 'w', buffering=1) as tryfile:
 				pass
@@ -11766,7 +11766,7 @@ def rate_validate_filenames():
 			)
 			return False
 
-	for one_c_calc_capacities_file in rate_parameters.get('one_c_calc_filenames_capacities', []):
+	for one_c_calc_capacities_file in rate_parameters.get('one_c_calc_path_filenames_capacities', []):
 		try:
 			with open(one_c_calc_capacities_file, 'w', buffering=1) as tryfile:
 				pass
@@ -12013,6 +12013,9 @@ def rate_start(experiment_index):
 
 	else:  # Continue to start the rate-testing experiment
 
+		# Calculate C-rate currents in µA
+		rate_parameters['currents'][experiment_index] = [c_rate * rate_parameters['one_c'][experiment_index] for c_rate in rate_parameters['c_rates']]
+
 		# Write experiment information to summary file
 		rate_data['starttime_readable'][experiment_index] = datetime.now().strftime(f"%Y-%m-%d %H:%M:%S.%f")[:-3]
 		rate_write_summary_file(rate_current_exp_index, section="experiment_start")
@@ -12033,9 +12036,6 @@ def rate_start(experiment_index):
 		rate_c_rate_time_data = AverageBuffer(rate_parameters['num_samples'][0])
 		rate_potential_data = AverageBuffer(rate_parameters['num_samples'][0])
 		rate_current_data = AverageBuffer(rate_parameters['num_samples'][0])
-
-		# Calculate C-rate currents in µA
-		rate_parameters['currents'][experiment_index] = [c_rate * rate_parameters['one_c'][experiment_index] for c_rate in rate_parameters['c_rates']]
 
 		# Initialise current cyclenums and C-rate index
 		rate_current_cyclenum = 1
@@ -12669,29 +12669,30 @@ def rate_write_summary_file(experiment_index, section):
 				pre_exp_delay_str = f"{rate_parameters['pre_exp_delay']}"
 
 			rate_summary_file.write(f"Potential windows (V): {potential_windows_str}\n")
-			rate_summary_file.write(f"C-rates: {', '.join((f'{c_rate:g}' for c_rate in rate_parameters['c_rates']))}\n")
 
 			if not rate_parameters['one_c_calc_bool']:
 				rate_summary_file.write("Auto-calculating 1C currents?: No\n")
 				rate_summary_file.write(f"1C per potential window (µAh): {', '.join(str(one_c_val) for one_c_val in rate_parameters['one_c'])}\n")
 			else:
+				rate_summary_file.write("Auto-calculating 1C currents?: Yes\n")
+
+			rate_summary_file.write(f"C-rates: {', '.join((f'{c_rate:g}' for c_rate in rate_parameters['c_rates']))}\n")
+			rate_summary_file.write(f"Number of samples to average: {', '.join(str(num_sample) for num_sample in rate_parameters['num_samples'])}\n")
+			rate_summary_file.write(f"Number of cycles per C-rate: {rate_parameters['num_cycles']}\n")
+			rate_summary_file.write(f"Pre-potential window delay (s): {pre_exp_delay_str}\n")
+
+			if rate_parameters['one_c_calc_bool']:
 				if rate_parameters['one_c_calc_post_delay'] == "OCP":
 					one_c_calc_post_delay_str = "Wait for OCP equilibration."
 				else:
 					one_c_calc_post_delay_str = f"{rate_parameters['one_c_calc_post_delay']}"
 
-				rate_summary_file.write("Auto-calculating 1C currents?: Yes\n")
 				rate_summary_file.write("\n")
 				rate_summary_file.write("1C calculation parameters:\n")
 				rate_summary_file.write(f"1C calculation charge/discharge current (µA): {rate_parameters['one_c_calc_current']}\n")
 				rate_summary_file.write(f"1C calculation number of cycles: {rate_parameters['one_c_calc_num_cycles']}\n")
 				rate_summary_file.write(f"1C calculation number of samples to average: {rate_parameters['one_c_calc_num_samples']}\n")
 				rate_summary_file.write(f"1C calculation post-calculation delay (s): {one_c_calc_post_delay_str}\n")
-				rate_summary_file.write("\n")
-
-			rate_summary_file.write(f"Number of samples to average: {', '.join(str(num_sample) for num_sample in rate_parameters['num_samples'])}\n")
-			rate_summary_file.write(f"Number of cycles per C-rate: {rate_parameters['num_cycles']}\n")
-			rate_summary_file.write(f"Pre-experiment delay (s): {pre_exp_delay_str}\n")
 
 		elif section == "one_c_calc_post_delay":
 			rate_summary_file.write(f"\n*** Post-1C calculation delay of {rate_parameters['one_c_calc_post_delay']} seconds for experiment: {experiment_index + 1}/{rate_parameters['num_experiments']} ***\n")

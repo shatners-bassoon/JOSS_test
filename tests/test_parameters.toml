@@ -103,19 +103,19 @@ delay = "5.0"
 OCP_equilibration_checkbox = true
 
 [C-Rate]
-lower_bounds = "0.0, 0.0, 0.0"
-upper_bounds = "0.5, 1.0, 1.5"
+lower_bounds = "0.0, 0.0"
+upper_bounds = "0.5, 1.0"
 one_c = ""
 one_c_calc_checkbox = true
-one_c_calc_current = "10"
+one_c_calc_current = "20"
 one_c_calc_number_of_cycles = "3"
 one_c_calc_samples_to_average = "1"
-one_c_calc_post_calc_delay = "10.0"
+one_c_calc_post_calc_delay = "5.0"
 one_c_calc_post_calc_OCP_checkbox = false
-c_rates = "10, 20, 50"
+c_rates = "20, 50, 100"
 number_of_cycles = "3"
-c_rate_delay = "10.0"
-potential_window_delay = "30.0"
+c_rate_delay = "5.0"
+potential_window_delay = "10.0"
 OCP_equilibration_checkbox = false
 
 

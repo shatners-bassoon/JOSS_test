@@ -1,0 +1,148 @@
+RATE-TESTING EXPERIMENTS INFORMATION FILE
+*****************************************
+
+Experiment notes: No notes provided.
+
+Experiment information file for the experiments stored in:
+/examples/example_data/RT/dummy_cell_RT_exp1_0.0_0.5_V_20_50_100_C.dat
+/examples/example_data/RT/dummy_cell_RT_exp2_0.0_1.0_V_20_50_100_C.dat
+
+Calculated charge/discharge capacities for each full cycle are stored in:
+/examples/example_data/RT/dummy_cell_RT_exp1_0.0_0.5_V_20_50_100_C_capacities.dat
+/examples/example_data/RT/dummy_cell_RT_exp2_0.0_1.0_V_20_50_100_C_capacities.dat
+
+1C calculation experiments stored in:
+/examples/example_data/RT/dummy_cell_RT_exp1_1C_Calc_0.0_0.5_V_20_50_100_C.dat
+/examples/example_data/RT/dummy_cell_RT_exp2_1C_Calc_0.0_1.0_V_20_50_100_C.dat
+
+1C calculation charge/discharge capacities for each full cycle are stored in:
+/examples/example_data/RT/dummy_cell_RT_exp1_1C_Calc_0.0_0.5_V_20_50_100_C_capacities.dat
+/examples/example_data/RT/dummy_cell_RT_exp2_1C_Calc_0.0_1.0_V_20_50_100_C_capacities.dat
+
+Potential windows (V): [0.0, 0.5], [0.0, 1.0]
+Auto-calculating 1C currents?: Yes
+C-rates: 20, 50, 100
+Number of samples to average: 1, 1, 1
+Number of cycles per C-rate: 3
+Pre-potential window delay (s): 10.0
+
+1C calculation parameters:
+1C calculation charge/discharge current (µA): 20.0
+1C calculation number of cycles: 3
+1C calculation number of samples to average: 1
+1C calculation post-calculation delay (s): 5.0
+
+*** Pre-experiment delay of 10.0 seconds for experiment: 1/2 ***
+
+**************************************
+	1C CALCULATION STARTED
+**************************************
+Filepath: /examples/example_data/RT/dummy_cell_RT_exp1_1C_Calc_0.0_0.5_V_20_50_100_C.dat
+Capacities filepath: /examples/example_data/RT/dummy_cell_RT_exp1_1C_Calc_0.0_0.5_V_20_50_100_C_capacities.dat
+Experiment number: 1/2
+
+Lower/upper potential limits (V): 0.0, 0.5
+Charge/discharge current (µA): 20.0
+Number of cycles: 3
+Samples to average: 1
+
+1C calculation start time: 2025-11-27 12:18:50.790
+1C calculation finish time: 2025-11-27 12:24:41.101
+Calculated 1C (µAh): 0.32123
+
+***** 1C calculation completed *****
+
+*** Post-1C calculation delay of 5.0 seconds for experiment: 1/2 ***
+
+***********************************************
+	RATE-TESTING EXPERIMENT STARTED
+***********************************************
+Filepath: /examples/example_data/RT/dummy_cell_RT_exp1_0.0_0.5_V_20_50_100_C.dat
+Capacities filepath: /examples/example_data/RT/dummy_cell_RT_exp1_0.0_0.5_V_20_50_100_C_capacities.dat
+Experiment number: 1/2
+Upper/lower potential limits (V): 0.0, 0.5
+1C (µAh): 0.32123
+C-rates: 20, 50, 100
+Currents (µA): 6.4246, 16.061, 32.123
+
+Experiment start time:  2025-11-27 12:24:45.852
+
+*** C-rate complete: 20 ***
+Completion time: 2025-11-27 12:43:14.121
+
+*** Delay of 5.0 seconds for next C-rate: 50 ***
+
+*** C-rate complete: 50 ***
+Completion time: 2025-11-27 12:50:36.860
+
+*** Delay of 5.0 seconds for next C-rate: 100 ***
+
+*** C-rate complete: 100 ***
+Completion time: 2025-11-27 12:54:18.178
+
+Experiment finish time: 2025-11-27 12:54:18.180
+
+*************************************************
+	RATE-TESTING EXPERIMENT COMPLETED
+*************************************************
+
+*** Pre-experiment delay of 10.0 seconds for experiment: 2/2 ***
+
+**************************************
+	1C CALCULATION STARTED
+**************************************
+Filepath: /examples/example_data/RT/dummy_cell_RT_exp2_1C_Calc_0.0_1.0_V_20_50_100_C.dat
+Capacities filepath: /examples/example_data/RT/dummy_cell_RT_exp2_1C_Calc_0.0_1.0_V_20_50_100_C_capacities.dat
+Experiment number: 2/2
+
+Lower/upper potential limits (V): 0.0, 1.0
+Charge/discharge current (µA): 20.0
+Number of cycles: 3
+Samples to average: 1
+
+1C calculation start time: 2025-11-27 12:54:27.790
+1C calculation finish time: 2025-11-27 13:06:16.517
+Calculated 1C (µAh): 0.65515
+
+***** 1C calculation completed *****
+
+*** Post-1C calculation delay of 5.0 seconds for experiment: 2/2 ***
+
+***********************************************
+	RATE-TESTING EXPERIMENT STARTED
+***********************************************
+Filepath: /examples/example_data/RT/dummy_cell_RT_exp2_0.0_1.0_V_20_50_100_C.dat
+Capacities filepath: /examples/example_data/RT/dummy_cell_RT_exp2_0.0_1.0_V_20_50_100_C_capacities.dat
+Experiment number: 2/2
+Upper/lower potential limits (V): 0.0, 1.0
+1C (µAh): 0.65515
+C-rates: 20, 50, 100
+Currents (µA): 13.103, 32.757, 65.515
+
+Experiment start time:  2025-11-27 13:06:21.769
+
+*** C-rate complete: 20 ***
+Completion time: 2025-11-27 13:24:26.486
+
+*** Delay of 5.0 seconds for next C-rate: 50 ***
+
+*** C-rate complete: 50 ***
+Completion time: 2025-11-27 13:31:41.029
+
+*** Delay of 5.0 seconds for next C-rate: 100 ***
+
+*** C-rate complete: 100 ***
+Completion time: 2025-11-27 13:35:18.307
+
+Experiment finish time: 2025-11-27 13:35:18.309
+
+*************************************************
+	RATE-TESTING EXPERIMENT COMPLETED
+*************************************************
+
+******************************************************
+	ALL EXPERIMENTS COMPLETED SUCCESSFULLY
+******************************************************
+
+********************
+EXPERIMENTS COMPLETE
